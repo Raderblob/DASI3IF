@@ -74,7 +74,7 @@ public class AstroTest {
                 new BasicNameValuePair("date-naissance", JSON_DATE_FORMAT.format(dateNaissance))
         );
 
-        System.out.println("ok jusqu'à maintenant");
+
         
         JsonObject profil = response.get("profil").getAsJsonObject();
 
