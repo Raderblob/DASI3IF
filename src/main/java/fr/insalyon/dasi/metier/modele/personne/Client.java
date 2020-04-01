@@ -38,7 +38,7 @@ public class Client extends Personne implements Serializable  {
         super(nom, prenom, mail, motDePasse, telephoneNumber);
         AstroTest a=new AstroTest();
         try{
-            this.birthDate = new SimpleDateFormat("dd/MM/yyuuu").parse(birthDate);
+            this.birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);
             List<String> profil=a.getProfil(prenom, this.birthDate);
             String signeZodiaque = profil.get(0);
             String signeChinois = profil.get(1);
