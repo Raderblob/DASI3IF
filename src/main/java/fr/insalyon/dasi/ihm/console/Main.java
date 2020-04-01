@@ -29,7 +29,8 @@ public class Main {
         testerAuthentificationClient();  // Question 8
         //saisirInscriptionClient();       // Question 9
         //saisirRechercheClient();
-
+        
+        
         JpaUtil.destroy();
     }
 
