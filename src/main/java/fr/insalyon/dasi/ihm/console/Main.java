@@ -37,6 +37,7 @@ public class Main {
         
         JpaUtil.destroy();
     }
+    
 
     public static void afficherPersonne(Personne personne) {
         System.out.println("-> " + personne);
