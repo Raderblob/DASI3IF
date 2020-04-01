@@ -119,6 +119,20 @@ public class Service {
         }
         return resultat;
     }
+    public Medium rechercherMediumParNom(String nom){
+        Medium resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            // Recherche du client
+            resultat = mediumDao.chercherParName(nom);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service authentifierClient(mail,motDePasse)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
 
     public Client authentifierClient(String mail, String motDePasse) {
         Client resultat = null;

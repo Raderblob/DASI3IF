@@ -34,5 +34,10 @@ public class Spirite extends Medium implements Serializable {
     public void setSupport(String support) {
         this.support = support;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Spirite{" + "support=" + support + '}';
+    }
     
 }

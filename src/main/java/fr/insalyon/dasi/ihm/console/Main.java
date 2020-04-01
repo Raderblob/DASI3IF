@@ -45,6 +45,9 @@ public class Main {
     public static void afficherPersonne(Personne personne) {
         System.out.println("-> " + personne);
     }
+    public static void afficherMedium(Medium medium) {
+        System.out.println("-> " + medium);
+    }
 
 
     public static void testerInscriptionTous() {
@@ -98,6 +101,7 @@ public class Main {
         } else {
             System.out.println("> Échec inscription");
        }
+       afficherMedium(m1);
         
        Medium m2 = new Cartomancien( "SIDMAG", "SIGMAGISUS",Gender.MALE);
        Long idm2 = service.inscrireMedium(m2);
@@ -106,6 +110,7 @@ public class Main {
         } else {
             System.out.println("> Échec inscription");
        }
+       afficherMedium(m2);
     }
 
     public static void testerRechercheTous() {
@@ -116,8 +121,10 @@ public class Main {
         
         Service service = new Service();
         String mail;
+        String name;
         Client client;
         Employee employee;
+        Medium medium;
 
         mail = "frederic.fotiadu@insa-lyon.fr";
         System.out.println("** Recherche du Client #" + mail);
@@ -144,6 +151,15 @@ public class Main {
             afficherPersonne(employee);
         } else {
             System.out.println("=> employee non-trouvé");
+        }
+        
+        name = "SIDMAG";
+        System.out.println("** Recherche du Medium #" + name);
+        medium = service.rechercherMediumParNom(name);
+        if (medium != null) {
+            afficherMedium(medium);
+        } else {
+            System.out.println("=> Medium non-trouvé");
         }
     }
 /*
