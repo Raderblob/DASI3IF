@@ -5,6 +5,7 @@ import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.Gender;
 import fr.insalyon.dasi.metier.modele.medium.Astrologue;
+import fr.insalyon.dasi.metier.modele.medium.Cartomancien;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
@@ -98,6 +99,13 @@ public class Main {
             System.out.println("> Échec inscription");
        }
         
+       Medium m2 = new Cartomancien( "SIDMAG", "SIGMAGISUS",Gender.MALE);
+       Long idm2 = service.inscrireMedium(m2);
+       if (idm2 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+       }
     }
 
     public static void testerRechercheTous() {
