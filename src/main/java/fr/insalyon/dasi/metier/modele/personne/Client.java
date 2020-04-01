@@ -2,6 +2,7 @@ package fr.insalyon.dasi.metier.modele.personne;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -31,9 +32,15 @@ public class Client extends Personne implements Serializable  {
     public Client() {
     }
 
-    public Client(Date birthDate, String postcode, String nom, String prenom, String mail, String motDePasse, String telephoneNumber) {
+    public Client(String birthDate, String postcode, String nom, String prenom, String mail, String motDePasse, String telephoneNumber) {
         super(nom, prenom, mail, motDePasse, telephoneNumber);
-        this.birthDate = birthDate;
+        
+        try{
+            this.birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);  ;
+        }catch(Exception ex){
+            this.birthDate = new Date();
+        }
+        
         this.postcode = postcode;
     }
 
