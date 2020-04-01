@@ -1,4 +1,6 @@
 fr\insalyon\dasi\dao\JpaUtil.class
+fr\insalyon\dasi\metier\service\Service.class
+fr\insalyon\dasi\metier\modele\Employee_.class
 fr\insalyon\dasi\metier\modele\Client.class
 fr\insalyon\dasi\metier\modele\Personne_.class
 fr\insalyon\dasi\dao\ClientDao.class
@@ -6,4 +8,3 @@ fr\insalyon\dasi\dao\JpaUtil$1.class
 fr\insalyon\dasi\ihm\console\Main.class
 fr\insalyon\dasi\ihm\console\Saisie.class
 fr\insalyon\dasi\metier\modele\Client_.class
-fr\insalyon\dasi\metier\service\Service.class
