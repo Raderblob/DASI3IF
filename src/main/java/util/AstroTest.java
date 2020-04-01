@@ -45,7 +45,7 @@ import org.apache.http.message.BasicNameValuePair;
  */
 public class AstroTest {
 
-    final static String MA_CLE_ASTRO_API = "ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy";
+    final static String MA_CLE_ASTRO_API = "ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy-Moodle-Clé";
 
     public static final String ENCODING_UTF8 = "UTF-8";
     public static final SimpleDateFormat JSON_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -74,6 +74,8 @@ public class AstroTest {
                 new BasicNameValuePair("date-naissance", JSON_DATE_FORMAT.format(dateNaissance))
         );
 
+        System.out.println("ok jusqu'à maintenant");
+        
         JsonObject profil = response.get("profil").getAsJsonObject();
 
         result.add(profil.get("signe-zodiaque").getAsString());
@@ -161,7 +163,7 @@ public class AstroTest {
      */
     public static void main(String[] args) throws ParseException, IOException {
 
-        if (MA_CLE_ASTRO_API.equals("ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy")) {
+        if (MA_CLE_ASTRO_API.equals("XXXXXXXX-Moodle-Clé")) {
             for (int i = 0; i < 100; i++) {
                 System.err.println("[ERREUR] VOUS AVEZ OUBLIÉ DE CHANGER LA CLÉ DE L'API !!!!!");
             }
@@ -175,7 +177,7 @@ public class AstroTest {
 
         List<String> profil = astroApi.getProfil(prenom, dateNaissance);
 
-        String signeZodiaque = profil.get(0);
+        /*String signeZodiaque = profil.get(0);
         String signeChinois = profil.get(1);
         String couleur = profil.get(2);
         String animal = profil.get(3);
@@ -214,7 +216,7 @@ public class AstroTest {
         System.out.println("[ Amour ] " + predictions.get(0));
         System.out.println("[ Santé ] " + predictions.get(1));
         System.out.println("[Travail] " + predictions.get(2));
-        System.out.println("");
+        System.out.println("");*/
     }
 
 }
