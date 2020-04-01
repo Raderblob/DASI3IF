@@ -5,6 +5,7 @@
  */
 package fr.insalyon.dasi.metier.modele;
 
+import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import java.util.Date;
@@ -31,16 +32,18 @@ public class Consultation {
     private Boolean accepted;
     private Client caller;
     private Employee acceptor;
+    private Medium medium;
 
     public Consultation(){
-        
     }
-    public Consultation(String comment, Integer ConsultationLength, Boolean accepted, Client caller, Employee acceptor) {
+    
+    public Consultation(String comment, Integer ConsultationLength, Boolean accepted, Client caller, Medium medium) {
         this.comment = comment;
         this.ConsultationLength = ConsultationLength;
         this.accepted = accepted;
         this.caller = caller;
         this.acceptor = acceptor;
+        this.medium =  medium;
     }
 
     public Long getId() {
