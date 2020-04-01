@@ -23,7 +23,7 @@ public class Main {
         JpaUtil.init();
 
         initialiserClients();            // Question 3
-        testerInscriptionClient();       // Question 4 & 5
+       // testerInscriptionClient();       // Question 4 & 5
        // testerRechercheClient();         // Question 6
         //testerListeClients();            // Question 7
         //testerAuthentificationClient();  // Question 8
@@ -47,9 +47,9 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("DASI-PU");
         EntityManager em = emf.createEntityManager();
 
-        Client ada = new Client("Lovelace", "Ada", "ada.lovelace@insa-lyon.fr", "Ada1012");
-        Client blaise = new Client("Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906");
-        Client fred = new Client("Fotiadu", "Frédéric", "frederic.fotiadu@insa-lyon.fr", "INSA-Forever");
+        Client ada = new Client("Lovelace", "Ada", "ada.lovelace@insa-lyon.fr", "Ada1012","01254605");
+        Client blaise = new Client("Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
+        Client fred = new Client("Fotiadu", "Frédéric", "frederic.fotiadu@insa-lyon.fr", "INSA-Forever","987654321");
         
         System.out.println();
         System.out.println("** Clients avant persistance: ");
@@ -83,7 +83,7 @@ public class Main {
         afficherClient(fred);
         System.out.println();
     }
-
+/*
     public static void testerInscriptionClient() {
         
         System.out.println();
@@ -309,4 +309,6 @@ public class Main {
         System.out.println();
 
     }
+    
+    */
 }
