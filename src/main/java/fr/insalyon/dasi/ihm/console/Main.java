@@ -65,7 +65,7 @@ public class Main {
         }
         afficherPersonne(claude);
 
-        Client hedy = new Client("11/00/1988","69100","Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
+        Client hedy = new Client("11/01/1988","69100","Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
         Long idHedy = service.inscrirePersonne(hedy);
         if (idHedy != null) {
             System.out.println("> Succès inscription");
@@ -110,6 +110,15 @@ public class Main {
             System.out.println("> Échec inscription");
        }
        afficherMedium(m2);
+       
+       Medium m3 = new Cartomancien( "Alphy", "AlphyMag",Gender.MALE);
+       Long idm3 = service.inscrireMedium(m3);
+       if (idm2 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+       }
+       afficherMedium(m3);
     }
 
     public static void testerRechercheTous() {

@@ -20,7 +20,7 @@ import javax.persistence.MappedSuperclass;
  * @author Rader
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Medium {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
