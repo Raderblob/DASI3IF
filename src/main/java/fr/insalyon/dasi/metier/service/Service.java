@@ -4,9 +4,11 @@ import fr.insalyon.dasi.dao.ClientDao;
 import fr.insalyon.dasi.dao.EmployeeDao;
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.dao.MediumDao;
+import fr.insalyon.dasi.dao.PersonneDao;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,18 +19,18 @@ import java.util.logging.Logger;
  */
 public class Service {
 
-    protected ClientDao clientDao = new ClientDao();
-    protected EmployeeDao employeeDao = new EmployeeDao();
-    protected MediumDao mediumDao = new MediumDao();
 
-    public Long inscrireClient(Client client) {
+    protected MediumDao mediumDao = new MediumDao();
+    protected PersonneDao personneDao = new PersonneDao();
+
+    public Long inscrirePersonne(Personne personne) {
         Long resultat = null;
         JpaUtil.creerContextePersistance();
         try {
             JpaUtil.ouvrirTransaction();
-            clientDao.creer(client);
+            personneDao.creer(personne);
             JpaUtil.validerTransaction();
-            resultat = client.getId();
+            resultat = personne.getId();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrireClient(client)", ex);
             JpaUtil.annulerTransaction();
@@ -39,23 +41,7 @@ public class Service {
         return resultat;
     }
     
-    public Long inscrireEmployee(Employee employee) {
-        Long resultat = null;
-        JpaUtil.creerContextePersistance();
-        try {
-            JpaUtil.ouvrirTransaction();
-            employeeDao.creer(employee);
-            JpaUtil.validerTransaction();
-            resultat = employee.getId();
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrireClient(client)", ex);
-            JpaUtil.annulerTransaction();
-            resultat = null;
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return resultat;
-    }
+
     
      public Long inscrireMedium(Medium medium) {
         Long resultat = null;
@@ -77,26 +63,12 @@ public class Service {
     
     
 
-    public Client rechercherClientParId(Long id) {
-        Client resultat = null;
-        JpaUtil.creerContextePersistance();
-        try {
-            resultat = clientDao.chercherParId(id);
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherClientParId(id)", ex);
-            resultat = null;
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return resultat;
-    }
-    
-    public Client rechercherClientParMail(String mail){
-        Client resultat = null;
+    public Personne rechercherPersonneParMail(String mail){
+        Personne resultat = null;
         JpaUtil.creerContextePersistance();
         try {
             // Recherche du client
-            resultat = clientDao.chercherParMail(mail);
+            resultat = personneDao.chercherParMail(mail);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service authentifierClient(mail,motDePasse)", ex);
             resultat = null;
@@ -105,20 +77,7 @@ public class Service {
         }
         return resultat;
     }
-    public Employee rechercherEmployeeParMail(String mail){
-        Employee resultat = null;
-        JpaUtil.creerContextePersistance();
-        try {
-            // Recherche du client
-            resultat = employeeDao.chercherParMail(mail);
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service authentifierClient(mail,motDePasse)", ex);
-            resultat = null;
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return resultat;
-    }
+
     public Medium rechercherMediumParNom(String nom){
         Medium resultat = null;
         JpaUtil.creerContextePersistance();

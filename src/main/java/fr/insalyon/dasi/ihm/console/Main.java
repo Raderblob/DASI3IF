@@ -59,7 +59,7 @@ public class Main {
         
         Service service = new Service();
         Client claude = new Client("31/12/1998","69100","Lovelace", "Ada", "ada.lovelace@insa-lyon.fr", "Ada1012","01254605");
-        Long idClaude = service.inscrireClient(claude);
+        Long idClaude = service.inscrirePersonne(claude);
         if (idClaude != null) {
             System.out.println("> Succès inscription");
         } else {
@@ -68,7 +68,7 @@ public class Main {
         afficherPersonne(claude);
 
         Client hedy = new Client("11/00/1988","69100","Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
-        Long idHedy = service.inscrireClient(hedy);
+        Long idHedy = service.inscrirePersonne(hedy);
         if (idHedy != null) {
             System.out.println("> Succès inscription");
         } else {
@@ -77,7 +77,7 @@ public class Main {
         afficherPersonne(hedy);
 
         Client hedwig = new Client("15/02/1798","69100","Fotiadu", "Frédéric", "frederic.fotiadu@insa-lyon.fr", "INSA-Forever","987654321");
-        Long idHedwig = service.inscrireClient(hedwig);
+        Long idHedwig = service.inscrirePersonne(hedwig);
         if (idHedwig != null) {
             System.out.println("> Succès inscription");
         } else {
@@ -87,7 +87,7 @@ public class Main {
         
         
         Employee e1 = new Employee(Gender.MALE, 0, true,"Employee1", "Employee1Name", "namelessBob.fotiadu@insa-lyon.fr", "e1234567489","852917382645");
-        Long ide1 = service.inscrireEmployee(e1);
+        Long ide1 = service.inscrirePersonne(e1);
         if (ide1 != null) {
             System.out.println("> Succès inscription");
         } else {
@@ -123,33 +123,32 @@ public class Main {
         Service service = new Service();
         String mail;
         String name;
-        Client client;
-        Employee employee;
+        Personne personne;
         Medium medium;
 
         mail = "frederic.fotiadu@insa-lyon.fr";
         System.out.println("** Recherche du Client #" + mail);
-        client = service.rechercherClientParMail(mail);
-        if (client != null) {
-            afficherPersonne(client);
+        personne = service.rechercherPersonneParMail(mail);
+        if (personne != null && personne instanceof Client) {
+            afficherPersonne(personne);
         } else {
             System.out.println("=> Client non-trouvé");
         }
         
-        mail = "falseEmail";
+        mail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** Recherche du Client #" + mail);
-        client = service.rechercherClientParMail(mail);
-        if (client != null) {
-            afficherPersonne(client);
+        personne = service.rechercherPersonneParMail(mail);
+        if (personne != null && personne instanceof Client) {
+            afficherPersonne(personne);
         } else {
             System.out.println("=> Client non-trouvé");
         }
         
         mail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** Recherche du Employee #" + mail);
-        employee = service.rechercherEmployeeParMail(mail);
-        if (employee != null) {
-            afficherPersonne(employee);
+        personne = service.rechercherPersonneParMail(mail);
+        if (personne != null && personne instanceof Employee) {
+            afficherPersonne(personne);
         } else {
             System.out.println("=> employee non-trouvé");
         }
