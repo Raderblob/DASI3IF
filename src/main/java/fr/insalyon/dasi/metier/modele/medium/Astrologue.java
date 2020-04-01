@@ -23,8 +23,8 @@ public class Astrologue extends Medium implements Serializable {
 
   
 
-    public Astrologue(String formation, Integer promotion, Long id, String name, String Presentation, Gender myGender) {
-        super(id, name, Presentation, myGender);
+    public Astrologue(String formation, Integer promotion, String name, String Presentation, Gender myGender) {
+        super(name, Presentation, myGender);
         this.formation = formation;
         this.promotion = promotion;
     }

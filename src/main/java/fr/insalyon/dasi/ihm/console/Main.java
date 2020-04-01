@@ -4,6 +4,8 @@ import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.Gender;
+import fr.insalyon.dasi.metier.modele.medium.Astrologue;
+import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import java.util.Date;
@@ -28,7 +30,7 @@ public class Main {
 
        // initialiserClients();            // Question 3
         testerInscriptionClient();       // Question 4 & 5
-       // testerRechercheClient();         // Question 6
+        testerRechercheClient();         // Question 6
         //testerListeClients();            // Question 7
         //testerAuthentificationClient();  // Question 8
         //saisirInscriptionClient();       // Question 9
@@ -87,8 +89,17 @@ public class Main {
             System.out.println("> Échec inscription");
         }
         afficherPersonne(e1);
+        
+       Medium m1 = new Astrologue("I was magic school", 42, "HilbertShadow", "Pick me",Gender.FEMALE);
+       Long idm1 = service.inscrireMedium(m1);
+       if (idm1 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+       }
+        
     }
-/*
+
     public static void testerRechercheClient() {
         
         System.out.println();
@@ -96,37 +107,19 @@ public class Main {
         System.out.println();
         
         Service service = new Service();
-        long id;
+        String mail;
         Client client;
 
-        id = 1;
-        System.out.println("** Recherche du Client #" + id);
-        client = service.rechercherClientParId(id);
+        mail = "frederic.fotiadu@insa-lyon.fr";
+        System.out.println("** Recherche du Client #" + mail);
+        client = service.rechercherClientParMail(mail);
         if (client != null) {
-            afficherClient(client);
+            afficherPersonne(client);
         } else {
             System.out.println("=> Client non-trouvé");
-        }
-
-        id = 3;
-        System.out.println("** Recherche du Client #" + id);
-        client = service.rechercherClientParId(id);
-        if (client != null) {
-            afficherClient(client);
-        } else {
-            System.out.println("=> Client non-trouvé");
-        }
-
-        id = 17;
-        System.out.println("** Recherche du Client #" + id);
-        client = service.rechercherClientParId(id);
-        if (client != null) {
-            afficherClient(client);
-        } else {
-            System.out.println("=> Client #" + id + " non-trouvé");
         }
     }
-
+/*
     public static void testerListeClients() {
         
         System.out.println();

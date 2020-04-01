@@ -19,8 +19,8 @@ public class Cartomancien extends Medium implements Serializable {
     public Cartomancien() {
     }
 
-    public Cartomancien(Long id, String name, String Presentation, Gender myGender) {
-        super(id, name, Presentation, myGender);
+    public Cartomancien( String name, String Presentation, Gender myGender) {
+        super( name, Presentation, myGender);
     }
     
 }
