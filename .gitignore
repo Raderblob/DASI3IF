@@ -31,3 +31,5 @@ target/generated-sources/annotations/fr/insalyon/dasi/metier/modele/Employee_.ja
 target/generated-sources/annotations/fr/insalyon/dasi/metier/modele/Personne_.java
 target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+target/classes/META-INF/persistence.xml
+src/main/resources/META-INF/persistence.xml
