@@ -24,9 +24,9 @@ public class Main {
 
         initialiserClients();            // Question 3
         testerInscriptionClient();       // Question 4 & 5
-        testerRechercheClient();         // Question 6
-        testerListeClients();            // Question 7
-        testerAuthentificationClient();  // Question 8
+       // testerRechercheClient();         // Question 6
+        //testerListeClients();            // Question 7
+        //testerAuthentificationClient();  // Question 8
         //saisirInscriptionClient();       // Question 9
         //saisirRechercheClient();
         
