@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class Service {
 
     protected ClientDao clientDao = new ClientDao();
-    protected EmployeeDao employeeDoa = new EmployeeDao();
+    protected EmployeeDao employeeDao = new EmployeeDao();
     protected MediumDao mediumDao = new MediumDao();
 
     public Long inscrireClient(Client client) {
@@ -44,7 +44,7 @@ public class Service {
         JpaUtil.creerContextePersistance();
         try {
             JpaUtil.ouvrirTransaction();
-            employeeDoa.creer(employee);
+            employeeDao.creer(employee);
             JpaUtil.validerTransaction();
             resultat = employee.getId();
         } catch (Exception ex) {
@@ -97,6 +97,20 @@ public class Service {
         try {
             // Recherche du client
             resultat = clientDao.chercherParMail(mail);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service authentifierClient(mail,motDePasse)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    public Employee rechercherEmployeeParMail(String mail){
+        Employee resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            // Recherche du client
+            resultat = employeeDao.chercherParMail(mail);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service authentifierClient(mail,motDePasse)", ex);
             resultat = null;

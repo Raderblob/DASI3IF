@@ -21,7 +21,17 @@ public class EmployeeDao {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         em.persist(employee);
     }
-    
+     public Employee chercherParMail(String clientMail) {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Employee> query = em.createQuery("SELECT c FROM Employee c WHERE c.mail = :mail", Employee.class);
+        query.setParameter("mail", clientMail); // correspond au paramètre ":mail" dans la requête
+        List<Employee> Employee = query.getResultList();
+        Employee result = null;
+        if (!Employee.isEmpty()) {
+            result = Employee.get(0); // premier de la liste
+        }
+        return result;
+    }
     
     
     // modifier / supprimer  ... 

@@ -29,8 +29,8 @@ public class Main {
         JpaUtil.init();
 
        // initialiserClients();            // Question 3
-        testerInscriptionClient();       // Question 4 & 5
-        testerRechercheClient();         // Question 6
+        testerInscriptionTous();       // Question 4 & 5
+        testerRechercheTous();         // Question 6
         //testerListeClients();            // Question 7
         //testerAuthentificationClient();  // Question 8
         //saisirInscriptionClient();       // Question 9
@@ -46,7 +46,7 @@ public class Main {
     }
 
 
-    public static void testerInscriptionClient() {
+    public static void testerInscriptionTous() {
         
         System.out.println();
         System.out.println("**** testerInscriptionClient() ****");
@@ -100,7 +100,7 @@ public class Main {
         
     }
 
-    public static void testerRechercheClient() {
+    public static void testerRechercheTous() {
         
         System.out.println();
         System.out.println("**** testerRechercheClient() ****");
@@ -109,6 +109,7 @@ public class Main {
         Service service = new Service();
         String mail;
         Client client;
+        Employee employee;
 
         mail = "frederic.fotiadu@insa-lyon.fr";
         System.out.println("** Recherche du Client #" + mail);
@@ -117,6 +118,24 @@ public class Main {
             afficherPersonne(client);
         } else {
             System.out.println("=> Client non-trouvé");
+        }
+        
+        mail = "falseEmail";
+        System.out.println("** Recherche du Client #" + mail);
+        client = service.rechercherClientParMail(mail);
+        if (client != null) {
+            afficherPersonne(client);
+        } else {
+            System.out.println("=> Client non-trouvé");
+        }
+        
+        mail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** Recherche du Employee #" + mail);
+        employee = service.rechercherEmployeeParMail(mail);
+        if (employee != null) {
+            afficherPersonne(employee);
+        } else {
+            System.out.println("=> employee non-trouvé");
         }
     }
 /*
