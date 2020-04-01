@@ -26,3 +26,8 @@ target/**
 target/**/**
 target/**/**/**
 target/maven-archiver/pom.properties
+target/generated-sources/annotations/fr/insalyon/dasi/metier/modele/Client_.java
+target/generated-sources/annotations/fr/insalyon/dasi/metier/modele/Employee_.java
+target/generated-sources/annotations/fr/insalyon/dasi/metier/modele/Personne_.java
+target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
