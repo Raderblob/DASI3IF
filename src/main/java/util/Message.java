@@ -62,6 +62,7 @@ public class Message {
     
     public static void main(String[] args) {
         
+        
         //DebugLogger.log("Début des Tests...");
         
         StringWriter corps = new StringWriter();
