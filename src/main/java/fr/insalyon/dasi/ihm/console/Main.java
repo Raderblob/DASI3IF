@@ -23,8 +23,8 @@ public class Main {
         // Contrôlez l'affichage du log de JpaUtil grâce à la méthode log de la classe JpaUtil
         JpaUtil.init();
 
-        initialiserClients();            // Question 3
-       // testerInscriptionClient();       // Question 4 & 5
+       // initialiserClients();            // Question 3
+        testerInscriptionClient();       // Question 4 & 5
        // testerRechercheClient();         // Question 6
         //testerListeClients();            // Question 7
         //testerAuthentificationClient();  // Question 8
@@ -38,7 +38,7 @@ public class Main {
     public static void afficherClient(Client client) {
         System.out.println("-> " + client);
     }
-
+/*
     public static void initialiserClients() {
         
         System.out.println();
@@ -84,7 +84,9 @@ public class Main {
         afficherClient(fred);
         System.out.println();
     }
-/*
+    
+    */
+
     public static void testerInscriptionClient() {
         
         System.out.println();
@@ -92,7 +94,7 @@ public class Main {
         System.out.println();
         
         Service service = new Service();
-        Client claude = new Client("Chappe", "Claude", "claude.chappe@insa-lyon.fr", "HaCKeR");
+        Client claude = new Client(new Date(),"69100","Lovelace", "Ada", "ada.lovelace@insa-lyon.fr", "Ada1012","01254605");
         Long idClaude = service.inscrireClient(claude);
         if (idClaude != null) {
             System.out.println("> Succès inscription");
@@ -101,7 +103,7 @@ public class Main {
         }
         afficherClient(claude);
 
-        Client hedy = new Client("Lamarr", "Hedy", "hlamarr@insa-lyon.fr", "WiFi");
+        Client hedy = new Client(new Date(),"69100","Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
         Long idHedy = service.inscrireClient(hedy);
         if (idHedy != null) {
             System.out.println("> Succès inscription");
@@ -110,7 +112,7 @@ public class Main {
         }
         afficherClient(hedy);
 
-        Client hedwig = new Client("Lamarr", "Hedwig Eva Maria", "hlamarr@insa-lyon.fr", "WiFi");
+        Client hedwig = new Client(new Date(),"69100","Fotiadu", "Frédéric", "frederic.fotiadu@insa-lyon.fr", "INSA-Forever","987654321");
         Long idHedwig = service.inscrireClient(hedwig);
         if (idHedwig != null) {
             System.out.println("> Succès inscription");
@@ -119,7 +121,7 @@ public class Main {
         }
         afficherClient(hedwig);
     }
-
+/*
     public static void testerRechercheClient() {
         
         System.out.println();
