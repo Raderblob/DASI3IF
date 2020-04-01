@@ -161,7 +161,7 @@ public class AstroTest {
      */
     public static void main(String[] args) throws ParseException, IOException {
 
-        if (MA_CLE_ASTRO_API.equals("XXXXXXXX-Moodle-Clé")) {
+        if (MA_CLE_ASTRO_API.equals("ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy-Moodle-Clé")) {
             for (int i = 0; i < 100; i++) {
                 System.err.println("[ERREUR] VOUS AVEZ OUBLIÉ DE CHANGER LA CLÉ DE L'API !!!!!");
             }
