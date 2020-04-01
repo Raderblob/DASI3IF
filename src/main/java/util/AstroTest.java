@@ -45,7 +45,7 @@ import org.apache.http.message.BasicNameValuePair;
  */
 public class AstroTest {
 
-    final static String MA_CLE_ASTRO_API = "ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy-Moodle-Clé";
+    final static String MA_CLE_ASTRO_API = "ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy";
 
     public static final String ENCODING_UTF8 = "UTF-8";
     public static final SimpleDateFormat JSON_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -177,7 +177,7 @@ public class AstroTest {
 
         List<String> profil = astroApi.getProfil(prenom, dateNaissance);
 
-        /*String signeZodiaque = profil.get(0);
+        String signeZodiaque = profil.get(0);
         String signeChinois = profil.get(1);
         String couleur = profil.get(2);
         String animal = profil.get(3);
@@ -216,7 +216,7 @@ public class AstroTest {
         System.out.println("[ Amour ] " + predictions.get(0));
         System.out.println("[ Santé ] " + predictions.get(1));
         System.out.println("[Travail] " + predictions.get(2));
-        System.out.println("");*/
+        System.out.println("");
     }
 
 }
