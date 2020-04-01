@@ -2,6 +2,9 @@ package fr.insalyon.dasi.ihm.console;
 
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.metier.modele.Client;
+import fr.insalyon.dasi.metier.modele.Employee;
+import fr.insalyon.dasi.metier.modele.Gender;
+import fr.insalyon.dasi.metier.modele.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import java.util.Date;
 import java.util.List;
@@ -35,8 +38,8 @@ public class Main {
         JpaUtil.destroy();
     }
 
-    public static void afficherClient(Client client) {
-        System.out.println("-> " + client);
+    public static void afficherPersonne(Personne personne) {
+        System.out.println("-> " + personne);
     }
 /*
     public static void initialiserClients() {
@@ -101,7 +104,7 @@ public class Main {
         } else {
             System.out.println("> Échec inscription");
         }
-        afficherClient(claude);
+        afficherPersonne(claude);
 
         Client hedy = new Client(new Date(),"69100","Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
         Long idHedy = service.inscrireClient(hedy);
@@ -110,7 +113,7 @@ public class Main {
         } else {
             System.out.println("> Échec inscription");
         }
-        afficherClient(hedy);
+        afficherPersonne(hedy);
 
         Client hedwig = new Client(new Date(),"69100","Fotiadu", "Frédéric", "frederic.fotiadu@insa-lyon.fr", "INSA-Forever","987654321");
         Long idHedwig = service.inscrireClient(hedwig);
@@ -119,7 +122,17 @@ public class Main {
         } else {
             System.out.println("> Échec inscription");
         }
-        afficherClient(hedwig);
+        afficherPersonne(hedwig);
+        
+        
+        Employee e1 = new Employee(Gender.MALE, 0, true,"Employee1", "Employee1Name", "namelessBob.fotiadu@insa-lyon.fr", "e1234567489","852917382645");
+        Long ide1 = service.inscrireEmployee(e1);
+        if (ide1 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        afficherPersonne(e1);
     }
 /*
     public static void testerRechercheClient() {

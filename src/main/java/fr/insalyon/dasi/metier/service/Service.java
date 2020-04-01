@@ -1,8 +1,10 @@
 package fr.insalyon.dasi.metier.service;
 
 import fr.insalyon.dasi.dao.ClientDao;
+import fr.insalyon.dasi.dao.EmployeeDao;
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.metier.modele.Client;
+import fr.insalyon.dasi.metier.modele.Employee;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +16,7 @@ import java.util.logging.Logger;
 public class Service {
 
     protected ClientDao clientDao = new ClientDao();
+    protected EmployeeDao employeeDoa = new EmployeeDao();
 
     public Long inscrireClient(Client client) {
         Long resultat = null;
@@ -23,6 +26,24 @@ public class Service {
             clientDao.creer(client);
             JpaUtil.validerTransaction();
             resultat = client.getId();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrireClient(client)", ex);
+            JpaUtil.annulerTransaction();
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+    public Long inscrireEmployee(Employee employee) {
+        Long resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            JpaUtil.ouvrirTransaction();
+            employeeDoa.creer(employee);
+            JpaUtil.validerTransaction();
+            resultat = employee.getId();
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrireClient(client)", ex);
             JpaUtil.annulerTransaction();
