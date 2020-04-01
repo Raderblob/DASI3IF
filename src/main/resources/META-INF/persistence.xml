@@ -9,6 +9,7 @@
     <class>fr.insalyon.dasi.metier.modele.medium.Spirite</class>
     <class>fr.insalyon.dasi.metier.modele.medium.Medium</class>
     <class>fr.insalyon.dasi.metier.modele.personne.Client</class>
+    <class>fr.insalyon.dasi.metier.modele.personne.Personne</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/JDB"/>
       <property name="javax.persistence.jdbc.user" value="rmarchant"/>
