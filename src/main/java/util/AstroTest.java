@@ -45,7 +45,7 @@ import org.apache.http.message.BasicNameValuePair;
  */
 public class AstroTest {
 
-    final static String MA_CLE_ASTRO_API = "ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy-Moodle-Clé";
+    final static String MA_CLE_ASTRO_API = "ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy";
 
     public static final String ENCODING_UTF8 = "UTF-8";
     public static final SimpleDateFormat JSON_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -161,7 +161,7 @@ public class AstroTest {
      */
     public static void main(String[] args) throws ParseException, IOException {
 
-        if (MA_CLE_ASTRO_API.equals("ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy-Moodle-Clé")) {
+        if (MA_CLE_ASTRO_API.equals("ASTRO-02-M0lGLURBU0ktQVNUUk8tQjAy")) {
             for (int i = 0; i < 100; i++) {
                 System.err.println("[ERREUR] VOUS AVEZ OUBLIÉ DE CHANGER LA CLÉ DE L'API !!!!!");
             }
