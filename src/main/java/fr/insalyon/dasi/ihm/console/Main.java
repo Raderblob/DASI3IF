@@ -1,10 +1,10 @@
 package fr.insalyon.dasi.ihm.console;
 
 import fr.insalyon.dasi.dao.JpaUtil;
-import fr.insalyon.dasi.metier.modele.Client;
-import fr.insalyon.dasi.metier.modele.Employee;
+import fr.insalyon.dasi.metier.modele.personne.Client;
+import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.Gender;
-import fr.insalyon.dasi.metier.modele.Personne;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import java.util.Date;
 import java.util.List;

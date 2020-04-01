@@ -1,4 +1,4 @@
-package fr.insalyon.dasi.metier.modele;
+package fr.insalyon.dasi.metier.modele.personne;
 
 import java.io.Serializable;
 import javax.persistence.Column;

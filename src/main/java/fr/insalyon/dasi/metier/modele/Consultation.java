@@ -5,6 +5,8 @@
  */
 package fr.insalyon.dasi.metier.modele;
 
+import fr.insalyon.dasi.metier.modele.personne.Client;
+import fr.insalyon.dasi.metier.modele.personne.Employee;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +32,9 @@ public class Consultation {
     private Client caller;
     private Employee acceptor;
 
+    public Consultation(){
+        
+    }
     public Consultation(String comment, Integer ConsultationLength, Boolean accepted, Client caller, Employee acceptor) {
         this.comment = comment;
         this.ConsultationLength = ConsultationLength;

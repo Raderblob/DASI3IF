@@ -1,5 +1,7 @@
-package fr.insalyon.dasi.metier.modele;
+package fr.insalyon.dasi.metier.modele.personne;
 
+import fr.insalyon.dasi.metier.modele.Gender;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
