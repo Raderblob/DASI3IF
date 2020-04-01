@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import util.AstroTest;
 
 /**
  *
@@ -28,22 +29,57 @@ public class Client extends Personne implements Serializable  {
     private String postcode;
     @OneToMany
     private List<Consultation> myconsultationHistory;
-
-    public Client() {
-    }
-
+    private String signeZodiac;
+    private String signeAstroChonois;
+    private String couleurPorteBonheur;
+    private String animalTotem;
+    
     public Client(String birthDate, String postcode, String nom, String prenom, String mail, String motDePasse, String telephoneNumber) {
         super(nom, prenom, mail, motDePasse, telephoneNumber);
-        
+        AstroTest a=new AstroTest();
         try{
-            this.birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);  ;
+            this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthDate);
+            List<String> profil=a.getProfil(prenom, this.birthDate);
+            String signeZodiaque = profil.get(0);
+            String signeChinois = profil.get(1);
+            String couleur = profil.get(2);
+            String animal = profil.get(3);
+            this.signeZodiac=signeZodiaque;
+            this.signeAstroChonois=signeChinois;
+            this.animalTotem=animal;
+            this.couleurPorteBonheur=couleur;
+        
         }catch(Exception ex){
             this.birthDate = new Date();
         }
         
+       
+        
         this.postcode = postcode;
     }
+    
+    
+    public String getSigneZodiac() {
+        return signeZodiac;
+    }
 
+    public String getSigneAstroChonois() {
+        return signeAstroChonois;
+    }
+
+    public String getCouleurPorteBonheur() {
+        return couleurPorteBonheur;
+    }
+
+    public String getAnimalTotem() {
+        return animalTotem;
+    }
+    
+
+    public Client() {
+    }
+
+    
     public Date getBirthDate() {
         return birthDate;
     }
