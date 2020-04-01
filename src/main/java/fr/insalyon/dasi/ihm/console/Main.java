@@ -30,13 +30,11 @@ public class Main {
         // Contrôlez l'affichage du log de JpaUtil grâce à la méthode log de la classe JpaUtil
         JpaUtil.init();
 
-       // initialiserClients();            // Question 3
-        testerInscriptionTous();       // Question 4 & 5
-        testerRechercheTous();         // Question 6
-        //testerListeClients();            // Question 7
-        //testerAuthentificationClient();  // Question 8
-        //saisirInscriptionClient();       // Question 9
-        //saisirRechercheClient();
+
+        testerInscriptionTous();       
+        testerRechercheTous();        
+        testerGetListOfMediums();
+
         
         
         JpaUtil.destroy();
@@ -160,6 +158,47 @@ public class Main {
             afficherMedium(medium);
         } else {
             System.out.println("=> Medium non-trouvé");
+        }
+    }
+    
+    public static void testerGetListOfMediums(){
+        System.out.println();
+        System.out.println("**** testerGetListOfMediums() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        String parameters;
+        
+        List<Medium> testList;
+        
+        parameters = "Medium";
+        System.out.println("** Recherche du Medium #" + parameters);
+        testList = service.GetListOfMediums(parameters);
+        for (Medium x:testList){
+            afficherMedium(x);
+        }
+        
+        
+        parameters = "Cartomancien";
+        System.out.println("** Recherche du Medium #" + parameters);
+        testList = service.GetListOfMediums(parameters);
+        for (Medium x:testList){
+            afficherMedium(x);
+        }
+        
+        parameters = "Astrologue";
+        System.out.println("** Recherche du Medium #" + parameters);
+        testList = service.GetListOfMediums(parameters);
+        for (Medium x:testList){
+            afficherMedium(x);
+        }
+        
+        parameters = "Spirite";
+        System.out.println("** Recherche du Medium #" + parameters);
+        testList = service.GetListOfMediums(parameters);
+        for (Medium x:testList){
+            afficherMedium(x);
         }
     }
 /*

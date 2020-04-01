@@ -33,4 +33,11 @@ public class MediumDao {
         return result;
     }
     
+    public List<Medium> GetListOfMediums(String type){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Medium> query = em.createQuery("SELECT c FROM "+type+" c", Medium.class);
+        List<Medium> mediums = query.getResultList();
+        return mediums;
+    }
+    
 }

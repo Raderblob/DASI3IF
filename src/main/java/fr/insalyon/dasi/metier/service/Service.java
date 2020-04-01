@@ -1,7 +1,5 @@
 package fr.insalyon.dasi.metier.service;
 
-import fr.insalyon.dasi.dao.ClientDao;
-import fr.insalyon.dasi.dao.EmployeeDao;
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.dao.MediumDao;
 import fr.insalyon.dasi.dao.PersonneDao;
@@ -93,18 +91,12 @@ public class Service {
         return resultat;
     }
 
-    public Client authentifierClient(String mail, String motDePasse) {
-        Client resultat = null;
+    public List<Medium> GetListOfMediums(String type){
+        List<Medium> resultat = null;
         JpaUtil.creerContextePersistance();
         try {
             // Recherche du client
-            Client client = clientDao.chercherParMail(mail);
-            if (client != null) {
-                // Vérification du mot de passe
-                if (client.getMotDePasse().equals(motDePasse)) {
-                    resultat = client;
-                }
-            }
+            resultat = mediumDao.GetListOfMediums(type);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service authentifierClient(mail,motDePasse)", ex);
             resultat = null;
@@ -112,20 +104,7 @@ public class Service {
             JpaUtil.fermerContextePersistance();
         }
         return resultat;
-    }
-
-    public List<Client> listerClients() {
-        List<Client> resultat = null;
-        JpaUtil.creerContextePersistance();
-        try {
-            resultat = clientDao.listerClients();
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service listerClients()", ex);
-            resultat = null;
-        } finally {
-            JpaUtil.fermerContextePersistance();
-        }
-        return resultat;
+    
     }
 
 }
