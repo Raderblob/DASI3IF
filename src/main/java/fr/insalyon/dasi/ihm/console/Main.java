@@ -41,54 +41,7 @@ public class Main {
     public static void afficherPersonne(Personne personne) {
         System.out.println("-> " + personne);
     }
-/*
-    public static void initialiserClients() {
-        
-        System.out.println();
-        System.out.println("**** initialiserClients() ****");
-        System.out.println();
-        
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("DASI-PU");
-        EntityManager em = emf.createEntityManager();
 
-        Client ada = new Client(new Date(),"69100","Lovelace", "Ada", "ada.lovelace@insa-lyon.fr", "Ada1012","01254605");
-        Client blaise = new Client(new Date(),"69100","Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
-        Client fred = new Client(new Date(),"69100","Fotiadu", "Frédéric", "frederic.fotiadu@insa-lyon.fr", "INSA-Forever","987654321");
-        
-        System.out.println();
-        System.out.println("** Clients avant persistance: ");
-        afficherClient(ada);
-        afficherClient(blaise);
-        afficherClient(fred);
-        System.out.println();
-
-        try {
-            em.getTransaction().begin();
-            em.persist(ada);
-            em.persist(blaise);
-            em.persist(fred);
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service", ex);
-            try {
-                em.getTransaction().rollback();
-            }
-            catch (IllegalStateException ex2) {
-                // Ignorer cette exception...
-            }
-        } finally {
-            em.close();
-        }
-
-        System.out.println();
-        System.out.println("** Clients après persistance: ");
-        afficherClient(ada);
-        afficherClient(blaise);
-        afficherClient(fred);
-        System.out.println();
-    }
-    
-    */
 
     public static void testerInscriptionClient() {
         
