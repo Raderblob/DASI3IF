@@ -5,6 +5,8 @@
  */
 package fr.insalyon.dasi.dao;
 
+import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.util.List;
@@ -31,4 +33,14 @@ public class PersonneDao {
         }
         return result;
     }
+     
+   public Client addClientConsultation(Client client,Consultation consultation){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        
+        client.getMyConsultationHistory().add(consultation);
+        
+        return client;
+   }
+     
+   
 }

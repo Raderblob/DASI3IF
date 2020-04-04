@@ -1,6 +1,7 @@
 package fr.insalyon.dasi.ihm.console;
 
 import fr.insalyon.dasi.dao.JpaUtil;
+import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.Gender;
@@ -34,8 +35,9 @@ public class Main {
         testerInscriptionTous();       
         testerRechercheTous();        
         testerGetListOfMediums();
-
-        
+        testerAuthenticatePersonne();
+        testerAddClientConsultation();
+        testerGetClientConsultations();
         
         JpaUtil.destroy();
     }
@@ -209,6 +211,125 @@ public class Main {
         for (Medium x:testList){
             afficherMedium(x);
         }
+    }
+    
+    public static void testerAuthenticatePersonne(){
+        System.out.println();
+        System.out.println("**** testerAuthenticatePersonne() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        String userMail;
+        String password;
+        Personne result;
+        
+        
+        userMail = "frederic.fotiadu@insa-lyon.fr";
+        password = "wrong";
+        System.out.println("** Authenticate with #" + userMail + " Password: " + password);
+        result = service.authenticatePersonne(userMail,password);
+        if (result != null) {
+            afficherPersonne(result);
+        } else {
+            System.out.println("=> Credentials false");
+        }
+        
+        userMail = "frederic.fotiadu@insa-lyon.fr";
+        password = "INSA-Forever";
+        System.out.println("** Authenticate with #" + userMail + " Password: " + password);
+        result = service.authenticatePersonne(userMail,password);
+        if (result != null) {
+            afficherPersonne(result);
+        } else {
+            System.out.println("=> Credentials false");
+        }
+        
+        
+        userMail = "ada.lovelace@insa-lyon.fr";
+        password = "Ada1012";
+        System.out.println("** Authenticate with #" + userMail + " Password: " + password);
+        result = service.authenticatePersonne(userMail,password);
+        if (result != null) {
+            afficherPersonne(result);
+        } else {
+            System.out.println("=> Credentials false");
+        }
+        
+        userMail = "ada.lovelace@insa-lyon.fr123";
+        password = "Ada1012";
+        System.out.println("** Authenticate with #" + userMail + " Password: " + password);
+        result = service.authenticatePersonne(userMail,password);
+        if (result != null) {
+            afficherPersonne(result);
+        } else {
+            System.out.println("=> Credentials false");
+        }
+        
+    }
+    
+    public static void testerGetClientConsultations(){
+        System.out.println();
+        System.out.println("**** testerGetClientConsultations() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        String email;
+        List<Consultation> testList;
+        
+        email = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Recherche de Consultations #" + email);
+        testList = service.getClientConsultations(email);
+        if(testList != null){
+            for (Consultation x:testList){
+                System.out.println(x);
+            }
+        }
+    }
+    
+    public static void testerAddClientConsultation(){
+        System.out.println();
+        System.out.println("**** testerAddClientConsultation() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        String clientEmail;
+        Medium medium;
+        String mediumId;
+        Consultation consultation;
+        
+        
+        mediumId ="SIDMAG";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        if (medium != null) {
+            consultation = service.addClientConsultation(clientEmail, medium);
+            if(consultation != null){
+                  System.out.println(consultation);
+            }else{
+                System.out.println("Cannot add consultation");
+            }
+        }else{
+            System.out.println("Invalid Medium");
+        }
+        
+        mediumId ="Alphy";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        if (medium != null) {
+            consultation = service.addClientConsultation(clientEmail, medium);
+            if(consultation != null){
+                  System.out.println(consultation);
+            }else{
+                System.out.println("Cannot add consultation");
+            }
+        }else{
+            System.out.println("Invalid Medium");
+        }
+        
     }
 /*
     public static void testerListeClients() {

@@ -37,12 +37,9 @@ public class Consultation {
     public Consultation(){
     }
     
-    public Consultation(String comment, Integer ConsultationLength, Boolean accepted, Client caller, Medium medium) {
-        this.comment = comment;
-        this.ConsultationLength = ConsultationLength;
-        this.accepted = accepted;
+    public Consultation( Client caller, Medium medium) {
+        this.accepted = false;
         this.caller = caller;
-        this.acceptor = acceptor;
         this.medium =  medium;
     }
 
@@ -96,6 +93,11 @@ public class Consultation {
 
     public void setAcceptor(Employee acceptor) {
         this.acceptor = acceptor;
+    }
+
+    @Override
+    public String toString() {
+        return "Consultation{" + "id=" + id + ", comment=" + comment + ", ConsultationLength=" + ConsultationLength + ", date=" + date + ", accepted=" + accepted + ", caller=" + caller + ", acceptor=" + acceptor + ", medium=" + medium + '}';
     }
       
     

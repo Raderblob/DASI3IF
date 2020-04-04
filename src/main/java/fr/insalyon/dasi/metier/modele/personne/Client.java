@@ -3,8 +3,10 @@ package fr.insalyon.dasi.metier.modele.personne;
 import fr.insalyon.dasi.metier.modele.Consultation;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,12 +29,14 @@ public class Client extends Personne implements Serializable  {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
     private String postcode;
-    @OneToMany
-    private List<Consultation> myconsultationHistory;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Consultation> myConsultationHistory;
     private String signeZodiac;
     private String signeAstroChonois;
     private String couleurPorteBonheur;
     private String animalTotem;
+
+
     
     public Client(String birthDate, String postcode, String nom, String prenom, String mail, String motDePasse, String telephoneNumber) {
         super(nom, prenom, mail, motDePasse, telephoneNumber);
@@ -56,6 +60,7 @@ public class Client extends Personne implements Serializable  {
        
         
         this.postcode = postcode;
+        this.myConsultationHistory = new ArrayList();
     }
     
     
@@ -96,7 +101,13 @@ public class Client extends Personne implements Serializable  {
         this.postcode = postcode;
     }
     
-    
+    public List<Consultation> getMyConsultationHistory() {
+        return myConsultationHistory;
+    }
+
+    public void setMyConsultationHistory(List<Consultation> myconsultationHistory) {
+        this.myConsultationHistory = myconsultationHistory;
+    }
 
     
 }
