@@ -39,6 +39,7 @@ public class Main {
         testerAddClientConsultation();
         testerGetClientConsultations();
         testerconfirmConsultation();
+        testerRechercheMailClient();
         
         JpaUtil.destroy();
     }
@@ -333,7 +334,6 @@ public class Main {
         
     }
     
-    
     public static void testerconfirmConsultation(){
         System.out.println();
         System.out.println("**** testerconfirmConsultation() ****");
@@ -369,6 +369,27 @@ public class Main {
             System.out.println("Could not confirm");
         }
     }
+    
+    public static void testerRechercheMailClient(){
+        System.out.println();
+        System.out.println("**** testerRechercheMailClient() ****");
+        System.out.println();
+        
+        String mail="ada.lovelace@insa-lyon..fr";
+        
+        Personne test;
+        Service service = new Service();
+        test=service.rechercherPersonneParMail(mail);
+        
+        if(test!=null)
+        {
+            afficherPersonne(test);
+        }else{
+            System.out.println("Pas de mail correspondant dans la base");
+        }
+        
+    }
+    
     
 /*
     public static void testerListeClients() {
