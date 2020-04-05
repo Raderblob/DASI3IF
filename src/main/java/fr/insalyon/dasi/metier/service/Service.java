@@ -1,5 +1,6 @@
 package fr.insalyon.dasi.metier.service;
 
+import fr.insalyon.dasi.dao.ConsultationDoa;
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.dao.MediumDao;
 import fr.insalyon.dasi.dao.PersonneDao;
@@ -21,6 +22,7 @@ public class Service {
 
     protected MediumDao mediumDao = new MediumDao();
     protected PersonneDao personneDao = new PersonneDao();
+    protected ConsultationDoa consultationDao = new ConsultationDoa();
 
     public Long inscrirePersonne(Personne personne) {
         Long resultat = null;
@@ -158,9 +160,19 @@ public class Service {
             if(personne instanceof Client){
                 client  = (Client)personne;
                 consultation = new Consultation(client,medium);
-                JpaUtil.ouvrirTransaction();
-                personneDao.addClientConsultation(client, consultation);
-                JpaUtil.validerTransaction();
+                List<Employee> possibleEmployees = personneDao.GetAvailableEmployees(medium.getMyGender());
+                if(!possibleEmployees.isEmpty()){
+                    consultation.setAcceptor(possibleEmployees.get(0));
+                    JpaUtil.ouvrirTransaction();
+                    personneDao.addClientConsultation(client, consultation);
+                    personneDao.addEmployeeConsultation(possibleEmployees.get(0), consultation);
+                    JpaUtil.validerTransaction();
+                }else{
+                    System.out.println("No available employee");
+                    JpaUtil.ouvrirTransaction();
+                    personneDao.addClientConsultation(client, consultation);
+                    JpaUtil.validerTransaction();
+                }
             }
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
@@ -170,6 +182,33 @@ public class Service {
          }
          
          return consultation;
+     }
+     
+     public Employee confirmConsultation(String employeeEmail, String review){
+         Employee employee = null;
+         JpaUtil.creerContextePersistance();
+         try {
+            Personne personne = null;
+            personne = personneDao.chercherParMail(employeeEmail);
+            if(personne instanceof Employee){
+                employee = (Employee)personne;
+                if(!employee.getAvailable()){
+                    JpaUtil.ouvrirTransaction();
+                    consultationDao.finishConsultation(employee.getCurrentConsultation(), review);
+                    personneDao.setAvailable(employee, true);
+                    JpaUtil.validerTransaction();
+                }else{
+                    employee = null;
+                }
+            }
+         }catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            employee = null;
+         }finally {
+            JpaUtil.fermerContextePersistance();
+         }
+          
+          return employee;
      }
 
 }

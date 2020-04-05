@@ -1,5 +1,6 @@
 package fr.insalyon.dasi.metier.modele.personne;
 
+import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.modele.Gender;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,6 +25,9 @@ public class Employee extends Personne implements Serializable  {
     private Gender myGender;
     private Integer numConsultations;
     private Boolean available;
+    
+    @OneToOne
+    private Consultation currentConsultation;
     
     
     public Employee(Gender myGender, Integer numConsultations, Boolean available, String nom, String prenom, String mail, String motDePasse, String telephoneNumber) {
@@ -60,6 +65,14 @@ public class Employee extends Personne implements Serializable  {
 
     public void setAvailable(Boolean available) {
         this.available = available;
+    }
+
+    public Consultation getCurrentConsultation() {
+        return currentConsultation;
+    }
+
+    public void setCurrentConsultation(Consultation currentConsultation) {
+        this.currentConsultation = currentConsultation;
     }
 
     

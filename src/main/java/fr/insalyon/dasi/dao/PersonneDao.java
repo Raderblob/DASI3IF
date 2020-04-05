@@ -6,9 +6,12 @@
 package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.Gender;
+import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -41,6 +44,31 @@ public class PersonneDao {
         
         return client;
    }
-     
+   
+   public List<Employee> GetAvailableEmployees(Gender gender){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Employee> query = em.createQuery("SELECT c FROM Employee c WHERE c.myGender = :gender AND c.available = :isAvailable", Employee.class);
+        query.setParameter("gender", gender);
+        query.setParameter("isAvailable", true);
+        List<Employee> employees = query.getResultList();
+        return employees;
+   }
+   
+   public Employee setAvailable(Employee employee,boolean available){
+       EntityManager em = JpaUtil.obtenirContextePersistance();
+        
+       employee.setAvailable(available);
+        
+       return employee;
+   }
+   
+   public Employee addEmployeeConsultation(Employee employee,Consultation consultation){
+       EntityManager em = JpaUtil.obtenirContextePersistance();
+       employee.setCurrentConsultation(consultation);
+       employee.setAvailable(false);
+       consultation.setAccepted(true);
+       consultation.setStartDate(new Date());
+       return employee;
+   }
    
 }

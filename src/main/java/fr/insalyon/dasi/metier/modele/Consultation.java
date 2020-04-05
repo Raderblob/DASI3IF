@@ -29,6 +29,8 @@ public class Consultation {
     private Integer ConsultationLength;
     @Temporal(TemporalType.DATE)
     private Date date;
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
     private Boolean accepted;
     private Client caller;
     private Employee acceptor;
@@ -93,6 +95,22 @@ public class Consultation {
 
     public void setAcceptor(Employee acceptor) {
         this.acceptor = acceptor;
+    }
+
+    public Medium getMedium() {
+        return medium;
+    }
+
+    public void setMedium(Medium medium) {
+        this.medium = medium;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     @Override

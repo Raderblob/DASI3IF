@@ -38,6 +38,7 @@ public class Main {
         testerAuthenticatePersonne();
         testerAddClientConsultation();
         testerGetClientConsultations();
+        testerconfirmConsultation();
         
         JpaUtil.destroy();
     }
@@ -331,6 +332,44 @@ public class Main {
         }
         
     }
+    
+    
+    public static void testerconfirmConsultation(){
+        System.out.println();
+        System.out.println("**** testerconfirmConsultation() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        String emplEmail;
+        Employee employee;
+        
+        emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        employee = service.confirmConsultation(emplEmail, "It was ok");
+        if(employee !=null){
+            System.out.println(employee.getCurrentConsultation());
+        }else{
+            System.out.println("Could not confirm");
+        }
+        
+        emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        employee = service.confirmConsultation(emplEmail, "It was ok");
+        if(employee !=null){
+            System.out.println(employee.getCurrentConsultation());
+        }else{
+            System.out.println("Could not confirm");
+        }
+        
+        
+        emplEmail = "Not possible email";
+        employee = service.confirmConsultation(emplEmail, "It was ok");
+        if(employee !=null){
+            System.out.println(employee.getCurrentConsultation());
+        }else{
+            System.out.println("Could not confirm");
+        }
+    }
+    
 /*
     public static void testerListeClients() {
         
