@@ -7,6 +7,7 @@ package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
+import fr.insalyon.dasi.metier.modele.Consultation;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -38,6 +39,26 @@ public class MediumDao {
         TypedQuery<Medium> query = em.createQuery("SELECT c FROM "+type+" c ORDER BY c.name", Medium.class);
         List<Medium> mediums = query.getResultList();
         return mediums;
+    }
+    
+    public Medium addConsultation(Long mediumId, Long consultationId){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        
+        Medium medium = em.find(Medium.class, mediumId);
+        Consultation consultation = em.find(Consultation.class, consultationId);
+        
+        medium.getConsultations().add(consultation);
+        
+        return medium;
+    }
+    
+    public List<Consultation> getConsultations(String mediumName){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.medium.name = :name", Consultation.class);
+        query.setParameter("name", mediumName);
+        List<Consultation> consultations = query.getResultList();
+        
+        return consultations;
     }
     
 }

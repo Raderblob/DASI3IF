@@ -178,18 +178,27 @@ public class Service {
                 if(!possibleEmployees.isEmpty()){
                     consultation.setAcceptor(possibleEmployees.get(0));
                     JpaUtil.ouvrirTransaction();
-                    personneDao.addClientConsultation(client, consultation);
-                    personneDao.addEmployeeConsultation(possibleEmployees.get(0), consultation);
+                    consultationDao.createConsultation(consultation);
+                    JpaUtil.validerTransaction();
+                    JpaUtil.ouvrirTransaction();
+                    personneDao.addClientConsultation(client.getId(), consultation.getId());
+                    personneDao.addEmployeeConsultation(possibleEmployees.get(0).getId(), consultation.getId());
+                    mediumDao.addConsultation(medium.getId(), consultation.getId());
                     JpaUtil.validerTransaction();
                 }else{
                     System.out.println("No available employee");
                     JpaUtil.ouvrirTransaction();
-                    personneDao.addClientConsultation(client, consultation);
+                    consultationDao.createConsultation(consultation);
+                    JpaUtil.validerTransaction();
+                    JpaUtil.ouvrirTransaction();
+                    personneDao.addClientConsultation(client.getId(), consultation.getId());
+                    mediumDao.addConsultation(medium.getId(), consultation.getId());
                     JpaUtil.validerTransaction();
                 }
             }
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            JpaUtil.annulerTransaction();
             client = null;
          }finally {
             JpaUtil.fermerContextePersistance();
@@ -209,7 +218,7 @@ public class Service {
                 if(!employee.getAvailable()){
                     JpaUtil.ouvrirTransaction();
                     consultationDao.finishConsultation(employee.getCurrentConsultation(), review);
-                    personneDao.setAvailable(employee, true);
+                    personneDao.setAvailable(employee.getId(), true);
                     JpaUtil.validerTransaction();
                 }else{
                     employee = null;
@@ -217,12 +226,51 @@ public class Service {
             }
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            JpaUtil.annulerTransaction();
             employee = null;
          }finally {
             JpaUtil.fermerContextePersistance();
          }
           
           return employee;
+     }
+     
+     public Personne setPassword(String pEmail, String newPassword){
+         Personne personne = null;
+         JpaUtil.creerContextePersistance();
+         try {
+           personne = rechercherPersonneParMail(pEmail);
+           if(personne != null){
+               JpaUtil.ouvrirTransaction();
+               personneDao.setPassword(personne.getId(), newPassword);
+               JpaUtil.validerTransaction();
+           }
+         }catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            JpaUtil.annulerTransaction();
+            personne = null;
+         }finally {
+            JpaUtil.fermerContextePersistance();
+         }
+          
+          return personne;
+     }
+     
+     public List<Consultation> getMediumConsultations(String mediumName){
+         List<Consultation> consultations = null;
+         
+         JpaUtil.creerContextePersistance();
+         try {
+           consultations = mediumDao.getConsultations(mediumName);
+         }catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            consultations = null;
+         }finally {
+            JpaUtil.fermerContextePersistance();
+         }
+         
+         
+         return consultations;
      }
 
 }

@@ -64,8 +64,13 @@ public class PersonneDao {
         return result;
     }
      
-   public Client addClientConsultation(Client client,Consultation consultation){
+   public Client addClientConsultation(Long clientId,Long consultationId){
         EntityManager em = JpaUtil.obtenirContextePersistance();
+        
+        Client client = em.find(Client.class, clientId);
+        Consultation consultation = em.find(Consultation.class, consultationId);
+        
+        
         
         client.getMyConsultationHistory().add(consultation);
         
@@ -81,21 +86,35 @@ public class PersonneDao {
         return employees;
    }
    
-   public Employee setAvailable(Employee employee,boolean available){
+   public Employee setAvailable(Long employeeId,boolean available){
        EntityManager em = JpaUtil.obtenirContextePersistance();
         
+       Employee employee = em.find(Employee.class, employeeId);
        employee.setAvailable(available);
         
        return employee;
    }
    
-   public Employee addEmployeeConsultation(Employee employee,Consultation consultation){
+   public Employee addEmployeeConsultation(Long employeeId,Long consultationId){
        EntityManager em = JpaUtil.obtenirContextePersistance();
+       
+       Employee employee = em.find(Employee.class, employeeId);
+       Consultation consultation = em.find(Consultation.class, consultationId);
+       
        employee.setCurrentConsultation(consultation);
        employee.setAvailable(false);
        consultation.setAccepted(true);
        consultation.setStartDate(new Date());
        return employee;
+   }
+   
+   public Personne setPassword(Long personneId, String newPassword){
+       EntityManager em = JpaUtil.obtenirContextePersistance();
+       
+       Personne personne = em.find(Personne.class, personneId);
+       personne.setMotDePasse(newPassword);
+       
+       return personne;
    }
    
 }

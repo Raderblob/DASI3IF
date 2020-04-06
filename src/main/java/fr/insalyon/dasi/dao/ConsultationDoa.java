@@ -14,6 +14,12 @@ import javax.persistence.EntityManager;
  * @author Rader
  */
 public class ConsultationDoa {
+    
+    public void createConsultation(Consultation consultation){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        em.persist(consultation);
+    }
+    
     public Consultation finishConsultation(Consultation consultation,String review){
         EntityManager em = JpaUtil.obtenirContextePersistance();
         consultation.setDate(new Date());

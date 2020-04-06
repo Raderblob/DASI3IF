@@ -5,7 +5,10 @@
  */
 package fr.insalyon.dasi.metier.modele.medium;
 
+import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.modele.Gender;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -29,7 +33,10 @@ public class Medium {
     protected String name;
     protected String Presentation;
     protected Gender myGender;
-
+    
+    @OneToMany
+    private List<Consultation> consultations;
+    
     public Medium() {
     }
 
@@ -67,6 +74,14 @@ public class Medium {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
     }
 
     @Override

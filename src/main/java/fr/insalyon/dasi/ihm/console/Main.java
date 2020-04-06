@@ -39,6 +39,7 @@ public class Main {
         testerAddClientConsultation();
         testerGetClientConsultations();
         testerconfirmConsultation();
+        testerGetMediumConsultations();
         
         JpaUtil.destroy();
     }
@@ -344,6 +345,7 @@ public class Main {
         Employee employee;
         
         emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** confirmConsultation #" + emplEmail);
         employee = service.confirmConsultation(emplEmail, "It was ok");
         if(employee !=null){
             System.out.println(employee.getCurrentConsultation());
@@ -352,6 +354,7 @@ public class Main {
         }
         
         emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** confirmConsultation #" + emplEmail);
         employee = service.confirmConsultation(emplEmail, "It was ok");
         if(employee !=null){
             System.out.println(employee.getCurrentConsultation());
@@ -361,6 +364,7 @@ public class Main {
         
         
         emplEmail = "Not possible email";
+        System.out.println("** confirmConsultation #" + emplEmail);
         employee = service.confirmConsultation(emplEmail, "It was ok");
         if(employee !=null){
             System.out.println(employee.getCurrentConsultation());
@@ -369,7 +373,50 @@ public class Main {
         }
     }
     
-    
+    public static void testerGetMediumConsultations(){
+        System.out.println();
+        System.out.println("**** testerGetMediumConsultations() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        List<Consultation> consultations;
+        String mediumName;
+        
+        
+        mediumName = "Alphy";
+        System.out.println("** GetMediumConsultations() #" + mediumName);
+        consultations = service.getMediumConsultations(mediumName);
+        if(consultations != null){
+            for(Consultation x:consultations){
+                System.out.println(x);
+            }
+        }else{
+            System.out.println("No Medium by that name");
+        }
+        
+        mediumName = "SIDMAG";
+        System.out.println("** GetMediumConsultations() #" + mediumName);
+        consultations = service.getMediumConsultations(mediumName);
+        if(consultations != null){
+            for(Consultation x:consultations){
+                System.out.println(x);
+            }
+        }else{
+            System.out.println("No Medium by that name");
+        }
+        
+        mediumName = "noExist";
+        System.out.println("** GetMediumConsultations() #" + mediumName);
+        consultations = service.getMediumConsultations(mediumName);
+        if(consultations != null){
+            for(Consultation x:consultations){
+                System.out.println(x);
+            }
+        }else{
+            System.out.println("No Medium by that name");
+        }
+        
+    }
     
 /*
     public static void testerListeClients() {

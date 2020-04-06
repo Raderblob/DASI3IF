@@ -29,7 +29,7 @@ public class Client extends Personne implements Serializable  {
     @Temporal(TemporalType.DATE)
     private Date birthDate;
     private String postcode;
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     private List<Consultation> myConsultationHistory;
     private String signeZodiac;
     private String signeAstroChonois;
