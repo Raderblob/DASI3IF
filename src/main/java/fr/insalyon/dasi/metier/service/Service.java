@@ -164,7 +164,7 @@ public class Service {
          return result;
      }
      
-     public Consultation addClientConsultation(String clientEmail, Medium medium){
+     public Consultation addClientConsultation(String clientEmail, Medium medium){//Assigns as well
          Client client  = null;
          Consultation consultation = null;
          JpaUtil.creerContextePersistance();
@@ -205,6 +205,25 @@ public class Service {
          }
          
          return consultation;
+     }
+     
+     public Employee assignConsultation(Consultation consultation){ //not finished // DO NOT CALL
+         Employee employee = null;
+         JpaUtil.creerContextePersistance();
+         
+         try {
+            List<Employee> possibleEmployees = personneDao.GetAvailableEmployees(consultation.getMedium().getMyGender());
+            if(!possibleEmployees.isEmpty()){
+                
+            }
+         }catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            JpaUtil.annulerTransaction();
+         }finally {
+            JpaUtil.fermerContextePersistance();
+         }
+         
+         return employee;
      }
      
      public Employee confirmConsultation(String employeeEmail, String review){
