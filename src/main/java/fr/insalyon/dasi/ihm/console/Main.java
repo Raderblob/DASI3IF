@@ -11,6 +11,7 @@ import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import util.AstroTest;
 
 /**
  *
@@ -41,6 +43,7 @@ public class Main {
         testerconfirmConsultation();
         testerGetMediumConsultations();
         testerGetPastEmployeeConsultations();
+        testerGenerationPrediction();
         JpaUtil.destroy();
     }
     
@@ -52,6 +55,30 @@ public class Main {
         System.out.println("-> " + medium);
     }
 
+    public static void testerGenerationPrediction()
+    {
+        System.out.println();
+        System.out.println("**** testerGenerationPrediction() ****");
+        System.out.println();
+        
+        int amour=1;
+        int sante=1;
+        int travail=1;
+        Service service=new Service();
+        
+        
+       List<String> predictions=service.genererPredictions("Caramel","Cheval",amour,sante,travail);
+       //List<String> predictions=service.genererPredictionsRechercheMail("frederic.fotiadu@insa-lyon.fr",amour,sante,travail);
+       if(predictions!=null)
+       {
+           System.out.println("ok");
+           System.out.println(predictions.get(0));
+       }else{
+           System.out.println("pas ok");
+       }
+       
+       
+    }
 
     public static void testerInscriptionTous() {
         

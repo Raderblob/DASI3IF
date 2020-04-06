@@ -12,6 +12,7 @@ import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.AstroTest;
 
 /**
  *
@@ -44,7 +45,7 @@ public class Service {
     
 
     
-     public Long inscrireMedium(Medium medium) {
+    public Long inscrireMedium(Medium medium) {
         Long resultat = null;
         JpaUtil.creerContextePersistance();
         try {
@@ -76,6 +77,8 @@ public class Service {
         }
         return resultat;
     }
+    
+    
             
     public Personne rechercherPersonneParMail(String mail){
         Personne resultat = null;
@@ -92,7 +95,44 @@ public class Service {
         return resultat;
     }
     
-
+    
+    
+    public List<String> genererPredictions(String couleur,String animal,int amour, int sante, int travail){
+        List<String> resultat = null;
+        AstroTest astroTest=new AstroTest();
+        JpaUtil.creerContextePersistance();
+        try {
+            // Recherche du client
+            resultat = astroTest.getPredictions(couleur,animal,amour,sante,travail);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherPersonneParMail(String mail)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+    /*public List<String> genererPredictionsRechercheMail(String mail,int amour, int sante, int travail){
+        List<String> resultat = null;
+        AstroTest astroTest=new AstroTest();
+        JpaUtil.creerContextePersistance();
+        Client subject=(Client) rechercherPersonneParMail(mail);        
+        try {
+            // Recherche du client
+            if(subject!=null)
+            {
+                resultat = astroTest.getPredictions(subject.getCouleurPorteBonheur(),subject.getAnimalTotem(),amour,sante,travail);
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherPersonneParMail(String mail)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }*/
+    
     public Medium rechercherMediumParNom(String nom){
         Medium resultat = null;
         JpaUtil.creerContextePersistance();
