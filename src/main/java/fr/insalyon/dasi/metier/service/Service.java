@@ -67,7 +67,7 @@ public class Service {
         JpaUtil.creerContextePersistance();
         try {
             // Recherche du client
-            resultat = personneDao.chercherParMail(motDePasse);
+            resultat = personneDao.chercherParMotDePasse(motDePasse);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherPersonneParMotDePasse(String motDePasse)", ex);
             resultat = null;
@@ -91,6 +91,7 @@ public class Service {
         }
         return resultat;
     }
+    
 
     public Medium rechercherMediumParNom(String nom){
         Medium resultat = null;

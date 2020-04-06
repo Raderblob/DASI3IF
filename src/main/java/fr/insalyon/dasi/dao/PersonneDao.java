@@ -38,11 +38,25 @@ public class PersonneDao {
         return result;
     }
      
-    public Personne chercherParMotDePasse(String motDePasse) {
+    public Personne chercherParMotDePasse(String personneMotDePasse) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         TypedQuery<Personne> query = em.createQuery("SELECT c FROM Personne c WHERE c.motDePasse = :motDePasse", Personne.class);
-        query.setParameter("motDePasse", motDePasse); // correspond au paramètre ":mail" dans la requête
+        query.setParameter("motDePasse", personneMotDePasse); // correspond au paramètre ":motDePasse" dans la requête
         List<Personne> people = query.getResultList();
+        Personne result = null;
+        if (!people.isEmpty()) {
+            result = people.get(0); // premier de la liste
+        }
+        return result;
+    }
+    
+    public Personne chercherParMotDePasseEtMail(String mail, String motDePasse) {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Personne> query = em.createQuery("SELECT c FROM Personne c WHERE c.motDePasse = :motDePasse AND c.mail = :mail", Personne.class);
+        query.setParameter("motDePasse", motDePasse); // correspond au paramètre ":motDePasse" dans la requête
+        query.setParameter("mail", motDePasse); // correspond au paramètre ":mail" dans la requête
+        List<Personne> people = query.getResultList();
+        System.out.println(mail+motDePasse);
         Personne result = null;
         if (!people.isEmpty()) {
             result = people.get(0); // premier de la liste
