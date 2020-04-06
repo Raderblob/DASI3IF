@@ -101,7 +101,7 @@ public class PersonneDao {
        Employee employee = em.find(Employee.class, employeeId);
        Consultation consultation = em.find(Consultation.class, consultationId);
        
-       employee.setCurrentConsultation(consultation);
+       employee.getConsultations().add(consultation);
        employee.setAvailable(false);
        consultation.setAccepted(true);
        consultation.setStartDate(new Date());

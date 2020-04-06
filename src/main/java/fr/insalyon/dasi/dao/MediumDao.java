@@ -52,13 +52,6 @@ public class MediumDao {
         return medium;
     }
     
-    public List<Consultation> getConsultations(String mediumName){
-        EntityManager em = JpaUtil.obtenirContextePersistance();
-        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.medium.name = :name", Consultation.class);
-        query.setParameter("name", mediumName);
-        List<Consultation> consultations = query.getResultList();
-        
-        return consultations;
-    }
+
     
 }

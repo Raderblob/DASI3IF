@@ -7,7 +7,9 @@ package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,4 +29,26 @@ public class ConsultationDoa {
         consultation.setComment(review);
         return consultation;
     }
+    
+    public List<Consultation> getMediumConsultations(String mediumName){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.medium.name = :name", Consultation.class);
+        query.setParameter("name", mediumName);
+        List<Consultation> consultations = query.getResultList();
+        
+        return consultations;
+    }
+    
+    public List<Consultation> getEmployeePastConsultations(String employeeEmail){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.acceptor.mail = :mail", Consultation.class);
+        query.setParameter("mail", employeeEmail);
+        List<Consultation> consultations = query.getResultList();
+        
+        return consultations;
+    }
+    
+    
 }
+
+

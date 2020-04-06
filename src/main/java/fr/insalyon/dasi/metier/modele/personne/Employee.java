@@ -5,11 +5,13 @@ import fr.insalyon.dasi.metier.modele.Gender;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,8 +28,8 @@ public class Employee extends Personne implements Serializable  {
     private Integer numConsultations;
     private Boolean available;
     
-    @OneToOne
-    private Consultation currentConsultation;
+    @OneToMany
+    private List<Consultation> consultations;
     
     
     public Employee(Gender myGender, Integer numConsultations, Boolean available, String nom, String prenom, String mail, String motDePasse, String telephoneNumber) {
@@ -67,13 +69,15 @@ public class Employee extends Personne implements Serializable  {
         this.available = available;
     }
 
-    public Consultation getCurrentConsultation() {
-        return currentConsultation;
+    public List<Consultation> getConsultations() {
+        return consultations;
     }
 
-    public void setCurrentConsultation(Consultation currentConsultation) {
-        this.currentConsultation = currentConsultation;
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
     }
+
+   
 
     
 

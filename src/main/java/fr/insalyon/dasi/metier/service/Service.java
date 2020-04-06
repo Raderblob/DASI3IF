@@ -217,7 +217,7 @@ public class Service {
                 employee = (Employee)personne;
                 if(!employee.getAvailable()){
                     JpaUtil.ouvrirTransaction();
-                    consultationDao.finishConsultation(employee.getCurrentConsultation(), review);
+                    consultationDao.finishConsultation(employee.getConsultations().get(employee.getConsultations().size()-1), review);
                     personneDao.setAvailable(employee.getId(), true);
                     JpaUtil.validerTransaction();
                 }else{
@@ -225,7 +225,7 @@ public class Service {
                 }
             }
          }catch(Exception ex){
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service confirmConsultation(String employeeEmail, String review)", ex);
             JpaUtil.annulerTransaction();
             employee = null;
          }finally {
@@ -246,7 +246,7 @@ public class Service {
                JpaUtil.validerTransaction();
            }
          }catch(Exception ex){
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service setPassword(String pEmail, String newPassword)", ex);
             JpaUtil.annulerTransaction();
             personne = null;
          }finally {
@@ -261,9 +261,26 @@ public class Service {
          
          JpaUtil.creerContextePersistance();
          try {
-           consultations = mediumDao.getConsultations(mediumName);
+           consultations = consultationDao.getMediumConsultations(mediumName);
          }catch(Exception ex){
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service getMediumConsultations(String mediumName)", ex);
+            consultations = null;
+         }finally {
+            JpaUtil.fermerContextePersistance();
+         }
+         
+         
+         return consultations;
+     }
+     
+    public List<Consultation> getPastEmployeeConsultations(String employeeName){
+         List<Consultation> consultations = null;
+         
+         JpaUtil.creerContextePersistance();
+         try {
+           consultations = consultationDao.getEmployeePastConsultations(employeeName);
+         }catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service getPastEmployeeConsultations(String employeeName)", ex);
             consultations = null;
          }finally {
             JpaUtil.fermerContextePersistance();
