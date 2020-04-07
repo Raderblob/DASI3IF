@@ -102,7 +102,7 @@ public class Service {
         AstroTest astroTest=new AstroTest();
         JpaUtil.creerContextePersistance();
         try {
-            // Recherche du client
+            // on génère la prédiction
             resultat = astroTest.getPredictions(couleur,animal,amour,sante,travail);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherPersonneParMail(String mail)", ex);
@@ -113,16 +113,22 @@ public class Service {
         return resultat;
     }
     
-    /*public List<String> genererPredictionsRechercheMail(String mail,int amour, int sante, int travail){
+    public List<String> genererPredictionsRechercheMail(String mail,int amour, int sante, int travail){
         List<String> resultat = null;
         AstroTest astroTest=new AstroTest();
         JpaUtil.creerContextePersistance();
-        Client subject=(Client) rechercherPersonneParMail(mail);        
+        Personne subject= null;
+        /*if(subject!=null){
+            System.out.println(subject.getNom());
+        }*/
         try {
             // Recherche du client
-            if(subject!=null)
+            subject = personneDao.chercherParMail(mail);
+            //si la recherche aboutit et que la personne est un client alors on crée un prédiction
+            if(subject!=null &&subject instanceof Client)
             {
-                resultat = astroTest.getPredictions(subject.getCouleurPorteBonheur(),subject.getAnimalTotem(),amour,sante,travail);
+                Client test=(Client)subject;
+                resultat = astroTest.getPredictions(test.getCouleurPorteBonheur(),test.getAnimalTotem(),amour,sante,travail);
             }
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherPersonneParMail(String mail)", ex);
@@ -131,7 +137,7 @@ public class Service {
             JpaUtil.fermerContextePersistance();
         }
         return resultat;
-    }*/
+    }
     
     public Medium rechercherMediumParNom(String nom){
         Medium resultat = null;

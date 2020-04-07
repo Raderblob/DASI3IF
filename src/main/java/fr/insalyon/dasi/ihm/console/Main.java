@@ -67,8 +67,8 @@ public class Main {
         Service service=new Service();
         
         
-       List<String> predictions=service.genererPredictions("Caramel","Cheval",amour,sante,travail);
-       //List<String> predictions=service.genererPredictionsRechercheMail("frederic.fotiadu@insa-lyon.fr",amour,sante,travail);
+       //List<String> predictions=service.genererPredictions("Caramel","Cheval",amour,sante,travail);
+       List<String> predictions=service.genererPredictionsRechercheMail("frederic.fotiadu@insa-lyon.fr",amour,sante,travail);
        if(predictions!=null)
        {
            System.out.println("ok");
