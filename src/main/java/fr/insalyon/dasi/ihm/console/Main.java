@@ -83,12 +83,7 @@ public class Main {
         medium = service.rechercherMediumParNom(mediumId);
         consultation = service.addClientConsultation(clientEmail, medium);
 
-        String emplEmail;
-        Employee employee;
-
-        emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
-        System.out.println("** confirmConsultation #" + emplEmail);
-        employee = service.confirmConsultation(emplEmail, "It was ok");
+        
         service.envoyerMessageDemande(consultation);
 
     }
