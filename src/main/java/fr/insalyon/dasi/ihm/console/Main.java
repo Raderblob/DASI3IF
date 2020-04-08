@@ -47,6 +47,7 @@ public class Main {
         testerAssignConsultation();
         testerGetPastEmployeeConsultations();
         testeEnvoiMailInscription();
+        testerGetUnconfirmedEmployeeConsultations();
         JpaUtil.destroy();
     }
     
@@ -484,7 +485,7 @@ public class Main {
                 System.out.println(x);
             }
         }else{
-            System.out.println("No Medium by that name");
+            System.out.println("No Employee by that name");
         }
         
     }
@@ -501,6 +502,27 @@ public class Main {
          
          System.out.println(acceptedConsultations);
     }
+    
+    public static void testerGetUnconfirmedEmployeeConsultations(){
+        System.out.println();
+        System.out.println("**** testerGetUnconfirmedEmployeeConsultations() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+        Consultation consultation;
+        String employeeEmail;
+        
+        employeeEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** testerGetPastEmployeeConsultations() #" + employeeEmail);
+        consultation = service.getUnconfirmedEmployeeConsultations(employeeEmail);
+        if(consultation != null){
+            System.out.println(consultation);
+        }else{
+            System.out.println("No Employee by that name");
+        }
+    }
+    
 /*
     public static void testerListeClients() {
         

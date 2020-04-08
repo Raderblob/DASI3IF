@@ -244,7 +244,7 @@ public class Service {
      }
      
      public Consultation addClientConsultation(String clientEmail, Medium medium){//Assigns as well
-         Client client  = null;
+         Client client ;
          Consultation consultation = null;
          JpaUtil.creerContextePersistance();
          
@@ -278,7 +278,7 @@ public class Service {
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
             JpaUtil.annulerTransaction();
-            client = null;
+            consultation = null;
          }finally {
             JpaUtil.fermerContextePersistance();
          }
@@ -318,7 +318,7 @@ public class Service {
          Employee employee = null;
          JpaUtil.creerContextePersistance();
          try {
-            Personne personne = null;
+            Personne personne;
             personne = personneDao.chercherParMail(employeeEmail);
             if(personne instanceof Employee){
                 employee = (Employee)personne;
@@ -396,6 +396,29 @@ public class Service {
          
          return consultations;
      }
+    
+    public Consultation getUnconfirmedEmployeeConsultations(String employeeName){
+        Consultation consultation = null;
+         
+         JpaUtil.creerContextePersistance();
+         try {
+           List<Consultation> consultations = consultationDao.getEmployeePastConsultations(employeeName);
+           if(!consultations.isEmpty()){
+               consultation = consultations.get(consultations.size()-1);
+               if(consultation.getAcceptor().getAvailable()){
+                   consultation = null;
+               }
+           }
+         }catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service getPastEmployeeConsultations(String employeeName)", ex);
+            consultation = null;
+         }finally {
+            JpaUtil.fermerContextePersistance();
+         }
+         
+         
+         return consultation;
+    }
     
     
 
