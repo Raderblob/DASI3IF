@@ -12,11 +12,22 @@ import java.util.Comparator;
  *
  * @author Rader
  */
-public class SortByDate implements Comparator<Consultation>{
+public class SortByEmployee implements Comparator<Consultation>{
 
     @Override
     public int compare(Consultation o1, Consultation o2) {
-        return o1.getDate().compareTo(o2.getDate());
+        long id1,id2;
+        if(o1.getAcceptor()==null){
+            id1=-1;
+        }else{
+            id1=(o1.getAcceptor().getId());
+        }
+        if(o2.getAcceptor()==null){
+            id2=-1;
+        }else{
+            id2=(o2.getAcceptor().getId());
+        }
+        return (int)(id1-id2);
     }
     
 }
