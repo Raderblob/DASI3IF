@@ -35,26 +35,25 @@ public class Main {
         JpaUtil.init();
 
 
-        testerInscriptionTous();       
-        testerRechercheTous();        
+        testerInscriptionTous();
+        testerRechercheTous();
 
         testerAuthenticatePersonne();
         testerAddClientConsultation();
         testerconfirmConsultation();
         testerGetMediumConsultations();
-        
+
         testerGenerationPrediction();
         testerAssignConsultation();
         testerGetPastEmployeeConsultations();
         testeEnvoiMailInscription();
         testerGetUnconfirmedEmployeeConsultations();
-        
         testerGetListOfMediums();
         testerGetClientConsultations();
-        
+
         JpaUtil.destroy();
     }
-    
+
 
     public static void afficherPersonne(Personne personne) {
         System.out.println("-> " + personne);
@@ -63,37 +62,80 @@ public class Main {
         System.out.println("-> " + medium);
     }
 
+
+    public static void testeEnvoiMessageConfirmationConsultation()
+    {
+        System.out.println();
+        System.out.println("**** testeEnvoiMessageConfirmationConsultation() ****");
+        System.out.println();
+
+        Service service = new Service();
+        String clientEmail;
+        Medium medium;
+        String mediumId;
+        Consultation consultation;
+
+
+        mediumId ="SIDMAG";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        consultation = service.addClientConsultation(clientEmail, medium);
+
+        String emplEmail;
+        Employee employee;
+
+        emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** confirmConsultation #" + emplEmail);
+        employee = service.confirmConsultation(emplEmail, "It was ok");
+        service.envoyerMessageConfirmation(consultation);
+
+        mediumId ="SIDMAG";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        consultation = service.addClientConsultation(clientEmail, medium);
+        consultation.setAccepted(false);
+        emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** confirmConsultation #" + emplEmail);
+        employee = service.confirmConsultation(emplEmail, "It was ok");
+        service.envoyerMessageConfirmation(consultation);
+
+        service.envoyerMessageConfirmation(consultation);
+
+    }
+
     public static void testeEnvoiMailInscription()
     {
         System.out.println();
         System.out.println("**** testeEnvoiMailInscription() ****");
         System.out.println();
-        
+
         Service service = new Service();
         Client claude = new Client("31/10/1998","69105","Lovelace0", "Ada0", "ada0.lovelace0@insa-lyon.fr", "Ada10120","012546050");
         Long idClaude = service.inscrirePersonne(claude);
-        
+
         service.EnvoyerMailInscription(claude);
-        
+
         Client claude2 = new Client("31/11/1998","69102","Lovelace2", "Ada2", "ada.lovelace2@insa-lyon.fr", "Ada10122","012546052");
-        
+
         service.EnvoyerMailInscription(claude2);
 
     }
-    
-    
+
+
     public static void testerGenerationPrediction()
     {
         System.out.println();
         System.out.println("**** testerGenerationPrediction() ****");
         System.out.println();
-        
+
         int amour=1;
         int sante=1;
         int travail=1;
         Service service=new Service();
-        
-        
+
+
        //List<String> predictions=service.genererPredictions("Caramel","Cheval",amour,sante,travail);
        List<String> predictions=service.genererPredictionsRechercheMail("frederic.fotiadu@insa-lyon.fr",amour,sante,travail);
        if(predictions!=null)
@@ -103,16 +145,16 @@ public class Main {
        }else{
            System.out.println("pas ok");
        }
-       
-       
+
+
     }
 
     public static void testerInscriptionTous() {
-        
+
         System.out.println();
         System.out.println("**** testerInscriptionClient() ****");
         System.out.println();
-        
+
         Service service = new Service();
         Client claude = new Client("31/12/1998","69100","Lovelace", "Ada", "ada.lovelace@insa-lyon.fr", "Ada1012","01254605");
         Long idClaude = service.inscrirePersonne(claude);
@@ -140,8 +182,8 @@ public class Main {
             System.out.println("> Échec inscription");
         }
         afficherPersonne(hedwig);
-        
-        
+
+
         Employee e1 = new Employee(Gender.MALE, 0, true,"Employee1", "Employee1Name", "namelessBob.fotiadu@insa-lyon.fr", "e1234567489","852917382645");
         Long ide1 = service.inscrirePersonne(e1);
         if (ide1 != null) {
@@ -150,7 +192,16 @@ public class Main {
             System.out.println("> Échec inscription");
         }
         afficherPersonne(e1);
-        
+
+        Employee e2 = new Employee(Gender.MALE, 0, true,"Employee2", "Employee1Name", "namelessBob2.fotiadu@insa-lyon.fr", "e12345674892","8529173826452");
+        Long ide12 = service.inscrirePersonne(e2);
+        if (ide12 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        afficherPersonne(e2);
+
        Medium m1 = new Astrologue("I was magic school", 42, "HilbertShadow", "Pick me",Gender.FEMALE);
        Long idm1 = service.inscrireMedium(m1);
        if (idm1 != null) {
@@ -159,7 +210,7 @@ public class Main {
             System.out.println("> Échec inscription");
        }
        afficherMedium(m1);
-        
+
        Medium m2 = new Cartomancien( "SIDMAG", "SIGMAGISUS",Gender.MALE);
        Long idm2 = service.inscrireMedium(m2);
        if (idm2 != null) {
@@ -168,7 +219,7 @@ public class Main {
             System.out.println("> Échec inscription");
        }
        afficherMedium(m2);
-       
+
        Medium m3 = new Cartomancien( "Alphy", "AlphyMag",Gender.MALE);
        Long idm3 = service.inscrireMedium(m3);
        if (idm2 != null) {
@@ -180,11 +231,11 @@ public class Main {
     }
 
     public static void testerRechercheTous() {
-        
+
         System.out.println();
         System.out.println("**** testerRechercheClient() ****");
         System.out.println();
-        
+
         Service service = new Service();
         String mail;
         String name;
@@ -199,7 +250,7 @@ public class Main {
         } else {
             System.out.println("=> Client non-trouvé");
         }
-        
+
         mail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** Recherche du Client #" + mail);
         personne = service.rechercherPersonneParMail(mail);
@@ -208,7 +259,7 @@ public class Main {
         } else {
             System.out.println("=> Client non-trouvé");
         }
-        
+
         mail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** Recherche du Employee #" + mail);
         personne = service.rechercherPersonneParMail(mail);
@@ -217,7 +268,7 @@ public class Main {
         } else {
             System.out.println("=> employee non-trouvé");
         }
-        
+
         name = "SIDMAG";
         System.out.println("** Recherche du Medium #" + name);
         medium = service.rechercherMediumParNom(name);
@@ -227,40 +278,40 @@ public class Main {
             System.out.println("=> Medium non-trouvé");
         }
     }
-    
+
     public static void testerGetListOfMediums(){
         System.out.println();
         System.out.println("**** testerGetListOfMediums() ****");
         System.out.println();
-        
+
         Service service = new Service();
-        
+
         String parameters;
-        
+
         List<Medium> testList;
-        
+
         parameters = "Medium";
         System.out.println("** Recherche du Medium #" + parameters);
         testList = service.GetListOfMediums(parameters);
         for (Medium x:testList){
             afficherMedium(x);
         }
-        
-        
+
+
         parameters = "Cartomancien";
         System.out.println("** Recherche du Medium #" + parameters);
         testList = service.GetListOfMediums(parameters);
         for (Medium x:testList){
             afficherMedium(x);
         }
-        
+
         parameters = "Astrologue";
         System.out.println("** Recherche du Medium #" + parameters);
         testList = service.GetListOfMediums(parameters);
         for (Medium x:testList){
             afficherMedium(x);
         }
-        
+
         parameters = "Spirite";
         System.out.println("** Recherche du Medium #" + parameters);
         testList = service.GetListOfMediums(parameters);
@@ -268,18 +319,18 @@ public class Main {
             afficherMedium(x);
         }
     }
-    
+
     public static void testerAuthenticatePersonne(){
         System.out.println();
         System.out.println("**** testerAuthenticatePersonne() ****");
         System.out.println();
-        
+
         Service service = new Service();
         String userMail;
         String password;
         Personne result;
-        
-        
+
+
         userMail = "frederic.fotiadu@insa-lyon.fr";
         password = "wrong";
         System.out.println("** Authenticate with #" + userMail + " Password: " + password);
@@ -289,7 +340,7 @@ public class Main {
         } else {
             System.out.println("=> Credentials false");
         }
-        
+
         userMail = "frederic.fotiadu@insa-lyon.fr";
         password = "INSA-Forever";
         System.out.println("** Authenticate with #" + userMail + " Password: " + password);
@@ -299,8 +350,8 @@ public class Main {
         } else {
             System.out.println("=> Credentials false");
         }
-        
-        
+
+
         userMail = "ada.lovelace@insa-lyon.fr";
         password = "Ada1012";
         System.out.println("** Authenticate with #" + userMail + " Password: " + password);
@@ -310,7 +361,7 @@ public class Main {
         } else {
             System.out.println("=> Credentials false");
         }
-        
+
         userMail = "ada.lovelace@insa-lyon.fr123";
         password = "Ada1012";
         System.out.println("** Authenticate with #" + userMail + " Password: " + password);
@@ -320,19 +371,19 @@ public class Main {
         } else {
             System.out.println("=> Credentials false");
         }
-        
+
     }
-    
+
     public static void testerGetClientConsultations(){
         System.out.println();
         System.out.println("**** testerGetClientConsultations() ****");
         System.out.println();
-        
+
         Service service = new Service();
-        
+
         String email;
         List<Consultation> testList;
-        
+
         email = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Recherche de Consultations sortTypeNone " + email);
         testList = service.getClientConsultations(email,SortType.NONE);
@@ -369,20 +420,20 @@ public class Main {
             }
         }
     }
-    
+
     public static void testerAddClientConsultation(){
         System.out.println();
         System.out.println("**** testerAddClientConsultation() ****");
         System.out.println();
-        
+
         Service service = new Service();
-        
+
         String clientEmail;
         Medium medium;
         String mediumId;
         Consultation consultation;
-        
-        
+
+
         mediumId ="SIDMAG";
         clientEmail = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
@@ -397,7 +448,7 @@ public class Main {
         }else{
             System.out.println("Invalid Medium");
         }
-        
+
         mediumId ="Alphy";
         clientEmail = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
@@ -412,19 +463,19 @@ public class Main {
         }else{
             System.out.println("Invalid Medium");
         }
-        
+
     }
-    
+
     public static void testerconfirmConsultation(){
         System.out.println();
         System.out.println("**** testerconfirmConsultation() ****");
         System.out.println();
-        
+
         Service service = new Service();
-        
+
         String emplEmail;
         Employee employee;
-        
+
         emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** confirmConsultation #" + emplEmail);
         employee = service.confirmConsultation(emplEmail, "It was ok");
@@ -433,7 +484,7 @@ public class Main {
         }else{
             System.out.println("Could not confirm");
         }
-        
+
         emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** confirmConsultation #" + emplEmail);
         employee = service.confirmConsultation(emplEmail, "It was ok");
@@ -442,8 +493,8 @@ public class Main {
         }else{
             System.out.println("Could not confirm");
         }
-        
-        
+
+
         emplEmail = "Not possible email";
         System.out.println("** confirmConsultation #" + emplEmail);
         employee = service.confirmConsultation(emplEmail, "It was ok");
@@ -453,17 +504,17 @@ public class Main {
             System.out.println("Could not confirm");
         }
     }
-    
+
     public static void testerGetMediumConsultations(){
         System.out.println();
         System.out.println("**** testerGetMediumConsultations() ****");
         System.out.println();
-        
+
         Service service = new Service();
         List<Consultation> consultations;
         String mediumName;
-        
-        
+
+
         mediumName = "Alphy";
         System.out.println("** GetMediumConsultations() #" + mediumName);
         consultations = service.getMediumConsultations(mediumName);
@@ -474,7 +525,7 @@ public class Main {
         }else{
             System.out.println("No Medium by that name");
         }
-        
+
         mediumName = "SIDMAG";
         System.out.println("** GetMediumConsultations() #" + mediumName);
         consultations = service.getMediumConsultations(mediumName);
@@ -485,7 +536,7 @@ public class Main {
         }else{
             System.out.println("No Medium by that name");
         }
-        
+
         mediumName = "noExist";
         System.out.println("** GetMediumConsultations() #" + mediumName);
         consultations = service.getMediumConsultations(mediumName);
@@ -496,18 +547,18 @@ public class Main {
         }else{
             System.out.println("No Medium by that name");
         }
-        
+
     }
-    
+
     public static void testerGetPastEmployeeConsultations(){
         System.out.println();
         System.out.println("**** testerGetPastEmployeeConsultations() ****");
         System.out.println();
-        
+
         Service service = new Service();
         List<Consultation> consultations;
         String employeeEmail;
-        
+
         employeeEmail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** testerGetPastEmployeeConsultations() #" + employeeEmail);
         consultations = service.getPastEmployeeConsultations(employeeEmail);
@@ -518,32 +569,31 @@ public class Main {
         }else{
             System.out.println("No Employee by that name");
         }
-        
+
     }
-    
-    
+
     public static void testerAssignConsultation(){
         System.out.println();
         System.out.println("**** testerAssignConsultation() ****");
         System.out.println();
-        
+
         Service service = new Service();
-        
+
          List<Consultation> acceptedConsultations = service.assignConsultations();
-         
+
          System.out.println(acceptedConsultations);
     }
-    
+
     public static void testerGetUnconfirmedEmployeeConsultations(){
         System.out.println();
         System.out.println("**** testerGetUnconfirmedEmployeeConsultations() ****");
         System.out.println();
-        
+
         Service service = new Service();
-        
+
         Consultation consultation;
         String employeeEmail;
-        
+
         employeeEmail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** testerGetPastEmployeeConsultations() #" + employeeEmail);
         consultation = service.getUnconfirmedEmployeeConsultations(employeeEmail);
@@ -553,14 +603,14 @@ public class Main {
             System.out.println("No Employee by that name");
         }
     }
-    
+
 /*
     public static void testerListeClients() {
-        
+
         System.out.println();
         System.out.println("**** testerListeClients() ****");
         System.out.println();
-        
+
         Service service = new Service();
         List<Client> listeClients = service.listerClients();
         System.out.println("*** Liste des Clients");
@@ -575,11 +625,11 @@ public class Main {
     }
 
     public static void testerAuthentificationClient() {
-        
+
         System.out.println();
         System.out.println("**** testerAuthentificationClient() ****");
         System.out.println();
-        
+
         Service service = new Service();
         Client client;
         String mail;
@@ -707,6 +757,6 @@ public class Main {
         System.out.println();
 
     }
-    
+
     */
 }

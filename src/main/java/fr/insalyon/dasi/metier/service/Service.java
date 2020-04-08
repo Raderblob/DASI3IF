@@ -12,6 +12,9 @@ import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +52,34 @@ public class Service {
         return resultat;
     }
     
+    public void envoyerMessageConfirmation(Consultation consultation) {
+        String telephoneDestinataire=null;
+        String texte=null;
+        Message message=new Message();
+        JpaUtil.creerContextePersistance();
+        try {
+            if(consultation.getAccepted()==true)
+            {
+                
+                SimpleDateFormat ftd = new SimpleDateFormat ("yyyy/MM/dd");
+                SimpleDateFormat fth = new SimpleDateFormat ("hh:mm");                
+                telephoneDestinataire=consultation.getCaller().getTelephoneNumber();
+                texte="Bonjour "+consultation.getCaller().getPrenom()+". J’ai bien reçu votre demande de consultation du "+ftd.format(consultation.getStartDate())+" à "+fth.format(consultation.getStartDate())+". Vous pouvez dès à présent me contacter au "+consultation.getAcceptor().getTelephoneNumber()+". A tout de suite ! Médiumiquement vôtre, "+consultation.getMedium().getName()+"";     
+                message.envoyerNotification(telephoneDestinataire,texte);
+            }else{
+                telephoneDestinataire=consultation.getAcceptor().getTelephoneNumber();
+                texte="Attention, il faut confirmer le rdv sur le site avant d'envoyer un message au client";     
+                message.envoyerNotification(telephoneDestinataire,texte);
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrirePersonne(client)", ex);
+            JpaUtil.annulerTransaction();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return ;
+    }
+    
     public void EnvoyerMailInscription(Personne personne)
     {
         Message message=new Message();
@@ -59,8 +90,6 @@ public class Service {
         String corps=null;
         JpaUtil.creerContextePersistance();
         try {
-            JpaUtil.ouvrirTransaction();
-            JpaUtil.validerTransaction();
             resultat = personne.getId();
             if (resultat != null) {
                 object="Bienvenue chez PREDICT’IF";
