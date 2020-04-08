@@ -201,6 +201,15 @@ public class Main {
             System.out.println("> Échec inscription");
         }
         afficherPersonne(e2);
+        
+        Employee e3 = new Employee(Gender.FEMALE, 0, true,"Employee3", "Employee3Name", "namelessBob3.fotiadu@insa-lyon.fr", "e123456748923","85291738264523");
+        Long ide13 = service.inscrirePersonne(e3);
+        if (ide13 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        afficherPersonne(e3);
 
        Medium m1 = new Astrologue("I was magic school", 42, "HilbertShadow", "Pick me",Gender.FEMALE);
        Long idm1 = service.inscrireMedium(m1);
