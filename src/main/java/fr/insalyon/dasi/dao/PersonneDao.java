@@ -11,6 +11,7 @@ import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -26,6 +27,25 @@ public class PersonneDao {
         em.persist(personne);
     }
     
+    /*public int nombreConsultation()
+    {
+        int nbConsultations=0;
+        
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        //TypedQuery<Consultation> query = em.createQuery("Select c.ID Count (c.ID) FROM Consultation c ", Consultation.class);
+        //query.setParameter("mail", personneMail); // correspond au paramètre ":mail" dans la requête
+        TypedQuery<Consultation> query = em.createQuery("SELECT COUNT(c) FROM Consultations c ", Consultation.class );
+        query.getSingleResult().getClass().getCanonicalName();
+        int count = ((Number)arrCount.get[0]).intValue();
+        System.out.println(count);
+        
+    ResultSet rec2=st.executeQuery("SELECT COUNT (*) FROM Consultations");
+    rec2.next();
+    int nb=(int)rec2.getObject[1];
+                
+        return nbConsultations;
+    }*/
+    
      public Personne chercherParMail(String personneMail) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         TypedQuery<Personne> query = em.createQuery("SELECT c FROM Personne c WHERE c.mail = :mail", Personne.class);
@@ -37,7 +57,7 @@ public class PersonneDao {
         }
         return result;
     }
-     
+    
     public Personne chercherParMotDePasse(String personneMotDePasse) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         TypedQuery<Personne> query = em.createQuery("SELECT c FROM Personne c WHERE c.motDePasse = :motDePasse", Personne.class);
