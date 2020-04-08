@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -264,7 +265,8 @@ public class Service {
          try {
             Personne personne = personneDao.chercherParMail(personneMail);
             if(personne instanceof Client){
-                result = ((Client)personne).getMyConsultationHistory();
+                result = new ArrayList();
+                result.addAll(((Client)personne).getMyConsultationHistory());
                 switch(sortType) {
                     case EMPLOYEE:
                         result.sort(new SortByEmployee());
@@ -273,7 +275,9 @@ public class Service {
                         result.sort(new SortByDate());
                         break;
                     case MEDIUM:
-                        result.sort(new SortByMedium());
+                       // result.sort(Collections.reverseOrder());
+                        result.sort( new SortByMedium());
+                        //result.sort(new SortByMedium());
                         break;
                 }
             }
@@ -286,6 +290,8 @@ public class Service {
          
          return result;
      }
+     
+    Comparator<Consultation> comp = (Consultation a, Consultation b) -> -(int)(a.getId() - b.getId());
      
      public Consultation addClientConsultation(String clientEmail, Medium medium){//Assigns as well
          Client client ;

@@ -472,6 +472,21 @@ public class Main {
         }else{
             System.out.println("Invalid Medium");
         }
+        
+        mediumId ="HilbertShadow";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        if (medium != null) {
+            consultation = service.addClientConsultation(clientEmail, medium);
+            if(consultation != null){
+                  System.out.println(consultation);
+            }else{
+                System.out.println("Cannot add consultation");
+            }
+        }else{
+            System.out.println("Invalid Medium");
+        }
 
     }
 

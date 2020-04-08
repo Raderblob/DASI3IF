@@ -16,7 +16,21 @@ public class SortByDate implements Comparator<Consultation>{
 
     @Override
     public int compare(Consultation o1, Consultation o2) {
-        return o1.getDate().compareTo(o2.getDate());
+        long d1,d2;
+        
+        if(o1.getDate()==null){
+            d1=Long.MAX_VALUE;
+        }else{
+            d1 = o1.getDate().getTime();
+        }
+        if(o2.getDate()==null){
+            d2=Long.MAX_VALUE;
+        }else{
+            d2 = o2.getDate().getTime();
+        }
+        
+        
+        return -(int)(d1-d2);
     }
     
 }
