@@ -46,6 +46,7 @@ public class Main {
         testerGenerationPrediction();
         testerAssignConsultation();
         testerGetPastEmployeeConsultations();
+        testeEnvoiMailInscription();
         JpaUtil.destroy();
     }
     
@@ -57,6 +58,27 @@ public class Main {
         System.out.println("-> " + medium);
     }
 
+    public static void testeEnvoiMailInscription()
+    {
+        System.out.println();
+        System.out.println("**** testeEnvoiMailInscription() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        Client claude = new Client("31/10/1998","69105","Lovelace0", "Ada0", "ada0.lovelace0@insa-lyon.fr", "Ada10120","012546050");
+        Long idClaude = service.inscrirePersonne(claude);
+        
+        service.EnvoyerMailInscription(claude);
+        
+        Client claude2 = new Client("31/11/1998","69102","Lovelace2", "Ada2", "ada.lovelace2@insa-lyon.fr", "Ada10122","012546052");
+        
+        service.EnvoyerMailInscription(claude2);
+        
+        
+        
+    }
+    
+    
     public static void testerGenerationPrediction()
     {
         System.out.println();

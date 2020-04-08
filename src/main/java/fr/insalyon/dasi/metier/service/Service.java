@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.AstroTest;
+import util.Message;
 
 /**
  *
@@ -44,7 +45,38 @@ public class Service {
         return resultat;
     }
     
-
+    public void EnvoyerMailInscription(Personne personne)
+    {
+        Message message=new Message();
+        Long resultat = null;
+        String mailExpediteur="contact@predict.if";
+        String mailDestinataire=personne.getMail();
+        String object=null;
+        String corps=null;
+        JpaUtil.creerContextePersistance();
+        try {
+            JpaUtil.ouvrirTransaction();
+            JpaUtil.validerTransaction();
+            resultat = personne.getId();
+            if (resultat != null) {
+                object="Bienvenue chez PREDICT’IF";
+                corps="Bonjour "+personne.getPrenom()+", nous vous confirmons votre inscription au service PREDICT’IF.Rendez-vous  vite  sur  notre  site  pour  consulter  votre profil  astrologique  et  profiter  des  dons incroyables de nos mediums";
+                message.envoyerMail(mailExpediteur,mailDestinataire,object,corps);
+            } else {
+                object="Echec de l’inscription chez PREDICT’I";
+                corps="Bonjour "+personne.getPrenom()+", votre inscription au service PREDICT’IF a malencontreusement échoué... Merci de recommencer ultérieurement.";
+                message.envoyerMail(mailExpediteur,mailDestinataire,object,corps);
+            }
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrirePersonne(client)", ex);
+            JpaUtil.annulerTransaction();
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }  
+        
+        return ;
+    }
     
     public Long inscrireMedium(Medium medium) {
         Long resultat = null;
