@@ -49,6 +49,9 @@ public class Service {
         return resultat;
     }
     
+    
+    
+    
     public void envoyerMessageConfirmation(Consultation consultation) {
         String telephoneDestinataire=null;
         String texte=null;
