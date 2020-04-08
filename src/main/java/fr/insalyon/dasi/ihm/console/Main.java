@@ -47,6 +47,7 @@ public class Main {
         testerAssignConsultation();
         testerGetPastEmployeeConsultations();
         testeEnvoiMailInscription();
+        testeEnvoiMessageConfirmationConsultation();
         JpaUtil.destroy();
     }
     
@@ -58,6 +59,49 @@ public class Main {
         System.out.println("-> " + medium);
     }
 
+    
+    public static void testeEnvoiMessageConfirmationConsultation()
+    {
+        System.out.println();
+        System.out.println("**** testeEnvoiMessageConfirmationConsultation() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        String clientEmail;
+        Medium medium;
+        String mediumId;
+        Consultation consultation;
+        
+        
+        mediumId ="SIDMAG";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        consultation = service.addClientConsultation(clientEmail, medium);
+        
+        String emplEmail;
+        Employee employee;
+        
+        emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** confirmConsultation #" + emplEmail);
+        employee = service.confirmConsultation(emplEmail, "It was ok");
+        service.envoyerMessageConfirmation(consultation);
+        
+        mediumId ="SIDMAG";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        consultation = service.addClientConsultation(clientEmail, medium);
+        consultation.setAccepted(false);
+        emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** confirmConsultation #" + emplEmail);
+        employee = service.confirmConsultation(emplEmail, "It was ok");
+        service.envoyerMessageConfirmation(consultation);
+        
+        service.envoyerMessageConfirmation(consultation);
+
+    }
+    
     public static void testeEnvoiMailInscription()
     {
         System.out.println();
@@ -145,6 +189,15 @@ public class Main {
             System.out.println("> Échec inscription");
         }
         afficherPersonne(e1);
+        
+        Employee e2 = new Employee(Gender.MALE, 0, true,"Employee2", "Employee1Name", "namelessBob2.fotiadu@insa-lyon.fr", "e12345674892","8529173826452");
+        Long ide12 = service.inscrirePersonne(e2);
+        if (ide12 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        afficherPersonne(e2);
         
        Medium m1 = new Astrologue("I was magic school", 42, "HilbertShadow", "Pick me",Gender.FEMALE);
        Long idm1 = service.inscrireMedium(m1);
@@ -488,7 +541,6 @@ public class Main {
         }
         
     }
-    
     
     public static void testerAssignConsultation(){
         System.out.println();
