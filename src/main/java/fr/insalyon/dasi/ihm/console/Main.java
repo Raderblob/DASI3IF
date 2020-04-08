@@ -73,9 +73,7 @@ public class Main {
         Client claude2 = new Client("31/11/1998","69102","Lovelace2", "Ada2", "ada.lovelace2@insa-lyon.fr", "Ada10122","012546052");
         
         service.EnvoyerMailInscription(claude2);
-        
-        
-        
+
     }
     
     
