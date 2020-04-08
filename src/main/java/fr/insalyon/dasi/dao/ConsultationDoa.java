@@ -6,6 +6,8 @@
 package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.Gender;
+import fr.insalyon.dasi.metier.modele.personne.Employee;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -48,6 +50,21 @@ public class ConsultationDoa {
         return consultations;
     }
     
+    public Consultation setAcceptor(Long consultationId,Long employeeId){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        Consultation consultation = em.find(Consultation.class, consultationId);
+        Employee employee = em.find(Employee.class, employeeId);
+        consultation.setAcceptor(employee);
+        
+        return consultation;
+    }
+      public List<Consultation> getUnacceptedConsultations(){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.accepted = :false", Consultation.class);
+        query.setParameter("false", false);
+        List<Consultation> consultations = query.getResultList();
+        return consultations;
+   }
     
 }
 

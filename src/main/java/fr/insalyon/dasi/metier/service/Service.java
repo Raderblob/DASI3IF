@@ -9,6 +9,7 @@ import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -253,15 +254,24 @@ public class Service {
          return consultation;
      }
      
-     public Employee assignConsultation(Consultation consultation){ //not finished // DO NOT CALL
-         Employee employee = null;
+     public List<Consultation> assignConsultations(){ //not finished // DO NOT CALL
+         List<Consultation> acceptedConsultations = new ArrayList();
          JpaUtil.creerContextePersistance();
          
          try {
-            List<Employee> possibleEmployees = personneDao.GetAvailableEmployees(consultation.getMedium().getMyGender());
-            if(!possibleEmployees.isEmpty()){
-                
-            }
+             List<Consultation> unacceptedConsultations = consultationDao.getUnacceptedConsultations();
+             for(Consultation consultation:unacceptedConsultations){
+                List<Employee> possibleEmployees = personneDao.GetAvailableEmployees(consultation.getMedium().getMyGender());
+                if(!possibleEmployees.isEmpty()){
+                    JpaUtil.ouvrirTransaction();
+                    consultationDao.setAcceptor(consultation.getId(), possibleEmployees.get(0).getId());
+                    personneDao.addEmployeeConsultation(possibleEmployees.get(0).getId(), consultation.getId());
+                    JpaUtil.validerTransaction();
+                    acceptedConsultations.add(consultation);
+                }
+             }
+             
+
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
             JpaUtil.annulerTransaction();
@@ -269,7 +279,7 @@ public class Service {
             JpaUtil.fermerContextePersistance();
          }
          
-         return employee;
+         return acceptedConsultations;
      }
      
      public Employee confirmConsultation(String employeeEmail, String review){
@@ -354,5 +364,7 @@ public class Service {
          
          return consultations;
      }
+    
+    
 
 }

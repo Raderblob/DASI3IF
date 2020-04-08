@@ -42,8 +42,10 @@ public class Main {
         testerGetClientConsultations();
         testerconfirmConsultation();
         testerGetMediumConsultations();
-        testerGetPastEmployeeConsultations();
+        
         testerGenerationPrediction();
+        testerAssignConsultation();
+        testerGetPastEmployeeConsultations();
         JpaUtil.destroy();
     }
     
@@ -467,6 +469,18 @@ public class Main {
         
     }
     
+    
+    public static void testerAssignConsultation(){
+        System.out.println();
+        System.out.println("**** testerAssignConsultation() ****");
+        System.out.println();
+        
+        Service service = new Service();
+        
+         List<Consultation> acceptedConsultations = service.assignConsultations();
+         
+         System.out.println(acceptedConsultations);
+    }
 /*
     public static void testerListeClients() {
         
