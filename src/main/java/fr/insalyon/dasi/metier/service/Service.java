@@ -10,6 +10,7 @@ import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -193,6 +194,7 @@ public class Service {
         try {
             // Recherche du client
             resultat = mediumDao.GetListOfMediums(type);
+            Collections.sort(resultat);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service GetListOfMediums(String type)", ex);
             resultat = null;
@@ -223,7 +225,7 @@ public class Service {
          
      }
       
-     public List<Consultation> getClientConsultations(String personneMail){
+     public List<Consultation> getClientConsultations(String personneMail,SortType sortType){
          Personne personne = null;
          List<Consultation> result = null;
          JpaUtil.creerContextePersistance();

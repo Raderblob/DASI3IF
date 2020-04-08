@@ -8,6 +8,7 @@ package fr.insalyon.dasi.metier.modele.medium;
 import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.modele.Gender;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +27,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Medium implements Serializable {
+public class Medium implements Serializable, Comparable< Medium > {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
@@ -47,6 +48,7 @@ public class Medium implements Serializable {
         this.name = name;
         this.Presentation = Presentation;
         this.myGender = myGender;
+        consultations = new ArrayList();
     }
 
     public String getName() {
@@ -87,9 +89,12 @@ public class Medium implements Serializable {
 
     @Override
     public String toString() {
-        return "Medium{" + "id=" + id + ", name=" + name + ", Presentation=" + Presentation + ", myGender=" + myGender + '}';
+        return "Medium{" + "id=" + id + ", name=" + name + ", Presentation=" + Presentation + ", myGender=" + myGender + '}' + " numConsult=" + consultations.size() + ' ' ;
     }
     
-    
+    @Override
+    public int compareTo(Medium o) {
+        return -this.getConsultations().size()+o.getConsultations().size();
+    }
     
 }

@@ -10,6 +10,7 @@ import fr.insalyon.dasi.metier.modele.medium.Cartomancien;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
+import fr.insalyon.dasi.metier.service.SortType;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,10 +37,9 @@ public class Main {
 
         testerInscriptionTous();       
         testerRechercheTous();        
-        testerGetListOfMediums();
+
         testerAuthenticatePersonne();
         testerAddClientConsultation();
-        testerGetClientConsultations();
         testerconfirmConsultation();
         testerGetMediumConsultations();
         
@@ -48,6 +48,10 @@ public class Main {
         testerGetPastEmployeeConsultations();
         testeEnvoiMailInscription();
         testerGetUnconfirmedEmployeeConsultations();
+        
+        testerGetListOfMediums();
+        testerGetClientConsultations();
+        
         JpaUtil.destroy();
     }
     
@@ -331,7 +335,7 @@ public class Main {
         
         email = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Recherche de Consultations #" + email);
-        testList = service.getClientConsultations(email);
+        testList = service.getClientConsultations(email,SortType.NONE);
         if(testList != null){
             for (Consultation x:testList){
                 System.out.println(x);
