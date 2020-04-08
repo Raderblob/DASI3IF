@@ -53,6 +53,26 @@ public class Service {
         return resultat;
     }
     
+    
+    public void envoyerMessageDemande(Consultation consultation) {
+        String telephoneDestinataire=null;
+        String texte=null;
+        Message message=new Message();
+        JpaUtil.creerContextePersistance();
+        try {           
+                telephoneDestinataire=consultation.getAcceptor().getTelephoneNumber();
+                texte="Bonjour "+consultation.getAcceptor().getPrenom()+". Consultation requise pour "+ consultation.getCaller().getPrenom() +" "+consultation.getCaller().getNom()+". Médium à incarner : "+consultation.getMedium().getName()+"";     
+                message.envoyerNotification(telephoneDestinataire,texte);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrirePersonne(client)", ex);
+            JpaUtil.annulerTransaction();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return ;
+    }
+    
+    
     public void envoyerMessageConfirmation(Consultation consultation) {
         String telephoneDestinataire=null;
         String texte=null;
