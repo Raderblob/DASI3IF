@@ -50,7 +50,8 @@ public class Main {
         testerGetUnconfirmedEmployeeConsultations();
         testerGetListOfMediums();
         testerGetClientConsultations();
-
+        testeEnvoiMessageDemandeConsultation();
+        
         JpaUtil.destroy();
     }
 
@@ -62,6 +63,36 @@ public class Main {
         System.out.println("-> " + medium);
     }
 
+    
+    public static void testeEnvoiMessageDemandeConsultation()
+    {
+        System.out.println();
+        System.out.println("**** testeEnvoiMessageDemandeConsultation() ****");
+        System.out.println();
+
+        Service service = new Service();
+        String clientEmail;
+        Medium medium;
+        String mediumId;
+        Consultation consultation;
+
+
+        mediumId ="SIDMAG";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        consultation = service.addClientConsultation(clientEmail, medium);
+
+        String emplEmail;
+        Employee employee;
+
+        emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
+        System.out.println("** confirmConsultation #" + emplEmail);
+        employee = service.confirmConsultation(emplEmail, "It was ok");
+        service.envoyerMessageDemande(consultation);
+
+    }
+    
 
     public static void testeEnvoiMessageConfirmationConsultation()
     {
