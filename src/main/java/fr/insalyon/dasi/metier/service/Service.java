@@ -5,6 +5,9 @@ import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.dao.MediumDao;
 import fr.insalyon.dasi.dao.PersonneDao;
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.consultationSorting.SortByDate;
+import fr.insalyon.dasi.metier.modele.consultationSorting.SortByEmployee;
+import fr.insalyon.dasi.metier.modele.consultationSorting.SortByMedium;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
@@ -226,14 +229,24 @@ public class Service {
      }
       
      public List<Consultation> getClientConsultations(String personneMail,SortType sortType){
-         Personne personne = null;
          List<Consultation> result = null;
          JpaUtil.creerContextePersistance();
          
          try {
-            personne = personneDao.chercherParMail(personneMail);
+            Personne personne = personneDao.chercherParMail(personneMail);
             if(personne instanceof Client){
                 result = ((Client)personne).getMyConsultationHistory();
+                switch(sortType) {
+                    case EMPLOYEE:
+                        result.sort(new SortByEmployee());
+                        break;
+                    case DATE:
+                        result.sort(new SortByDate());
+                        break;
+                    case MEDIUM:
+                        result.sort(new SortByMedium());
+                        break;
+                }
             }
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service authenticatePersonne(String personneMail, String personneMdp)", ex);

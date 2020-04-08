@@ -334,8 +334,35 @@ public class Main {
         List<Consultation> testList;
         
         email = "ada.lovelace@insa-lyon.fr";
-        System.out.println("** Recherche de Consultations #" + email);
+        System.out.println("** Recherche de Consultations sortTypeNone " + email);
         testList = service.getClientConsultations(email,SortType.NONE);
+        if(testList != null){
+            for (Consultation x:testList){
+                System.out.println(x);
+            }
+        }
+        
+        email = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Recherche de Consultations sortTypeMedium " + email);
+        testList = service.getClientConsultations(email,SortType.MEDIUM);
+        if(testList != null){
+            for (Consultation x:testList){
+                System.out.println(x);
+            }
+        }
+        
+        email = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Recherche de Consultations sortTypeEmployee " + email);
+        testList = service.getClientConsultations(email,SortType.EMPLOYEE);
+        if(testList != null){
+            for (Consultation x:testList){
+                System.out.println(x);
+            }
+        }
+        
+        email = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Recherche de Consultations sortTypeDate " + email);
+        testList = service.getClientConsultations(email,SortType.DATE);
         if(testList != null){
             for (Consultation x:testList){
                 System.out.println(x);
