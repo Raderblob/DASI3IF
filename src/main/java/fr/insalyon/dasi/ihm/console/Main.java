@@ -46,11 +46,11 @@ public class Main {
         testerGenerationPrediction();
         testerAssignConsultation();
         testerGetPastEmployeeConsultations();
-        testeEnvoiMailInscription();
+        //testeEnvoiMailInscription();
         testerGetUnconfirmedEmployeeConsultations();
         testerGetListOfMediums();
         testerGetClientConsultations();
-        testeEnvoiMessageDemandeConsultation();
+       // testeEnvoiMessageDemandeConsultation();
         
         JpaUtil.destroy();
     }
@@ -645,12 +645,12 @@ public class Main {
         String employeeEmail;
 
         employeeEmail = "namelessBob.fotiadu@insa-lyon.fr";
-        System.out.println("** testerGetPastEmployeeConsultations() #" + employeeEmail);
+        System.out.println("** testerGetUnconfirmedEmployeeConsultations() #" + employeeEmail);
         consultation = service.getUnconfirmedEmployeeConsultations(employeeEmail);
         if(consultation != null){
             System.out.println(consultation);
         }else{
-            System.out.println("No Employee by that name");
+            System.out.println("No ConsultationInProgress");
         }
     }
 
