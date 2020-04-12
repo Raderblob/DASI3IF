@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -27,24 +28,28 @@ public class PersonneDao {
         em.persist(personne);
     }
     
-    /*public int nombreConsultation()
+    public long nombreConsultation()
     {
-        int nbConsultations=0;
+        long nbConsultations=0;
         
         EntityManager em = JpaUtil.obtenirContextePersistance();
-        //TypedQuery<Consultation> query = em.createQuery("Select c.ID Count (c.ID) FROM Consultation c ", Consultation.class);
+        //TypedQuery<Consultation> query = em.createQuery("Select count (c.ID) FROM Consultation c ", Consultation.class);
         //query.setParameter("mail", personneMail); // correspond au paramètre ":mail" dans la requête
-        TypedQuery<Consultation> query = em.createQuery("SELECT COUNT(c) FROM Consultations c ", Consultation.class );
-        query.getSingleResult().getClass().getCanonicalName();
-        int count = ((Number)arrCount.get[0]).intValue();
-        System.out.println(count);
+        //TypedQuery<Consultation> query = em.createQuery("SELECT COUNT(c) FROM Consultations c ", Consultation.class );
+        //query.getSingleResult().getClass().getCanonicalName();
+        //int count = ((Number)arrCount.get[0]).intValue();
+        //System.out.println(count);
         
-    ResultSet rec2=st.executeQuery("SELECT COUNT (*) FROM Consultations");
-    rec2.next();
-    int nb=(int)rec2.getObject[1];
+    //ResultSet rec2=st.executeQuery("SELECT COUNT (*) FROM Consultations");
+    //rec2.next();
+    //int nb=(int)rec2.getObject[1];
+        //Query query = em.createQuery("SELECT count(*) FROM Consultation");
+        //long count = (long) query.getSingleResult();
+        //nbConsultations=count;
+        //System.out.println("coucou"+count);
                 
         return nbConsultations;
-    }*/
+    }
     
      public Personne chercherParMail(String personneMail) {
         EntityManager em = JpaUtil.obtenirContextePersistance();

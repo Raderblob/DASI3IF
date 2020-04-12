@@ -51,7 +51,8 @@ public class Main {
         testerGetListOfMediums();
         testerGetClientConsultations();
        // testeEnvoiMessageDemandeConsultation();
-        
+       testCountConsultation(); 
+       
         JpaUtil.destroy();
     }
 
@@ -63,6 +64,18 @@ public class Main {
         System.out.println("-> " + medium);
     }
 
+    public static void testCountConsultation()
+    {
+        System.out.println();
+        System.out.println("**** testCountConsultation() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        service.compterConsultations();
+        
+        return;
+    }
     
     public static void testeEnvoiMessageDemandeConsultation()
     {

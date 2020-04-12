@@ -53,6 +53,24 @@ public class Service {
         return resultat;
     }
     
+    public void compterConsultations(){
+    
+        long count=0;
+                
+        JpaUtil.creerContextePersistance();
+        try {
+            JpaUtil.ouvrirTransaction();
+            count=personneDao.nombreConsultation();
+            System.out.println("Il y a eu "+count+" consultation(s)");
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrireMedium(client)", ex);
+            JpaUtil.annulerTransaction();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        
+        return;
+    }
     
     public void envoyerMessageDemande(Consultation consultation) {
         String telephoneDestinataire=null;
@@ -64,7 +82,7 @@ public class Service {
                 texte="Bonjour "+consultation.getAcceptor().getPrenom()+". Consultation requise pour "+ consultation.getCaller().getPrenom() +" "+consultation.getCaller().getNom()+". Médium à incarner : "+consultation.getMedium().getName()+"";     
                 message.envoyerNotification(telephoneDestinataire,texte);
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrirePersonne(client)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service envoyerMessageDemande(Consultation consultation)", ex);
             JpaUtil.annulerTransaction();
         } finally {
             JpaUtil.fermerContextePersistance();
@@ -93,7 +111,7 @@ public class Service {
                 message.envoyerNotification(telephoneDestinataire,texte);
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrirePersonne(client)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service envoyerMessageConfirmation(Consultation consultation)", ex);
             JpaUtil.annulerTransaction();
         } finally {
             JpaUtil.fermerContextePersistance();
@@ -122,7 +140,7 @@ public class Service {
                 message.envoyerMail(mailExpediteur,mailDestinataire,object,corps);
             }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrirePersonne(client)", ex);
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service EnvoyerMailInscription(Personne personne)", ex);
             JpaUtil.annulerTransaction();
             resultat = null;
         } finally {
