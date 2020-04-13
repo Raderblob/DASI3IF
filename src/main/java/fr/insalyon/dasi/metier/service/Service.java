@@ -61,7 +61,7 @@ public class Service {
         JpaUtil.creerContextePersistance();
         try {
             JpaUtil.ouvrirTransaction();
-            count=personneDao.nombreConsultation();
+            count=personneDao.getNombresConsultations();
             System.out.println("Il y a eu "+count+" consultation(s)");
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrireMedium(client)", ex);

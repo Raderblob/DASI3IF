@@ -35,9 +35,9 @@ public class Main {
         // Contrôlez l'affichage du log de JpaUtil grâce à la méthode log de la classe JpaUtil
         JpaUtil.init();
 
-        //doUnitTests();
+        
         doTestCases();
-       
+       doUnitTests();
        
         JpaUtil.destroy();
     }
