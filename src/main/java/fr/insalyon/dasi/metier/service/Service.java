@@ -277,7 +277,37 @@ public class Service {
     
     }
     
-      public Personne authenticatePersonne(String personneMail, String personneMdp){
+    public List<Client> getListClients(){
+        List<Client> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            // Recherche du client
+            resultat = personneDao.getClientList();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service GetListOfMediums(String type)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+        public List<Employee> getListEmployees(){
+        List<Employee> resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            // Recherche du client
+            resultat = personneDao.getEmployeeList();
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service GetListOfMediums(String type)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+    }
+    
+     public Personne authenticatePersonne(String personneMail, String personneMdp){
          Personne result = null;
          JpaUtil.creerContextePersistance();
          

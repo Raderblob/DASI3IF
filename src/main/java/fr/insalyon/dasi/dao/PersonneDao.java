@@ -63,18 +63,22 @@ public class PersonneDao {
         }
         return result;
     }
+     
     
-    public Personne chercherParMotDePasse(String personneMotDePasse) {
+    public List<Client> getClientList() {
         EntityManager em = JpaUtil.obtenirContextePersistance();
-        TypedQuery<Personne> query = em.createQuery("SELECT c FROM Personne c WHERE c.motDePasse = :motDePasse", Personne.class);
-        query.setParameter("motDePasse", personneMotDePasse); // correspond au paramètre ":motDePasse" dans la requête
-        List<Personne> people = query.getResultList();
-        Personne result = null;
-        if (!people.isEmpty()) {
-            result = people.get(0); // premier de la liste
-        }
-        return result;
+        TypedQuery<Client> query = em.createQuery("SELECT c FROM Client c ", Client.class);
+        List<Client> people = query.getResultList();
+        return people;
     }
+    
+    public List<Employee> getEmployeeList() {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Employee> query = em.createQuery("SELECT c FROM Employee c ", Employee.class);
+        List<Employee> people = query.getResultList();
+        return people;
+    }
+    
     
     public Personne chercherParMotDePasseEtMail(String mail, String motDePasse) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
@@ -83,6 +87,18 @@ public class PersonneDao {
         query.setParameter("mail", motDePasse); // correspond au paramètre ":mail" dans la requête
         List<Personne> people = query.getResultList();
         System.out.println(mail+motDePasse);
+        Personne result = null;
+        if (!people.isEmpty()) {
+            result = people.get(0); // premier de la liste
+        }
+        return result;
+    }
+    public Personne chercherParMotDePasse(String motDePasse) {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Personne> query = em.createQuery("SELECT c FROM Personne c WHERE c.motDePasse = :motDePasse", Personne.class);
+        query.setParameter("motDePasse", motDePasse); // correspond au paramètre ":motDePasse" dans la requête
+        List<Personne> people = query.getResultList();
+        System.out.println(motDePasse);
         Personne result = null;
         if (!people.isEmpty()) {
             result = people.get(0); // premier de la liste
