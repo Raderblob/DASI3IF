@@ -6,6 +6,7 @@
 package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.ConsultationState;
 import fr.insalyon.dasi.metier.modele.Gender;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
@@ -128,8 +129,8 @@ public class PersonneDao {
        
        employee.getConsultations().add(consultation);
        employee.setAvailable(false);
-       consultation.setAccepted(true);
-       consultation.setStartDate(new Date());
+       consultation.setState(ConsultationState.ASSIGNED);
+       //consultation.setStartDate(new Date());
        return employee;
    }
    

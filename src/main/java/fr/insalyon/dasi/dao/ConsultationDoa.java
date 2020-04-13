@@ -6,6 +6,7 @@
 package fr.insalyon.dasi.dao;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.ConsultationState;
 import fr.insalyon.dasi.metier.modele.Gender;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import java.util.Date;
@@ -29,6 +30,7 @@ public class ConsultationDoa {
         consultation.setDate(new Date());
         consultation.setConsultationLength((int)(consultation.getDate().getTime() - consultation.getStartDate().getTime()));
         consultation.setComment(review);
+        consultation.setState(ConsultationState.CONFIRMED);
         return consultation;
     }
     
@@ -58,13 +60,23 @@ public class ConsultationDoa {
         
         return consultation;
     }
+    
+    
       public List<Consultation> getUnacceptedConsultations(){
         EntityManager em = JpaUtil.obtenirContextePersistance();
-        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.accepted = :false", Consultation.class);
-        query.setParameter("false", false);
+        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.state = :unassigned", Consultation.class);
+        query.setParameter("unassigned", ConsultationState.NOTASSIGNED);
         List<Consultation> consultations = query.getResultList();
         return consultations;
    }
+      
+    public Consultation accept(Long consultationId){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        Consultation consultation = em.find(Consultation.class, consultationId);;
+        consultation.setState(ConsultationState.ACCEPTED);
+        consultation.setStartDate(new Date());
+        return consultation;
+    }
     
 }
 

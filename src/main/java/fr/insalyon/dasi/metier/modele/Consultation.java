@@ -33,7 +33,7 @@ public class Consultation {
     private Date date;
     @Temporal(TemporalType.DATE)
     private Date startDate;
-    private Boolean accepted;
+    private ConsultationState state;
     
     private Client caller;
     
@@ -45,7 +45,7 @@ public class Consultation {
     }
     
     public Consultation( Client caller, Medium medium) {
-        this.accepted = false;
+        this.state = ConsultationState.NOTASSIGNED;
         this.caller = caller;
         this.medium =  medium;
     }
@@ -66,9 +66,7 @@ public class Consultation {
         return date;
     }
 
-    public Boolean getAccepted() {
-        return accepted;
-    }
+   
 
     public Client getCaller() {
         return caller;
@@ -90,9 +88,15 @@ public class Consultation {
         this.date = date;
     }
 
-    public void setAccepted(Boolean accepted) {
-        this.accepted = accepted;
+    public ConsultationState getState() {
+        return state;
     }
+
+    public void setState(ConsultationState state) {
+        this.state = state;
+    }
+
+ 
 
     public void setCaller(Client caller) {
         this.caller = caller;
@@ -120,7 +124,7 @@ public class Consultation {
 
     @Override
     public String toString() {
-        return "Consultation{" + "id=" + id + ", comment=" + comment + ", ConsultationLength=" + ConsultationLength + ", date=" + date + ", accepted=" + accepted + ", caller=" + caller + ", acceptor=" + acceptor + ", medium=" + medium + '}';
+        return "Consultation{" + "id=" + id + ", comment=" + comment + ", ConsultationLength=" + ConsultationLength + ", date=" + date + ", accepted=" + state + ", caller=" + caller + ", acceptor=" + acceptor + ", medium=" + medium + '}';
     }
       
     

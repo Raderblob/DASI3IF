@@ -5,6 +5,7 @@ import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.dao.MediumDao;
 import fr.insalyon.dasi.dao.PersonneDao;
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.ConsultationState;
 import fr.insalyon.dasi.metier.modele.consultationSorting.SortByDate;
 import fr.insalyon.dasi.metier.modele.consultationSorting.SortByEmployee;
 import fr.insalyon.dasi.metier.modele.consultationSorting.SortByMedium;
@@ -97,7 +98,7 @@ public class Service {
         Message message=new Message();
         JpaUtil.creerContextePersistance();
         try {
-            if(consultation.getAccepted()==true)
+            if(consultation.getState()== ConsultationState.ACCEPTED)
             {
                 
                 SimpleDateFormat ftd = new SimpleDateFormat ("yyyy/MM/dd");
@@ -410,10 +411,39 @@ public class Service {
             personne = personneDao.chercherParMail(employeeEmail);
             if(personne instanceof Employee){
                 employee = (Employee)personne;
-                if(!employee.getAvailable()){
+                Consultation consultation = employee.getConsultations().get(employee.getConsultations().size()-1);
+                if(!employee.getAvailable() && consultation.getState() == ConsultationState.ACCEPTED){
                     JpaUtil.ouvrirTransaction();
-                    consultationDao.finishConsultation(employee.getConsultations().get(employee.getConsultations().size()-1), review);
+                    consultationDao.finishConsultation(consultation, review);
                     personneDao.setAvailable(employee.getId(), true);
+                    JpaUtil.validerTransaction();
+                }else{
+                    employee = null;
+                }
+            }
+         }catch(Exception ex){
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service confirmConsultation(String employeeEmail, String review)", ex);
+            JpaUtil.annulerTransaction();
+            employee = null;
+         }finally {
+            JpaUtil.fermerContextePersistance();
+         }
+          
+          return employee;
+     }
+     
+    public Employee acceptConsultation(String employeeEmail){
+         Employee employee = null;
+         JpaUtil.creerContextePersistance();
+         try {
+            Personne personne;
+            personne = personneDao.chercherParMail(employeeEmail);
+            if(personne instanceof Employee){
+                employee = (Employee)personne;
+                Consultation consultation = employee.getConsultations().get(employee.getConsultations().size()-1);
+                if(!employee.getAvailable() && consultation.getState() == ConsultationState.ASSIGNED){
+                    JpaUtil.ouvrirTransaction();
+                    consultationDao.accept(consultation.getId());
                     JpaUtil.validerTransaction();
                 }else{
                     employee = null;

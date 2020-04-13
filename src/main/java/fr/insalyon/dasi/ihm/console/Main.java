@@ -2,6 +2,7 @@ package fr.insalyon.dasi.ihm.console;
 
 import fr.insalyon.dasi.dao.JpaUtil;
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.ConsultationState;
 import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import fr.insalyon.dasi.metier.modele.Gender;
@@ -34,8 +35,40 @@ public class Main {
         // Contrôlez l'affichage du log de JpaUtil grâce à la méthode log de la classe JpaUtil
         JpaUtil.init();
 
+        //doUnitTests();
+        doTestCases();
+       
+       
+        JpaUtil.destroy();
+    }
 
-        testerInscriptionTous();
+
+    public static void afficherPersonne(Personne personne) {
+        System.out.println("-> " + personne);
+    }
+    public static void afficherMedium(Medium medium) {
+        System.out.println("-> " + medium);
+    }
+    
+    
+    public static void doTestCases(){
+        createEmployees();
+        createMediums();
+        clientCreateAccount();
+        
+        clientsConnect();
+        
+        bothClientsAskForSameConsult();
+        
+        
+        employeeAcceptsConsultation();
+        
+        confirmConsultation();
+    }
+    
+    
+    public static void doUnitTests(){
+         testerInscriptionTous();
         testerRechercheTous();
 
         testerAuthenticatePersonne();
@@ -52,18 +85,245 @@ public class Main {
         testerGetClientConsultations();
        // testeEnvoiMessageDemandeConsultation();
        testCountConsultation(); 
-       
-        JpaUtil.destroy();
     }
+    
+    public static void createEmployees(){
+        System.out.println();
+        System.out.println("**** createEmployees() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        Employee e1 = new Employee(Gender.MALE, 0, true,"Employee1", "Employee1Name", "namelessBob.fotiadu@insa-lyon.fr", "e1234567489","852917382645");
+        Long ide1 = service.inscrirePersonne(e1);
+        if (ide1 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        afficherPersonne(e1);
+
+        Employee e2 = new Employee(Gender.MALE, 0, true,"Employee2", "Employee1Name", "namelessBob2.fotiadu@insa-lyon.fr", "e12345674892","8529173826452");
+        Long ide12 = service.inscrirePersonne(e2);
+        if (ide12 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        afficherPersonne(e2);
+        
+        Employee e3 = new Employee(Gender.FEMALE, 0, true,"Employee3", "Employee3Name", "namelessBob3.fotiadu@insa-lyon.fr", "e123456748923","85291738264523");
+        Long ide13 = service.inscrirePersonne(e3);
+        if (ide13 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        afficherPersonne(e3);
+    }
+    
+    public static void createMediums(){
+        System.out.println();
+        System.out.println("**** createMediums() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+       Medium m1 = new Astrologue("I was magic school", 42, "HilbertShadow", "Pick me",Gender.FEMALE);
+       Long idm1 = service.inscrireMedium(m1);
+       if (idm1 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+       }
+       afficherMedium(m1);
+
+       Medium m2 = new Cartomancien( "SIDMAG", "SIGMAGISUS",Gender.MALE);
+       Long idm2 = service.inscrireMedium(m2);
+       if (idm2 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+       }
+       afficherMedium(m2);
+
+       Medium m3 = new Cartomancien( "Alphy", "AlphyMag",Gender.MALE);
+       Long idm3 = service.inscrireMedium(m3);
+       if (idm2 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+       }
+       afficherMedium(m3);
+    }
+    
+    public static void clientCreateAccount(){
+        System.out.println();
+        System.out.println("**** clientCreateAccount() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        Client lovelace = new Client("31/12/1998","69100","Lovelace", "Ada", "ada.lovelace@insa-lyon.fr", "Ada1012","01254605");
+        Long idLovelace = service.inscrirePersonne(lovelace);
+        if (idLovelace != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        service.EnvoyerMailInscription(lovelace);
+        afficherPersonne(lovelace);
+        
+        
+        
+        
+        Client pascal = new Client("11/01/1988","69100","Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
+        Long idPascal = service.inscrirePersonne(pascal);
+        if (idPascal != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+        }
+        service.EnvoyerMailInscription(pascal);
+        afficherPersonne(pascal);
+    }
+    
+    public static void clientsConnect(){
+        System.out.println();
+        System.out.println("**** clientsConnect() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        String userMail;
+        String password;
+        Personne result;
 
 
-    public static void afficherPersonne(Personne personne) {
-        System.out.println("-> " + personne);
-    }
-    public static void afficherMedium(Medium medium) {
-        System.out.println("-> " + medium);
-    }
+        userMail = "ada.lovelace@insa-lyon.fr";
+        password = "Ada1012";
+        System.out.println("** Authenticate with #" + userMail + " Password: " + password);
+        result = service.authenticatePersonne(userMail,password);
+        if (result != null) {
+            afficherPersonne(result);
+        } else {
+            System.out.println("=> Credentials false");
+        }
 
+        userMail = "blaise.pascal@insa-lyon.fr";
+        password = "Blaise1906";
+        System.out.println("** Authenticate with #" + userMail + " Password: " + password);
+        result = service.authenticatePersonne(userMail,password);
+        if (result != null) {
+            afficherPersonne(result);
+        } else {
+            System.out.println("=> Credentials false");
+        }
+    }
+    
+    public static void bothClientsAskForSameConsult(){
+        System.out.println();
+        System.out.println("**** bothClientsAskForSameConsult() ****");
+        System.out.println();
+
+        Service service = new Service();
+
+        String clientEmail;
+        Medium medium;
+        String mediumId;
+        Consultation consultation;
+        
+        mediumId ="HilbertShadow";
+        clientEmail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        if (medium != null) {
+            consultation = service.addClientConsultation(clientEmail, medium);
+            if(consultation != null){
+                  System.out.println(consultation);
+                  if(consultation.getAcceptor()!=null){
+                    service.envoyerMessageDemande(consultation);
+                  }
+            }else{
+                System.out.println("Cannot add consultation");
+            }
+        }else{
+            System.out.println("Invalid Medium");
+        }
+
+        mediumId ="HilbertShadow";
+        clientEmail = "blaise.pascal@insa-lyon.fr";
+        System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
+        medium = service.rechercherMediumParNom(mediumId);
+        if (medium != null) {
+            consultation = service.addClientConsultation(clientEmail, medium);
+            if(consultation != null){
+                  System.out.println(consultation);
+                  if(consultation.getAcceptor()!=null){
+                    service.envoyerMessageDemande(consultation);
+                  }
+            }else{
+                System.out.println("Cannot add consultation");
+            }
+        }else{
+            System.out.println("Invalid Medium");
+        }
+    }
+    
+    public static void confirmConsultation(){
+        System.out.println();
+        System.out.println("**** confirmConsultation() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        Consultation consultation;
+        String employeeEmail;
+        
+        employeeEmail = "namelessBob3.fotiadu@insa-lyon.fr";
+        System.out.println("** Get Unconfirmed for " + employeeEmail);
+        consultation = service.getUnconfirmedEmployeeConsultations(employeeEmail);
+        if(consultation != null){
+            System.out.println(consultation);
+            Employee employee = service.confirmConsultation(employeeEmail,"test");
+            if(employee !=null){
+                System.out.println(employee.getConsultations().get(employee.getConsultations().size()-1));
+            }else{
+                System.out.println("Could not confirm");
+            }
+        }else{
+            System.out.println("No ConsultationInProgress");
+        }
+    }
+    
+    public static void employeeAcceptsConsultation(){
+        System.out.println();
+        System.out.println("**** employeeAcceptsConsultation() ****");
+        System.out.println();
+
+        Service service = new Service();
+
+        Consultation consultation;
+        String employeeEmail;
+
+        employeeEmail = "namelessBob3.fotiadu@insa-lyon.fr";
+        System.out.println("** Get Unconfirmed for " + employeeEmail);
+        consultation = service.getUnconfirmedEmployeeConsultations(employeeEmail);
+        if(consultation != null){
+            System.out.println(consultation);
+            Employee employee = service.acceptConsultation(employeeEmail);
+            if(employee !=null){
+                consultation = employee.getConsultations().get(employee.getConsultations().size()-1);
+                System.out.println(consultation);
+                service.envoyerMessageConfirmation(consultation);
+            }else{
+                System.out.println("Could not confirm");
+            }
+        }else{
+            System.out.println("No ConsultationInProgress");
+        }
+    }
+    
     public static void testCountConsultation()
     {
         System.out.println();
@@ -134,7 +394,7 @@ public class Main {
         System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
         medium = service.rechercherMediumParNom(mediumId);
         consultation = service.addClientConsultation(clientEmail, medium);
-        consultation.setAccepted(false);
+        consultation.setState(ConsultationState.NOTASSIGNED);//CHECK THIS--------------------------------------------------------------------------------------------------------
         emplEmail = "namelessBob.fotiadu@insa-lyon.fr";
         System.out.println("** confirmConsultation #" + emplEmail);
         employee = service.confirmConsultation(emplEmail, "It was ok");
@@ -667,159 +927,4 @@ public class Main {
         }
     }
 
-/*
-    public static void testerListeClients() {
-
-        System.out.println();
-        System.out.println("**** testerListeClients() ****");
-        System.out.println();
-
-        Service service = new Service();
-        List<Client> listeClients = service.listerClients();
-        System.out.println("*** Liste des Clients");
-        if (listeClients != null) {
-            for (Client client : listeClients) {
-                afficherClient(client);
-            }
-        }
-        else {
-            System.out.println("=> ERREUR...");
-        }
-    }
-
-    public static void testerAuthentificationClient() {
-
-        System.out.println();
-        System.out.println("**** testerAuthentificationClient() ****");
-        System.out.println();
-
-        Service service = new Service();
-        Client client;
-        String mail;
-        String motDePasse;
-
-        mail = "ada.lovelace@insa-lyon.fr";
-        motDePasse = "Ada1012";
-        client = service.authentifierClient(mail, motDePasse);
-        if (client != null) {
-            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + motDePasse + "'");
-            afficherClient(client);
-        } else {
-            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + motDePasse + "'");
-        }
-
-        mail = "ada.lovelace@insa-lyon.fr";
-        motDePasse = "Ada2020";
-        client = service.authentifierClient(mail, motDePasse);
-        if (client != null) {
-            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + motDePasse + "'");
-            afficherClient(client);
-        } else {
-            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + motDePasse + "'");
-        }
-
-        mail = "etudiant.fictif@insa-lyon.fr";
-        motDePasse = "********";
-        client = service.authentifierClient(mail, motDePasse);
-        if (client != null) {
-            System.out.println("Authentification réussie avec le mail '" + mail + "' et le mot de passe '" + motDePasse + "'");
-            afficherClient(client);
-        } else {
-            System.out.println("Authentification échouée avec le mail '" + mail + "' et le mot de passe '" + motDePasse + "'");
-        }
-    }
-
-    public static void saisirInscriptionClient() {
-        Service service = new Service();
-
-        System.out.println();
-        System.out.println("Appuyer sur Entrée pour passer la pause...");
-        Saisie.pause();
-
-        System.out.println();
-        System.out.println("**************************");
-        System.out.println("** NOUVELLE INSCRIPTION **");
-        System.out.println("**************************");
-        System.out.println();
-
-        String nom = Saisie.lireChaine("Nom ? ");
-        String prenom = Saisie.lireChaine("Prénom ? ");
-        String mail = Saisie.lireChaine("Mail ? ");
-        String motDePasse = Saisie.lireChaine("Mot de passe ? ");
-
-        Client client = new Client(nom, prenom, mail, motDePasse);
-        Long idClient = service.inscrireClient(client);
-
-        if (idClient != null) {
-            System.out.println("> Succès inscription");
-        } else {
-            System.out.println("> Échec inscription");
-        }
-        afficherClient(client);
-
-    }
-
-    public static void saisirRechercheClient() {
-        Service service = new Service();
-
-        System.out.println();
-        System.out.println("*********************");
-        System.out.println("** MENU INTERACTIF **");
-        System.out.println("*********************");
-        System.out.println();
-
-        Saisie.pause();
-
-        System.out.println();
-        System.out.println("**************************");
-        System.out.println("** RECHERCHE de CLIENTS **");
-        System.out.println("**************************");
-        System.out.println();
-        System.out.println();
-        System.out.println("** Recherche par Identifiant:");
-        System.out.println();
-
-        Integer idClient = Saisie.lireInteger("Identifiant ? [0 pour quitter] ");
-        while (idClient != 0) {
-            Client client = service.rechercherClientParId(idClient.longValue());
-            if (client != null) {
-                afficherClient(client);
-            } else {
-                System.out.println("=> Client #" + idClient + " non-trouvé");
-            }
-            System.out.println();
-            idClient = Saisie.lireInteger("Identifiant ? [0 pour quitter] ");
-        }
-
-        System.out.println();
-        System.out.println("********************************");
-        System.out.println("** AUTHENTIFICATION de CLIENT **");
-        System.out.println("********************************");
-        System.out.println();
-        System.out.println();
-        System.out.println("** Authentifier Client:");
-        System.out.println();
-
-        String clientMail = Saisie.lireChaine("Mail ? [0 pour quitter] ");
-
-        while (!clientMail.equals("0")) {
-            String clientMotDePasse = Saisie.lireChaine("Mot de passe ? ");
-            Client client = service.authentifierClient(clientMail, clientMotDePasse);
-            if (client != null) {
-                afficherClient(client);
-            } else {
-                System.out.println("=> Client non-authentifié");
-            }
-            clientMail = Saisie.lireChaine("Mail ? [0 pour quitter] ");
-        }
-
-        System.out.println();
-        System.out.println("*****************");
-        System.out.println("** AU REVOIR ! **");
-        System.out.println("*****************");
-        System.out.println();
-
-    }
-
-    */
 }
