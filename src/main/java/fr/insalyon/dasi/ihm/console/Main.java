@@ -36,8 +36,8 @@ public class Main {
         JpaUtil.init();
 
         
-        doTestCases();
-       doUnitTests();
+       doTestCase1();
+       //doUnitTests();
        
         JpaUtil.destroy();
     }
@@ -51,7 +51,7 @@ public class Main {
     }
     
     
-    public static void doTestCases(){
+    public static void doTestCase1(){
         createEmployees();
         createMediums();
         clientCreateAccount();
