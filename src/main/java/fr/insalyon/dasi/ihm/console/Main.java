@@ -36,7 +36,7 @@ public class Main {
         JpaUtil.init();
 
         
-       doTestCase1();
+       doTestCase();
        //doUnitTests();
        
         JpaUtil.destroy();
@@ -51,7 +51,7 @@ public class Main {
     }
     
     
-    public static void doTestCase1(){
+    public static void doTestCase(){
         createEmployees();
         createMediums();
         clientCreateAccount();
@@ -64,6 +64,8 @@ public class Main {
         employeeAcceptsConsultation();
         
         confirmConsultation();
+        
+        clientChangesPassword();
     }
     
     
@@ -321,6 +323,28 @@ public class Main {
             }
         }else{
             System.out.println("No ConsultationInProgress");
+        }
+    }
+    
+    public static void clientChangesPassword(){
+        System.out.println();
+        System.out.println("**** clientChangesPassword() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        String userMail;
+        String newPassword;
+        Personne result;
+        
+        userMail = "ada.lovelace@insa-lyon.fr";
+        newPassword = "Ada1012NewPassword";
+        System.out.println("** Authenticate with #" + userMail + " Password: " + newPassword);
+        result = service.setPassword(userMail,newPassword);
+        if (result != null) {
+            afficherPersonne(result);
+        } else {
+            System.out.println("=> Credentials false");
         }
     }
     

@@ -15,7 +15,7 @@ import javax.persistence.MappedSuperclass;
  * @author DASI Team
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Personne implements Serializable {
 
     @Id

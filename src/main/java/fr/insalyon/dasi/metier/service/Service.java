@@ -494,7 +494,7 @@ public class Service {
          Personne personne = null;
          JpaUtil.creerContextePersistance();
          try {
-           personne = rechercherPersonneParMail(pEmail);
+           personne = personneDao.chercherParMail(pEmail);
            if(personne != null){
                JpaUtil.ouvrirTransaction();
                personneDao.setPassword(personne.getId(), newPassword);
