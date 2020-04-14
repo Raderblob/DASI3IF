@@ -36,8 +36,8 @@ public class Main {
         JpaUtil.init();
 
         
-       doTestCase1();
-       //doUnitTests();
+       //doTestCase1();
+       doUnitTests();
        
         JpaUtil.destroy();
     }
@@ -50,8 +50,23 @@ public class Main {
         System.out.println("-> " + medium);
     }
     
-    
+    //test du cas où 2 clients demande le même médium en même temps
     public static void doTestCase1(){
+        createEmployees();
+        createMediums();
+        clientCreateAccount();
+        
+        clientsConnect();
+        
+        bothClientsAskForSameConsult();
+        
+        
+        employeeAcceptsConsultation();
+        
+        confirmConsultation();
+    }
+    
+    public static void doTestCase2(){
         createEmployees();
         createMediums();
         clientCreateAccount();
@@ -84,7 +99,8 @@ public class Main {
         testerGetListOfMediums();
         testerGetClientConsultations();
        // testeEnvoiMessageDemandeConsultation();
-       testCountConsultation(); 
+       testCountConsultation();
+       //testChangePassword();
     }
     
     public static void createEmployees(){
@@ -323,6 +339,33 @@ public class Main {
             System.out.println("No ConsultationInProgress");
         }
     }
+    
+    public static void testChangePassword()
+    {
+        System.out.println();
+        System.out.println("**** testChangePassword() ****");
+        System.out.println();
+
+        String clientEmail = "ada.lovelace@insa-lyon.fr";
+        
+        Service service = new Service();
+        Personne a=null;
+        System.out.println("111");
+        a=service.setPassword(clientEmail,"coucou");
+        System.out.println("111");
+        if(a!=null)
+        {
+            //System.out.println(a.getMotDePasse());
+        }
+        //
+        //service.envoyerMessageReinitialistaionPassword(clientEmail);
+        
+        //clientEmail="bob";
+        
+        //service.envoyerMessageReinitialistaionPassword(clientEmail);   
+        
+    }
+    
     
     public static void testCountConsultation()
     {

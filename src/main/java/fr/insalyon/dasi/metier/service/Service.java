@@ -73,6 +73,48 @@ public class Service {
         return;
     }
     
+    public void envoyerMessageReinitialistaionPassword(String email) {
+        String telephoneDestinataire=null;
+        String texte=null;
+        Message message=new Message();
+        JpaUtil.creerContextePersistance();
+        Personne etourdi=null;
+        System.out.println("1");
+        try {
+            etourdi=personneDao.chercherParMail(email);
+            System.out.println("2");
+            if(etourdi!=null)
+            {
+                System.out.println("3");
+                System.out.println(etourdi.getMotDePasse());
+               JpaUtil.ouvrirTransaction();
+               personneDao.setPasswordDao(etourdi.getId(), "4yourEyesONLY");
+               JpaUtil.validerTransaction();
+                System.out.println("4");
+                //etourdi.setMotDePasse("4yourEyesONLY");
+            }
+             if(etourdi!=null&&etourdi instanceof Client)
+            {
+                
+                telephoneDestinataire=etourdi.getTelephoneNumber();
+                texte="Bonjour "+etourdi.getPrenom()+". Votre nouveau code est 4yourEyesONLY. N'oubliez pas de le changer une fois reconnecté à notre site pour des raison de séucrité. A très bientôt pour découvrir l'avenir à vos côtés!";     
+                message.envoyerNotification(telephoneDestinataire,texte);
+            }else{
+                System.out.println("Attention, l'adrrese mail saisie ne correspond pas à un de nos client. Veuillez soit indiquer un email valide soit créer unc oompte");     
+            }    
+            
+            
+            
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service envoyerMessageDemande(Consultation consultation)", ex);
+            JpaUtil.annulerTransaction();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return ;
+    }
+    
+    
     public void envoyerMessageDemande(Consultation consultation) {
         String telephoneDestinataire=null;
         String texte=null;
@@ -493,13 +535,20 @@ public class Service {
      public Personne setPassword(String pEmail, String newPassword){
          Personne personne = null;
          JpaUtil.creerContextePersistance();
+         System.out.println("1");
          try {
+             System.out.println("2");
            personne = rechercherPersonneParMail(pEmail);
+           System.out.println("3");
            if(personne != null){
+               System.out.println("4");
                JpaUtil.ouvrirTransaction();
-               personneDao.setPassword(personne.getId(), newPassword);
+               System.out.println("4.5");
+               personneDao.setPasswordDao(personne.getId(), newPassword);
+               System.out.println("5");
                JpaUtil.validerTransaction();
            }
+           System.out.println("6");
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service setPassword(String pEmail, String newPassword)", ex);
             JpaUtil.annulerTransaction();
