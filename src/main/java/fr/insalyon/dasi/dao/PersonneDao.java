@@ -137,7 +137,7 @@ public class PersonneDao {
        return employee;
    }
    
-   public Personne setPasswordDao(Long personneId, String newPassword){
+   public Personne setPassword(Long personneId, String newPassword){
        EntityManager em = JpaUtil.obtenirContextePersistance();
        Personne personne = em.find(Personne.class, personneId);
        personne.setMotDePasse(newPassword);

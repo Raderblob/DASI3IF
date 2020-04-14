@@ -79,7 +79,6 @@ public class Service {
         Message message=new Message();
         JpaUtil.creerContextePersistance();
         Personne etourdi=null;
-        System.out.println("1");
         try {
             etourdi=personneDao.chercherParMail(email);
             System.out.println("2");
@@ -88,7 +87,7 @@ public class Service {
                 System.out.println("3");
                 System.out.println(etourdi.getMotDePasse());
                JpaUtil.ouvrirTransaction();
-               personneDao.setPasswordDao(etourdi.getId(), "4yourEyesONLY");
+               personneDao.setPassword(etourdi.getId(), "4yourEyesONLY");
                JpaUtil.validerTransaction();
                 System.out.println("4");
                 //etourdi.setMotDePasse("4yourEyesONLY");
@@ -539,7 +538,7 @@ public class Service {
            personne = personneDao.chercherParMail(pEmail);
            if(personne != null){
                JpaUtil.ouvrirTransaction();
-               personneDao.setPasswordDao(personne.getId(), newPassword);
+               personneDao.setPassword(personne.getId(), newPassword);
                JpaUtil.validerTransaction();
            }
          }catch(Exception ex){
