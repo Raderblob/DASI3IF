@@ -90,6 +90,8 @@ public class PersonneDao {
         }
         return result;
     }
+    
+    
      
    public Client addClientConsultation(Long clientId,Long consultationId){
         EntityManager em = JpaUtil.obtenirContextePersistance();
@@ -135,12 +137,13 @@ public class PersonneDao {
        return employee;
    }
    
-   public Personne setPassword(Long personneId, String newPassword){
+   public Personne setPasswordDao(Long personneId, String newPassword){
        EntityManager em = JpaUtil.obtenirContextePersistance();
-       
+       System.out.println("t");
        Personne personne = em.find(Personne.class, personneId);
+       System.out.println("tt");
        personne.setMotDePasse(newPassword);
-       
+       System.out.println("ttt");
        return personne;
    }
    

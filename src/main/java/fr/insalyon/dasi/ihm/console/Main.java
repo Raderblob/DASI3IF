@@ -35,10 +35,10 @@ public class Main {
         // Contrôlez l'affichage du log de JpaUtil grâce à la méthode log de la classe JpaUtil
         JpaUtil.init();
 
-        
+
        doTestCase();
        //doUnitTests();
-       
+
         JpaUtil.destroy();
     }
 
@@ -49,26 +49,41 @@ public class Main {
     public static void afficherMedium(Medium medium) {
         System.out.println("-> " + medium);
     }
-    
-    
+
+
     public static void doTestCase(){
         createEmployees();
         createMediums();
         clientCreateAccount();
-        
+
         clientsConnect();
-        
+
         bothClientsAskForSameConsult();
-        
-        
+
+
         employeeAcceptsConsultation();
-        
+
         confirmConsultation();
-        
+
         clientChangesPassword();
     }
-    
-    
+
+    public static void doTestCase2(){
+        createEmployees();
+        createMediums();
+        clientCreateAccount();
+
+        clientsConnect();
+
+        bothClientsAskForSameConsult();
+
+
+        employeeAcceptsConsultation();
+
+        confirmConsultation();
+    }
+
+
     public static void doUnitTests(){
          testerInscriptionTous();
         testerRechercheTous();
@@ -86,16 +101,17 @@ public class Main {
         testerGetListOfMediums();
         testerGetClientConsultations();
        // testeEnvoiMessageDemandeConsultation();
-       testCountConsultation(); 
+       testCountConsultation();
+       //testChangePassword();
     }
-    
+
     public static void createEmployees(){
         System.out.println();
         System.out.println("**** createEmployees() ****");
         System.out.println();
 
         Service service = new Service();
-        
+
         Employee e1 = new Employee(Gender.MALE, 0, true,"Employee1", "Employee1Name", "namelessBob.fotiadu@insa-lyon.fr", "e1234567489","852917382645");
         Long ide1 = service.inscrirePersonne(e1);
         if (ide1 != null) {
@@ -113,7 +129,7 @@ public class Main {
             System.out.println("> Échec inscription");
         }
         afficherPersonne(e2);
-        
+
         Employee e3 = new Employee(Gender.FEMALE, 0, true,"Employee3", "Employee3Name", "namelessBob3.fotiadu@insa-lyon.fr", "e123456748923","85291738264523");
         Long ide13 = service.inscrirePersonne(e3);
         if (ide13 != null) {
@@ -123,14 +139,14 @@ public class Main {
         }
         afficherPersonne(e3);
     }
-    
+
     public static void createMediums(){
         System.out.println();
         System.out.println("**** createMediums() ****");
         System.out.println();
 
         Service service = new Service();
-        
+
        Medium m1 = new Astrologue("I was magic school", 42, "HilbertShadow", "Pick me",Gender.FEMALE);
        Long idm1 = service.inscrireMedium(m1);
        if (idm1 != null) {
@@ -158,14 +174,14 @@ public class Main {
        }
        afficherMedium(m3);
     }
-    
+
     public static void clientCreateAccount(){
         System.out.println();
         System.out.println("**** clientCreateAccount() ****");
         System.out.println();
 
         Service service = new Service();
-        
+
         Client lovelace = new Client("31/12/1998","69100","Lovelace", "Ada", "ada.lovelace@insa-lyon.fr", "Ada1012","01254605");
         Long idLovelace = service.inscrirePersonne(lovelace);
         if (idLovelace != null) {
@@ -175,10 +191,10 @@ public class Main {
         }
         service.EnvoyerMailInscription(lovelace);
         afficherPersonne(lovelace);
-        
-        
-        
-        
+
+
+
+
         Client pascal = new Client("11/01/1988","69100","Pascal", "Blaise", "blaise.pascal@insa-lyon.fr", "Blaise1906","123456789");
         Long idPascal = service.inscrirePersonne(pascal);
         if (idPascal != null) {
@@ -189,14 +205,14 @@ public class Main {
         service.EnvoyerMailInscription(pascal);
         afficherPersonne(pascal);
     }
-    
+
     public static void clientsConnect(){
         System.out.println();
         System.out.println("**** clientsConnect() ****");
         System.out.println();
 
         Service service = new Service();
-        
+
         String userMail;
         String password;
         Personne result;
@@ -222,7 +238,7 @@ public class Main {
             System.out.println("=> Credentials false");
         }
     }
-    
+
     public static void bothClientsAskForSameConsult(){
         System.out.println();
         System.out.println("**** bothClientsAskForSameConsult() ****");
@@ -234,7 +250,7 @@ public class Main {
         Medium medium;
         String mediumId;
         Consultation consultation;
-        
+
         mediumId ="HilbertShadow";
         clientEmail = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);
@@ -271,17 +287,17 @@ public class Main {
             System.out.println("Invalid Medium");
         }
     }
-    
+
     public static void confirmConsultation(){
         System.out.println();
         System.out.println("**** confirmConsultation() ****");
         System.out.println();
 
         Service service = new Service();
-        
+
         Consultation consultation;
         String employeeEmail;
-        
+
         employeeEmail = "namelessBob3.fotiadu@insa-lyon.fr";
         System.out.println("** Get Unconfirmed for " + employeeEmail);
         consultation = service.getUnconfirmedEmployeeConsultations(employeeEmail);
@@ -297,7 +313,7 @@ public class Main {
             System.out.println("No ConsultationInProgress");
         }
     }
-    
+
     public static void employeeAcceptsConsultation(){
         System.out.println();
         System.out.println("**** employeeAcceptsConsultation() ****");
@@ -325,18 +341,18 @@ public class Main {
             System.out.println("No ConsultationInProgress");
         }
     }
-    
+
     public static void clientChangesPassword(){
         System.out.println();
         System.out.println("**** clientChangesPassword() ****");
         System.out.println();
 
         Service service = new Service();
-        
+
         String userMail;
         String newPassword;
         Personne result;
-        
+
         userMail = "ada.lovelace@insa-lyon.fr";
         newPassword = "Ada1012NewPassword";
         System.out.println("** Authenticate with #" + userMail + " Password: " + newPassword);
@@ -347,7 +363,7 @@ public class Main {
             System.out.println("=> Credentials false");
         }
     }
-    
+
     public static void testCountConsultation()
     {
         System.out.println();
@@ -355,12 +371,12 @@ public class Main {
         System.out.println();
 
         Service service = new Service();
-        
+
         service.compterConsultations();
-        
+
         return;
     }
-    
+
     public static void testeEnvoiMessageDemandeConsultation()
     {
         System.out.println();
@@ -380,11 +396,11 @@ public class Main {
         medium = service.rechercherMediumParNom(mediumId);
         consultation = service.addClientConsultation(clientEmail, medium);
 
-        
+
         service.envoyerMessageDemande(consultation);
 
     }
-    
+
 
     public static void testeEnvoiMessageConfirmationConsultation()
     {
@@ -524,7 +540,7 @@ public class Main {
             System.out.println("> Échec inscription");
         }
         afficherPersonne(e2);
-        
+
         Employee e3 = new Employee(Gender.FEMALE, 0, true,"Employee3", "Employee3Name", "namelessBob3.fotiadu@insa-lyon.fr", "e123456748923","85291738264523");
         Long ide13 = service.inscrirePersonne(e3);
         if (ide13 != null) {
@@ -724,7 +740,7 @@ public class Main {
                 System.out.println(x);
             }
         }
-        
+
         email = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Recherche de Consultations sortTypeMedium " + email);
         testList = service.getClientConsultations(email,SortType.MEDIUM);
@@ -733,7 +749,7 @@ public class Main {
                 System.out.println(x);
             }
         }
-        
+
         email = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Recherche de Consultations sortTypeEmployee " + email);
         testList = service.getClientConsultations(email,SortType.EMPLOYEE);
@@ -742,7 +758,7 @@ public class Main {
                 System.out.println(x);
             }
         }
-        
+
         email = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Recherche de Consultations sortTypeDate " + email);
         testList = service.getClientConsultations(email,SortType.DATE);
@@ -795,7 +811,7 @@ public class Main {
         }else{
             System.out.println("Invalid Medium");
         }
-        
+
         mediumId ="HilbertShadow";
         clientEmail = "ada.lovelace@insa-lyon.fr";
         System.out.println("** Adding a Consultation #" + clientEmail + " " + mediumId);

@@ -53,11 +53,11 @@ public class Service {
         }
         return resultat;
     }
-    
+
     public void compterConsultations(){
-    
+
         long count=0;
-                
+
         JpaUtil.creerContextePersistance();
         try {
             JpaUtil.ouvrirTransaction();
@@ -69,18 +69,60 @@ public class Service {
         } finally {
             JpaUtil.fermerContextePersistance();
         }
-        
+
         return;
     }
-    
+
+    public void envoyerMessageReinitialistaionPassword(String email) {
+        String telephoneDestinataire=null;
+        String texte=null;
+        Message message=new Message();
+        JpaUtil.creerContextePersistance();
+        Personne etourdi=null;
+        System.out.println("1");
+        try {
+            etourdi=personneDao.chercherParMail(email);
+            System.out.println("2");
+            if(etourdi!=null)
+            {
+                System.out.println("3");
+                System.out.println(etourdi.getMotDePasse());
+               JpaUtil.ouvrirTransaction();
+               personneDao.setPasswordDao(etourdi.getId(), "4yourEyesONLY");
+               JpaUtil.validerTransaction();
+                System.out.println("4");
+                //etourdi.setMotDePasse("4yourEyesONLY");
+            }
+             if(etourdi!=null&&etourdi instanceof Client)
+            {
+
+                telephoneDestinataire=etourdi.getTelephoneNumber();
+                texte="Bonjour "+etourdi.getPrenom()+". Votre nouveau code est 4yourEyesONLY. N'oubliez pas de le changer une fois reconnecté à notre site pour des raison de séucrité. A très bientôt pour découvrir l'avenir à vos côtés!";
+                message.envoyerNotification(telephoneDestinataire,texte);
+            }else{
+                System.out.println("Attention, l'adrrese mail saisie ne correspond pas à un de nos client. Veuillez soit indiquer un email valide soit créer unc oompte");
+            }
+
+
+
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service envoyerMessageDemande(Consultation consultation)", ex);
+            JpaUtil.annulerTransaction();
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return ;
+    }
+
+
     public void envoyerMessageDemande(Consultation consultation) {
         String telephoneDestinataire=null;
         String texte=null;
         Message message=new Message();
         JpaUtil.creerContextePersistance();
-        try {           
+        try {
                 telephoneDestinataire=consultation.getAcceptor().getTelephoneNumber();
-                texte="Bonjour "+consultation.getAcceptor().getPrenom()+". Consultation requise pour "+ consultation.getCaller().getPrenom() +" "+consultation.getCaller().getNom()+". Médium à incarner : "+consultation.getMedium().getName()+"";     
+                texte="Bonjour "+consultation.getAcceptor().getPrenom()+". Consultation requise pour "+ consultation.getCaller().getPrenom() +" "+consultation.getCaller().getNom()+". Médium à incarner : "+consultation.getMedium().getName()+"";
                 message.envoyerNotification(telephoneDestinataire,texte);
         } catch (Exception ex) {
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service envoyerMessageDemande(Consultation consultation)", ex);
@@ -90,8 +132,8 @@ public class Service {
         }
         return ;
     }
-    
-    
+
+
     public void envoyerMessageConfirmation(Consultation consultation) {
         String telephoneDestinataire=null;
         String texte=null;
@@ -100,15 +142,15 @@ public class Service {
         try {
             if(consultation.getState()== ConsultationState.ACCEPTED)
             {
-                
+
                 SimpleDateFormat ftd = new SimpleDateFormat ("yyyy/MM/dd");
-                SimpleDateFormat fth = new SimpleDateFormat ("hh:mm");                
+                SimpleDateFormat fth = new SimpleDateFormat ("hh:mm");
                 telephoneDestinataire=consultation.getCaller().getTelephoneNumber();
-                texte="Bonjour "+consultation.getCaller().getPrenom()+". J’ai bien reçu votre demande de consultation du "+ftd.format(consultation.getStartDate())+" à "+fth.format(consultation.getStartDate())+". Vous pouvez dès à présent me contacter au "+consultation.getAcceptor().getTelephoneNumber()+". A tout de suite ! Médiumiquement vôtre, "+consultation.getMedium().getName()+"";     
+                texte="Bonjour "+consultation.getCaller().getPrenom()+". J’ai bien reçu votre demande de consultation du "+ftd.format(consultation.getStartDate())+" à "+fth.format(consultation.getStartDate())+". Vous pouvez dès à présent me contacter au "+consultation.getAcceptor().getTelephoneNumber()+". A tout de suite ! Médiumiquement vôtre, "+consultation.getMedium().getName()+"";
                 message.envoyerNotification(telephoneDestinataire,texte);
             }else{
                 telephoneDestinataire=consultation.getAcceptor().getTelephoneNumber();
-                texte="Attention, il faut confirmer le rdv sur le site avant d'envoyer un message au client";     
+                texte="Attention, il faut confirmer le rdv sur le site avant d'envoyer un message au client";
                 message.envoyerNotification(telephoneDestinataire,texte);
             }
         } catch (Exception ex) {
@@ -119,7 +161,7 @@ public class Service {
         }
         return ;
     }
-    
+
     public void EnvoyerMailInscription(Personne personne)
     {
         Message message=new Message();
@@ -146,11 +188,11 @@ public class Service {
             resultat = null;
         } finally {
             JpaUtil.fermerContextePersistance();
-        }  
-        
+        }
+
         return ;
     }
-    
+
     public Long inscrireMedium(Medium medium) {
         Long resultat = null;
         JpaUtil.creerContextePersistance();
@@ -168,7 +210,7 @@ public class Service {
         }
         return resultat;
     }
-    
+
     public Personne rechercherPersonneParMotDePasse(String motDePasse){
         Personne resultat = null;
         JpaUtil.creerContextePersistance();
@@ -183,9 +225,9 @@ public class Service {
         }
         return resultat;
     }
-    
-    
-            
+
+
+
     public Personne rechercherPersonneParMail(String mail){
         Personne resultat = null;
         JpaUtil.creerContextePersistance();
@@ -200,9 +242,9 @@ public class Service {
         }
         return resultat;
     }
-    
-    
-    
+
+
+
     public List<String> genererPredictions(String couleur,String animal,int amour, int sante, int travail){
         List<String> resultat = null;
         AstroTest astroTest=new AstroTest();
@@ -218,7 +260,7 @@ public class Service {
         }
         return resultat;
     }
-    
+
     public List<String> genererPredictionsRechercheMail(String mail,int amour, int sante, int travail){
         List<String> resultat = null;
         AstroTest astroTest=new AstroTest();
@@ -244,7 +286,7 @@ public class Service {
         }
         return resultat;
     }
-    
+
     public Medium rechercherMediumParNom(String nom){
         Medium resultat = null;
         JpaUtil.creerContextePersistance();
@@ -274,9 +316,9 @@ public class Service {
             JpaUtil.fermerContextePersistance();
         }
         return resultat;
-    
+
     }
-    
+
     public List<Client> getListClients(){
         List<Client> resultat = null;
         JpaUtil.creerContextePersistance();
@@ -291,7 +333,7 @@ public class Service {
         }
         return resultat;
     }
-    
+
         public List<Employee> getListEmployees(){
         List<Employee> resultat = null;
         JpaUtil.creerContextePersistance();
@@ -306,11 +348,11 @@ public class Service {
         }
         return resultat;
     }
-    
+
      public Personne authenticatePersonne(String personneMail, String personneMdp){
          Personne result = null;
          JpaUtil.creerContextePersistance();
-         
+
          try {
             result = personneDao.chercherParMail(personneMail);
             if(result == null || result.getMotDePasse() != personneMdp){
@@ -322,15 +364,15 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-         
+
          return result;
-         
+
      }
-      
+
      public List<Consultation> getClientConsultations(String personneMail,SortType sortType){
          List<Consultation> result = null;
          JpaUtil.creerContextePersistance();
-         
+
          try {
             Personne personne = personneDao.chercherParMail(personneMail);
             if(personne instanceof Client){
@@ -356,17 +398,17 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-         
+
          return result;
      }
-     
+
     Comparator<Consultation> comp = (Consultation a, Consultation b) -> -(int)(a.getId() - b.getId());
-     
+
      public Consultation addClientConsultation(String clientEmail, Medium medium){//Assigns as well
          Client client ;
          Consultation consultation = null;
          JpaUtil.creerContextePersistance();
-         
+
           try {
             Personne personne = personneDao.chercherParMail(clientEmail);
             if(personne instanceof Client){
@@ -401,14 +443,14 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-         
+
          return consultation;
      }
-     
+
      public List<Consultation> assignConsultations(){ //not finished // DO NOT CALL
          List<Consultation> acceptedConsultations = new ArrayList();
          JpaUtil.creerContextePersistance();
-         
+
          try {
              List<Consultation> unacceptedConsultations = consultationDao.getUnacceptedConsultations();
              for(Consultation consultation:unacceptedConsultations){
@@ -421,7 +463,7 @@ public class Service {
                     acceptedConsultations.add(consultation);
                 }
              }
-             
+
 
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service addClientConsultation(String clientEmail, Consultation consultation)", ex);
@@ -429,10 +471,10 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-         
+
          return acceptedConsultations;
      }
-     
+
      public Employee confirmConsultation(String employeeEmail, String review){
          Employee employee = null;
          JpaUtil.creerContextePersistance();
@@ -458,10 +500,10 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-          
+
           return employee;
      }
-     
+
     public Employee acceptConsultation(String employeeEmail){
          Employee employee = null;
          JpaUtil.creerContextePersistance();
@@ -486,20 +528,25 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-          
+
           return employee;
      }
-     
+
      public Personne setPassword(String pEmail, String newPassword){
          Personne personne = null;
          JpaUtil.creerContextePersistance();
+         System.out.println("1");
          try {
            personne = personneDao.chercherParMail(pEmail);
            if(personne != null){
+               System.out.println("4");
                JpaUtil.ouvrirTransaction();
-               personneDao.setPassword(personne.getId(), newPassword);
+               System.out.println("4.5");
+               personneDao.setPasswordDao(personne.getId(), newPassword);
+               System.out.println("5");
                JpaUtil.validerTransaction();
            }
+           System.out.println("6");
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service setPassword(String pEmail, String newPassword)", ex);
             JpaUtil.annulerTransaction();
@@ -507,13 +554,13 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-          
+
           return personne;
      }
-     
+
      public List<Consultation> getMediumConsultations(String mediumName){
          List<Consultation> consultations = null;
-         
+
          JpaUtil.creerContextePersistance();
          try {
            consultations = consultationDao.getMediumConsultations(mediumName);
@@ -523,14 +570,14 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-         
-         
+
+
          return consultations;
      }
-     
+
     public List<Consultation> getPastEmployeeConsultations(String employeeName){
          List<Consultation> consultations = null;
-         
+
          JpaUtil.creerContextePersistance();
          try {
            consultations = consultationDao.getEmployeePastConsultations(employeeName);
@@ -540,14 +587,14 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-         
-         
+
+
          return consultations;
      }
-    
+
     public Consultation getUnconfirmedEmployeeConsultations(String employeeName){
         Consultation consultation = null;
-         
+
          JpaUtil.creerContextePersistance();
          try {
            List<Consultation> consultations = consultationDao.getEmployeePastConsultations(employeeName);
@@ -563,11 +610,11 @@ public class Service {
          }finally {
             JpaUtil.fermerContextePersistance();
          }
-         
-         
+
+
          return consultation;
     }
-    
-    
+
+
 
 }
