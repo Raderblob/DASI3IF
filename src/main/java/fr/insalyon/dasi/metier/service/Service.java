@@ -535,18 +535,13 @@ public class Service {
      public Personne setPassword(String pEmail, String newPassword){
          Personne personne = null;
          JpaUtil.creerContextePersistance();
-         System.out.println("1");
          try {
            personne = personneDao.chercherParMail(pEmail);
            if(personne != null){
-               System.out.println("4");
                JpaUtil.ouvrirTransaction();
-               System.out.println("4.5");
                personneDao.setPasswordDao(personne.getId(), newPassword);
-               System.out.println("5");
                JpaUtil.validerTransaction();
            }
-           System.out.println("6");
          }catch(Exception ex){
             Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service setPassword(String pEmail, String newPassword)", ex);
             JpaUtil.annulerTransaction();

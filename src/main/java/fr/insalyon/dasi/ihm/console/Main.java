@@ -68,20 +68,7 @@ public class Main {
         clientChangesPassword();
     }
 
-    public static void doTestCase2(){
-        createEmployees();
-        createMediums();
-        clientCreateAccount();
 
-        clientsConnect();
-
-        bothClientsAskForSameConsult();
-
-
-        employeeAcceptsConsultation();
-
-        confirmConsultation();
-    }
 
 
     public static void doUnitTests(){
@@ -355,7 +342,7 @@ public class Main {
 
         userMail = "ada.lovelace@insa-lyon.fr";
         newPassword = "Ada1012NewPassword";
-        System.out.println("** Authenticate with #" + userMail + " Password: " + newPassword);
+        System.out.println("** change password with #" + userMail + " Password: " + newPassword);
         result = service.setPassword(userMail,newPassword);
         if (result != null) {
             afficherPersonne(result);
