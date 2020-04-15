@@ -109,5 +109,10 @@ public class Client extends Personne implements Serializable  {
         this.myConsultationHistory = myconsultationHistory;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" + "birthDate=" + birthDate + ", postcode=" + postcode + ", myConsultationHistory=" + myConsultationHistory.size() + ", signeZodiac=" + signeZodiac + ", signeAstroChonois=" + signeAstroChonois + ", couleurPorteBonheur=" + couleurPorteBonheur + ", animalTotem=" + animalTotem + '}';
+    }
+
     
 }

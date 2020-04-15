@@ -30,7 +30,7 @@ public class Consultation {
     private String comment;
     private Integer ConsultationLength;
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date endDate;
     @Temporal(TemporalType.DATE)
     private Date startDate;
     private ConsultationState state;
@@ -63,7 +63,7 @@ public class Consultation {
     }
 
     public Date getDate() {
-        return date;
+        return endDate;
     }
 
    
@@ -85,7 +85,7 @@ public class Consultation {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.endDate = date;
     }
 
     public ConsultationState getState() {
@@ -124,7 +124,12 @@ public class Consultation {
 
     @Override
     public String toString() {
-        return "Consultation{" + "id=" + id + ", comment=" + comment + ", ConsultationLength=" + ConsultationLength + ", date=" + date + ", accepted=" + state + ", caller=" + caller + ", acceptor=" + acceptor + ", medium=" + medium + '}';
+        if(state == ConsultationState.NOTASSIGNED){
+             return "Consultation{" + "id=" + id + ", comment=" + comment + ", ConsultationLength=" + ConsultationLength + ", date=" + endDate + ", accepted=" + state + ", caller=" + caller.getMail() + ", medium=" + medium.getName() + '}';
+        }else{
+             return "Consultation{" + "id=" + id + ", comment=" + comment + ", ConsultationLength=" + ConsultationLength + ", date=" + endDate + ", accepted=" + state + ", caller=" + caller.getMail() + ", acceptor=" + acceptor.getMail() + ", medium=" + medium.getName() + '}';
+        }
+       
     }
       
     

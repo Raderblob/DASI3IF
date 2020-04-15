@@ -53,24 +53,31 @@ public class Service {
         }
         return resultat;
     }
-
-    public void compterConsultations(){
-
-        long count=0;
-
+    public List<String> getStats() {
+        List<String> res = new ArrayList();
         JpaUtil.creerContextePersistance();
         try {
-            JpaUtil.ouvrirTransaction();
-            count=personneDao.getNombresConsultations();
-            System.out.println("Il y a eu "+count+" consultation(s)");
+            List<Consultation> consultations = consultationDao.getConsultationList();
+            List<Client> clients = personneDao.getClientList();
+            List<Employee> employees = personneDao.getEmployeeList();
+            
+            if(consultations!=null){
+                res.add("Number of consultations " + consultations.size());
+            }
+            if(clients!=null){
+                res.add("Number of clients " + clients.size());
+            }
+            if(employees!=null){
+                res.add("Number of employees " + employees.size());
+            }
         } catch (Exception ex) {
-            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service inscrireMedium(client)", ex);
-            JpaUtil.annulerTransaction();
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service envoyerMessageDemande(Consultation consultation)", ex);
         } finally {
             JpaUtil.fermerContextePersistance();
         }
-
-        return;
+        return res;
+        
+        
     }
 
     public void envoyerMessageReinitialistaionPassword(String email) {
@@ -401,7 +408,6 @@ public class Service {
          return result;
      }
 
-    Comparator<Consultation> comp = (Consultation a, Consultation b) -> -(int)(a.getId() - b.getId());
 
      public Consultation addClientConsultation(String clientEmail, Medium medium){//Assigns as well
          Client client ;

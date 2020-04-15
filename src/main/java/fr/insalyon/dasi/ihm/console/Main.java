@@ -36,7 +36,7 @@ public class Main {
         JpaUtil.init();
 
 
-       doTestCase();
+       doTestCases();
        //doUnitTests();
 
         JpaUtil.destroy();
@@ -51,21 +51,50 @@ public class Main {
     }
 
 
-    public static void doTestCase(){
-        createEmployees();
-        createMediums();
-        clientCreateAccount();
+    public static void doTestCases(){
+        createEmployees();//creation of employees
+        createMediums();//creation of mediums
+        
+        clientCreateAccount();//two clients create accounts
 
-        clientsConnect();
+        clientsConnect();// Both clients connect to the website
+        
+        loadHomePage();//Load the client information
+        
+        searchMediums();//Get list of mediums and make a selection
+        
+        bothClientsAskForSameConsult();//Clients ask for consultations Only one is assigned because not enough employees
 
-        bothClientsAskForSameConsult();
 
+        employeeAcceptsConsultation();//employee acccepts consultation
+        
+        //consultation in progress via phone
+        
+        //end consultation via phone
+        confirmConsultation();//employee writes comment for consultation
 
-        employeeAcceptsConsultation();
-
-        confirmConsultation();
-
-        clientChangesPassword();
+        clientChangesPassword();//Client decides to change password
+        
+        loadHomePage();//Load the client information
+        
+        employeeViewContents();//Employee searches the different lists of clients/mediums and enployees
+        
+        employeeViewsHisPastConsultations(); //Employee views his past consultations
+        
+        employeeAcceptsConsultation();//employee acccepts consultation
+        
+        //consultation in progress via phone
+        
+        employeeNeedHelp();//Employee asks for help using the generator
+        
+        employeeViewClientProfile(); // Employee view CLient profile
+        
+        employeeViewClientConsultations();//Employee view client consultations using different sorting methods // Tested more in the unittests
+        
+        //end consultation via phone
+        confirmConsultation();//employee writes comment for consultation
+        
+        employeeGetsEmplStats(); // Employee chekcs out company stats
     }
 
 
@@ -88,10 +117,150 @@ public class Main {
         testerGetListOfMediums();
         testerGetClientConsultations();
        // testeEnvoiMessageDemandeConsultation();
-       testCountConsultation();
        //testChangePassword();
     }
+    
+    public static void employeeGetsEmplStats(){
+        System.out.println();
+        System.out.println("**** employeeGetsEmplStats() ****");
+        System.out.println();
 
+        Service service = new Service();
+        
+        List<String> res = service.getStats();
+        
+        System.out.println(res);
+    }
+    
+    public static void employeeViewClientConsultations(){
+        System.out.println();
+        System.out.println("**** employeeViewClientConsultations() ****");
+        System.out.println();
+
+        Service service = new Service();
+        String clientMail = "blaise.pascal@insa-lyon.fr";
+        List<Consultation> consultations;
+        
+        System.out.println("Get Consultations by DATE");
+        consultations = service.getClientConsultations(clientMail, SortType.DATE);
+        System.out.println(consultations);
+        
+        System.out.println("Get Consultations by EMPLOYEE");
+        consultations = service.getClientConsultations(clientMail, SortType.EMPLOYEE);
+        System.out.println(consultations);
+        
+         System.out.println("Get Consultations by MEDIUM");
+        consultations = service.getClientConsultations(clientMail, SortType.MEDIUM);
+        System.out.println(consultations);
+    }
+    
+    public static void employeeViewClientProfile(){
+        System.out.println();
+        System.out.println("**** employeeViewClientProfile() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        Client result;
+        Personne personne;
+        String userMail = "blaise.pascal@insa-lyon.fr";
+        
+        personne = service.rechercherPersonneParMail(userMail);
+        if(personne !=null && personne instanceof Client){
+            result = (Client)personne;
+            System.out.print(personne);
+            System.out.print(result);
+        }
+    }
+    
+    public static void employeeNeedHelp(){
+        System.out.println();
+        System.out.println("**** employeeNeedHelp() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        String clientMail = "blaise.pascal@insa-lyon.fr";
+        List<String> result;
+        
+        result = service.genererPredictionsRechercheMail(clientMail, 1, 2, 3);
+       if(result !=null){
+           System.out.println(result);
+       }
+        
+    }
+    
+    public static void employeeViewsHisPastConsultations(){
+        System.out.println();
+        System.out.println("**** employeeViewsHisPastConsultations() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        String mail = "namelessBob3.fotiadu@insa-lyon.fr";
+        
+        System.out.println("Viewing past consulations for " + mail);
+        List<Consultation> consultations = service.getPastEmployeeConsultations(mail);
+        if(consultations != null){
+            System.out.println(consultations);
+        }
+    }
+    
+    public static void searchMediums(){
+        System.out.println();
+        System.out.println("**** SearchMediums() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        String type;
+        List<Medium> result;
+        
+        
+        type = "Medium";
+        System.out.println("**Searching for " + type);
+        result = service.GetListOfMediums(type);
+        if(result !=null){
+            System.out.println(result);
+        }
+        
+        String mediumId ="HilbertShadow";
+        System.out.println("** Select Medium #" + mediumId);
+        Medium medium = service.rechercherMediumParNom(mediumId);
+        if(medium != null){
+            System.out.println(medium);
+        }
+        
+    }
+    
+    public static void loadHomePage(){
+        System.out.println();
+        System.out.println("**** loadHomePage() ****");
+        System.out.println();
+
+        Service service = new Service();
+        
+        String userMail;
+        Personne personne;
+        Client client;
+        
+        userMail = "ada.lovelace@insa-lyon.fr";
+        System.out.println("Loading page for " + userMail);
+        personne = service.rechercherPersonneParMail(userMail);
+        if(personne !=null && personne instanceof Client){
+            client = (Client)personne;
+            System.out.println(client);
+        }
+        
+        userMail = "blaise.pascal@insa-lyon.fr";
+        System.out.println("Loading page for " + userMail);
+        personne = service.rechercherPersonneParMail(userMail);
+        if(personne !=null && personne instanceof Client){
+            client = (Client)personne;
+            System.out.println(client);
+        }
+    }
+    
     public static void createEmployees(){
         System.out.println();
         System.out.println("**** createEmployees() ****");
@@ -299,8 +468,29 @@ public class Main {
         }else{
             System.out.println("No ConsultationInProgress");
         }
+        System.out.println("Assigning new consultations");
+        List<Consultation> consultations = service.assignConsultations();
+        System.out.println(consultations);
     }
+    
+    public static void employeeViewContents(){
+        System.out.println();
+        System.out.println("**** employeeViewContents() ****");
+        System.out.println();
 
+        Service service = new Service();
+        List<Medium> mediums;
+        List<Client> clients;
+        List<Employee> employees;
+        
+        mediums = service.GetListOfMediums("Medium");
+        clients = service.getListClients();
+        employees = service.getListEmployees();
+        System.out.println("Mediums " + mediums);
+        System.out.println("Clients " + clients);
+        System.out.println("employees" + employees);
+    }
+    
     public static void employeeAcceptsConsultation(){
         System.out.println();
         System.out.println("**** employeeAcceptsConsultation() ****");
@@ -351,18 +541,6 @@ public class Main {
         }
     }
 
-    public static void testCountConsultation()
-    {
-        System.out.println();
-        System.out.println("**** testCountConsultation() ****");
-        System.out.println();
-
-        Service service = new Service();
-
-        service.compterConsultations();
-
-        return;
-    }
 
     public static void testeEnvoiMessageDemandeConsultation()
     {

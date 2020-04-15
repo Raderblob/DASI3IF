@@ -8,6 +8,7 @@ package fr.insalyon.dasi.dao;
 import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.modele.ConsultationState;
 import fr.insalyon.dasi.metier.modele.Gender;
+import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import java.util.Date;
 import java.util.List;
@@ -78,6 +79,13 @@ public class ConsultationDoa {
         return consultation;
     }
     
+    
+   public List<Consultation> getConsultationList() {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c ", Consultation.class);
+        List<Consultation> cons = query.getResultList();
+        return cons;
+    }
 }
 
 

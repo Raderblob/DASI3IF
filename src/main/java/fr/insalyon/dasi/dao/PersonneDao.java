@@ -29,13 +29,6 @@ public class PersonneDao {
         em.persist(personne);
     }
     
-    public int getNombresConsultations() throws NoSuchFieldException
-    { 
-        EntityManager em = JpaUtil.obtenirContextePersistance();     
-        Query q = em.createQuery("SELECT a FROM Consultation a");
-        int count = ((Long)em.createQuery("SELECT COUNT(a) FROM Consultation a").getSingleResult()).intValue();
-        return count;
-    }
     
      public Personne chercherParMail(String personneMail) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
