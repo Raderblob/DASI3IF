@@ -23,7 +23,6 @@ public class ProfilPersonneSerialisation extends Serialisation {
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Personne personne = (Personne)request.getAttribute("personne");
-        System.out.println(personne);
         JsonObject container = new JsonObject();
 
         Boolean connexion = (personne != null);
