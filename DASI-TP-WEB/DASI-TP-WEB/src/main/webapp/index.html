@@ -19,16 +19,50 @@
         Mot de passe: <input type="password" id="champ-password" />
         <br/>
         <button id="bouton-connexion">Connexion</button>
-        
-        <ol>
-            <li> Coffee</li>
-            <li> Tea</li>
-            <li> Milk</li>
-        </ol>
 
+        <ul id="liste-mediums">
+            <li>
+                CouCou
+            </li>
+        </ul>
+        
         <script>
-            $(document).ready( function () {
-                $('#bouton-connexion').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+            function initDonneesPage(){//Fonction pour initialiser les données de la page
+                
+                $.ajax({//requête AJAX
+                    url:'./ActionServlet',//URL
+                    method:'POST', //Méthode
+                    data:{      //Paramètres
+                        todo:'consulter_liste_medium'
+                    
+                    },
+                    dataType:'json'     //type de retour attendu               
+                })
+                .done(function(response){      //Appel OK =>"reponse" contient du JSON
+                    //console.log("hello world");
+                    //récupération des données
+                    //var id=response.id;
+                    var mediums=response.mediums;
+                    
+                    //affichage de la liste des étudiants
+                    $('#liste-mediums').empty();//vider la liste HTML
+                    $.each(mediums,function(index,medium){//boulce "foreach"
+                        $('#liste-mediums').append(//ajouter du contenu dans l'élément , ici la liste HTML
+                        '<li>'+
+                        medium.nom+medium.presentation+
+                        '</li>'
+                        );
+                    });
+                })
+                .fail(function(error){//appel KO => erreur technique à gérer
+                    console.log('Erreur:', error);//LOG sur la Console Javascript
+                    alert('Erreur lors du chargement des données: HTTP Code'+erreur.status);//popup d'erreur
+                });
+            }
+    
+    $(document).ready( function () {
+        initDonneesPage();        
+        $('#bouton-connexion').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
 
                     console.log("clic sur le bouton de connexion"); // LOG dans Console Javascript
                     $('#notification').html("Connexion..."); // Message pour le paragraphe de notification
