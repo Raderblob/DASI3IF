@@ -30,7 +30,7 @@
             function initDonneesPage(){//Fonction pour initialiser les données de la page
                 
                 $.ajax({//requête AJAX
-                    url:'./ActionServlet',//URL
+                    url:'./Controleur',//URL
                     method:'POST', //Méthode
                     data:{      //Paramètres
                         todo:'consulter_liste_medium'
@@ -39,7 +39,6 @@
                     dataType:'json'     //type de retour attendu               
                 })
                 .done(function(response){      //Appel OK =>"reponse" contient du JSON
-                    //console.log("hello world");
                     //récupération des données
                     //var id=response.id;
                     var mediums=response.mediums;
@@ -47,7 +46,7 @@
                     //affichage de la liste des étudiants
                     $('#liste-mediums').empty();//vider la liste HTML
                     $.each(mediums,function(index,medium){//boulce "foreach"
-                        $('#liste-mediums').append(//ajouter du contenu dans l'élément , ici la liste HTML
+                      $('#liste-mediums').append(//ajouter du contenu dans l'élément , ici la liste HTML
                         '<li>'+
                         medium.nom+medium.presentation+
                         '</li>'
