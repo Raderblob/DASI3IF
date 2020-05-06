@@ -26,12 +26,6 @@ public class AuthentifierAction extends Action {
         
         // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
-        if (personne != null) {
-            session.setAttribute("idClient", personne.getId());
-        }
-        else {
-            session.removeAttribute("idClient");
-        }
     }
     
 }

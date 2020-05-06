@@ -23,7 +23,7 @@ public class ProfilPersonneSerialisation extends Serialisation {
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Personne personne = (Personne)request.getAttribute("personne");
-        
+        System.out.println(personne);
         JsonObject container = new JsonObject();
 
         Boolean connexion = (personne != null);
@@ -36,7 +36,7 @@ public class ProfilPersonneSerialisation extends Serialisation {
             jsonClient.addProperty("prenom", personne.getPrenom());
             jsonClient.addProperty("mail", personne.getMail());
             jsonClient.addProperty("type", personne.getClass().toString());
-            container.add("client", jsonClient);
+            container.add("personne", jsonClient);
         }
 
         response.setContentType("application/json;charset=UTF-8");
