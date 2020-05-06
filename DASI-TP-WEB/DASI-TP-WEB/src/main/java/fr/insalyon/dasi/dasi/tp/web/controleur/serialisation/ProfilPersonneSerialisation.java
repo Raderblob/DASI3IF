@@ -7,38 +7,37 @@ package fr.insalyon.dasi.dasi.tp.web.controleur.serialisation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import fr.insalyon.dasi.metier.modele.medium.Medium;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Rader
  */
-public class MediumListSerialisation extends Serialisation {
+public class ProfilPersonneSerialisation extends Serialisation {
 
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Medium> mediums = (List<Medium>)request.getAttribute("mediums");
+        Personne personne = (Personne)request.getAttribute("personne");
         
         JsonObject container = new JsonObject();
 
-        Boolean connexion = (mediums != null);
-        container.addProperty("mediumsNumber", mediums.size());
-        
-        JsonArray listContainer = new JsonArray();
-        for(Medium med : mediums){
+        Boolean connexion = (personne != null);
+        container.addProperty("connexion", connexion);
+
+        if (personne != null) {
             JsonObject jsonClient = new JsonObject();
-            jsonClient.addProperty("id", med.getId());
-            jsonClient.addProperty("nom", med.getName());
-            jsonClient.addProperty("presentation", med.getPresentation());
-            listContainer.add(jsonClient);
+            jsonClient.addProperty("id", personne.getId());
+            jsonClient.addProperty("nom", personne.getNom());
+            jsonClient.addProperty("prenom", personne.getPrenom());
+            jsonClient.addProperty("mail", personne.getMail());
+
+            container.add("client", jsonClient);
         }
-        container.add("mediums", listContainer);
 
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();

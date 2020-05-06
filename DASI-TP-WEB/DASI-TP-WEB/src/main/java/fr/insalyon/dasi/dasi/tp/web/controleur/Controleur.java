@@ -6,10 +6,8 @@
 package fr.insalyon.dasi.dasi.tp.web.controleur;
 
 import fr.insalyon.dasi.dao.JpaUtil;
-import fr.insalyon.dasi.dasi.tp.web.controleur.action.Action;
-import fr.insalyon.dasi.dasi.tp.web.controleur.action.getMediumsAction;
-import fr.insalyon.dasi.dasi.tp.web.controleur.serialisation.MediumListSerialisation;
-import fr.insalyon.dasi.dasi.tp.web.controleur.serialisation.Serialisation;
+import fr.insalyon.dasi.dasi.tp.web.controleur.action.*;
+import fr.insalyon.dasi.dasi.tp.web.controleur.serialisation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -55,6 +53,18 @@ public class Controleur extends HttpServlet {
         
         if (todo != null) {
             switch (todo) {
+                case "consulter_liste_medium":
+                    action = new getMediumsAction();
+                    serialisation = new MediumListSerialisation();
+                    break;
+                case "connecter":
+                    action = new AuthentifierAction();
+                    serialisation = new ProfilPersonneSerialisation();
+                    break;
+                default:
+                    action = new getMediumsAction();
+                    serialisation = new MediumListSerialisation();
+                    break;
             }
         }
         action = new getMediumsAction();
