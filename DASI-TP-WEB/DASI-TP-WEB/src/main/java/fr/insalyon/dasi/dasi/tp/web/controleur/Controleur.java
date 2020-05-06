@@ -61,6 +61,10 @@ public class Controleur extends HttpServlet {
                     action = new AuthentifierAction();
                     serialisation = new ProfilPersonneSerialisation();
                     break;
+                case "createAccount":
+                    action = new SignUpAction();
+                    serialisation = new ProfilPersonneSerialisation();
+                    break;
                 default:
                     action = new GetMediumsAction();
                     serialisation = new MediumListSerialisation();

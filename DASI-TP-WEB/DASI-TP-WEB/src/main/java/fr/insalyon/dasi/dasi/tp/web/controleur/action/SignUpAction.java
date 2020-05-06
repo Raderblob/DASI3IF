@@ -5,6 +5,7 @@
  */
 package fr.insalyon.dasi.dasi.tp.web.controleur.action;
 
+import fr.insalyon.dasi.metier.modele.personne.Client;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import javax.servlet.http.HttpServletRequest;
@@ -18,20 +19,28 @@ public class SignUpAction extends Action{
 
     @Override
     public void executer(HttpServletRequest request) {
-        String login = request.getParameter("login");
+        String name = request.getParameter("name");
+        String firstName = request.getParameter("firstName");
         String password = request.getParameter("password");
-       // String 
+        String email = request.getParameter("email");
+        String dateOfBirth = request.getParameter("dateOfBirth");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String postCode = request.getParameter("postCode");
+        
         Service service = new Service();
-        Personne personne = service.authenticatePersonne(login, password);
-        request.setAttribute("personne", personne);
+        Client client = new Client(dateOfBirth, postCode,name, firstName, email, password, phoneNumber);
+        Long id  = service.inscrirePersonne(client);
+        
         
         // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
-        if (personne != null) {
-            session.setAttribute("idClient", personne.getId());
+        if (id != null) {
+            session.setAttribute("idClient", id);
+            request.setAttribute("client", client);
         }
         else {
             session.removeAttribute("idClient");
+            request.setAttribute("client", null);
         }
     }
     
