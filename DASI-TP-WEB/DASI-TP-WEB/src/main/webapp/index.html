@@ -73,7 +73,7 @@
 
                     // Appel AJAX
                     $.ajax({
-                        url: './ActionServlet',
+                        url: './Controleur',
                         method: 'POST',
                         data: {
                             todo: 'connecter',
@@ -84,12 +84,23 @@
                     })
                     .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
                         console.log('Response',response); // LOG dans Console Javascript
+                        console.log("test1");
+                        //console.log('Response',personne.nom);
                         if (response.connexion) {
+                            console.log("test2");
                             //$('#notification').html("Connexion OK");  // Message pour le paragraphe de notification
                             // TODO: afficher les informations du client dans la notification
                             // Exemple: Connexion de Ada Lovelace (ID 1)
-                            var client = response.client;
-                            $('#notification').html("Connexion de " + client.prenom + " " + client.nom + " (ID " + client.id + ")");  // Message pour le paragraphe de notification
+                            var role = response.personne.type;
+                            console.log("test3");
+                            //$('#notification').html("Connexion de " + client.prenom + " " + client.nom + " (ID " + client.id + ")");  // Message pour le paragraphe de notification
+                            if(role==='class fr.insalyon.dasi.metier.modele.personne.Employee')
+                            {
+                                window.location='./employeeHomePage';
+                            }else{
+                                window.location='./clientHomePage';
+                            }
+                            //$('#notification').html("Connexion de " + client.prenom + " " + client.nom + " (ID " + client.id + ")");  // Message pour le paragraphe de notification
                         }
                         else {
                             $('#notification').html("Erreur de Connexion"); // Message pour le paragraphe de notification
