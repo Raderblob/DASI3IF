@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Rader
  */
-public class getMediumsAction extends Action{
+public class GetMediumsAction extends Action{
 
     @Override
     public void executer(HttpServletRequest request) {

@@ -14,12 +14,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Rader
  */
-public class AuthentifierAction extends Action {
+public class SignUpAction extends Action{
 
     @Override
     public void executer(HttpServletRequest request) {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
+       // String 
         Service service = new Service();
         Personne personne = service.authenticatePersonne(login, password);
         request.setAttribute("personne", personne);

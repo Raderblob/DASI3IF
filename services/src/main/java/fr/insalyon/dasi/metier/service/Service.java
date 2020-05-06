@@ -361,7 +361,7 @@ public class Service {
 
          try {
             result = personneDao.chercherParMail(personneMail);
-            if(result == null || result.getMotDePasse() != personneMdp){
+            if(result == null || !result.getMotDePasse().equals(personneMdp)){
                 result = null;
             }
          }catch(Exception ex){

@@ -54,7 +54,7 @@ public class Controleur extends HttpServlet {
         if (todo != null) {
             switch (todo) {
                 case "consulter_liste_medium":
-                    action = new getMediumsAction();
+                    action = new GetMediumsAction();
                     serialisation = new MediumListSerialisation();
                     break;
                 case "connecter":
@@ -62,13 +62,11 @@ public class Controleur extends HttpServlet {
                     serialisation = new ProfilPersonneSerialisation();
                     break;
                 default:
-                    action = new getMediumsAction();
+                    action = new GetMediumsAction();
                     serialisation = new MediumListSerialisation();
                     break;
             }
         }
-        action = new getMediumsAction();
-        serialisation = new MediumListSerialisation();
         
         if (action != null) {
             action.executer(request);
