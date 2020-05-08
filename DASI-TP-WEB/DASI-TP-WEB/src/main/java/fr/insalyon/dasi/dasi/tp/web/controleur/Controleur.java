@@ -69,6 +69,14 @@ public class Controleur extends HttpServlet {
                     action = new ChangePasswordAction();
                     serialisation = new ProfilPersonneSerialisation();
                     break;
+                case "getMedium":
+                    action = new GetMediumAction();
+                    serialisation = new MediumSerialisation();
+                    break;
+                case "requestConsultation":
+                    action = new SendRequestAction();
+                    serialisation = new ConsultationSerialisation();
+                    break;
                 default:
                     action = new GetMediumsAction();
                     serialisation = new MediumListSerialisation();
