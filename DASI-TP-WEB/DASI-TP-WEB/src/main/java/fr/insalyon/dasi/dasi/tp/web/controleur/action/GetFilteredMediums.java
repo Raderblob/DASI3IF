@@ -10,18 +10,18 @@ import fr.insalyon.dasi.metier.service.Service;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author Rader
  */
-public class GetMediumsAction extends Action{
+public class GetFilteredMediums extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-
-
+        String type = request.getParameter("type");
         Service service = new Service();
-        List<Medium> result = service.GetListOfMediums("Medium");
+        List<Medium> result = service.GetListOfMediums(type);
 
         request.setAttribute("mediums", result);
         

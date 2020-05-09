@@ -125,6 +125,7 @@ public class PersonneDao {
        
        employee.getConsultations().add(consultation);
        employee.setAvailable(false);
+       employee.setNumConsultations(employee.getNumConsultations()+1);
        consultation.setState(ConsultationState.ASSIGNED);
        //consultation.setStartDate(new Date());
        return employee;
