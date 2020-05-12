@@ -598,6 +598,7 @@ public class Service {
          JpaUtil.creerContextePersistance();
          try {
            List<Consultation> consultations = consultationDao.getEmployeePastConsultations(employeeName);
+           
            if(!consultations.isEmpty()){
                consultation = consultations.get(consultations.size()-1);
                if(consultation.getAcceptor().getAvailable()){

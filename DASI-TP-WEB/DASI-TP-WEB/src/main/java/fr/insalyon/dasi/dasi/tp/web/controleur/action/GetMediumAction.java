@@ -6,33 +6,26 @@
 package fr.insalyon.dasi.dasi.tp.web.controleur.action;
 
 import fr.insalyon.dasi.metier.modele.medium.Medium;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author Rader
  */
-public class GetMediumsAction extends Action{
+public class GetMediumAction extends Action{
 
     @Override
     public void executer(HttpServletRequest request) {
-
-
+        String name = request.getParameter("name");
         Service service = new Service();
-        List<Medium> result = service.GetListOfMediums("Medium");
-
-        request.setAttribute("mediums", result);
+        Medium medium = service.rechercherMediumParNom(name);
+        request.setAttribute("medium", medium);
         
         // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
-        if (result!=null) {
-            session.setAttribute("size",result.size() );
-        }
-        else {
-            session.setAttribute("size",0);
-        }
     }
     
 }

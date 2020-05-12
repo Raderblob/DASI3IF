@@ -7,41 +7,40 @@ package fr.insalyon.dasi.dasi.tp.web.controleur.serialisation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Rader
  */
-public class MediumListSerialisation extends Serialisation {
+public class ConsultationSerialisation extends Serialisation {
 
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Medium> mediums = (List<Medium>)request.getAttribute("mediums");
-        if(mediums==null){
-            mediums = new ArrayList<Medium>();
-        }
-        
+        Consultation consultation = (Consultation)request.getAttribute("consultation");
         JsonObject container = new JsonObject();
-        
-        container.addProperty("mediumsNumber", mediums.size());
-        
-        JsonArray listContainer = new JsonArray();
-        for(Medium med : mediums){
+
+        Boolean connexion = (consultation != null);
+        container.addProperty("Done", connexion);
+
+        if (consultation != null) {
             JsonObject jsonClient = new JsonObject();
-            jsonClient.addProperty("id", med.getId());
-            jsonClient.addProperty("nom", med.getName());
-            jsonClient.addProperty("presentation", med.getPresentation());
-            listContainer.add(jsonClient);
+            jsonClient.addProperty("id", consultation.getId());
+            jsonClient.addProperty("medium", consultation.getMedium().getName());
+            jsonClient.addProperty("caller", consultation.getCaller().getNom());
+            if(consultation.getAcceptor() != null){
+                jsonClient.addProperty("acceptor", consultation.getAcceptor().getNom());
+            }else{
+                jsonClient.addProperty("acceptor","none");
+            }
+            container.add("consultation", jsonClient);
         }
-        container.add("mediums", listContainer);
 
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter out = response.getWriter();

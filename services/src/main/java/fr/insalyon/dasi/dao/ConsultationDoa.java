@@ -49,7 +49,6 @@ public class ConsultationDoa {
         TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.acceptor.mail = :mail", Consultation.class);
         query.setParameter("mail", employeeEmail);
         List<Consultation> consultations = query.getResultList();
-        
         return consultations;
     }
     
