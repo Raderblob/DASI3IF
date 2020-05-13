@@ -25,6 +25,12 @@ and open the template in the editor.
                         <li>Signe Astrologique Chinois : <span id="signeAstroChinois-client">5</span></li>
                         <li>Signe Zodiac : <span id="signeZodiac-client">6</span></li>
                     </ul>
+                    
+                    <button id="bouton-changePassword">Change password</button>
+        
+                    <button id="bouton-sendRequest">Send new request of consultation</button>
+        
+         
     <script>// Script Javascript (dans la page)
         function initDonneesPage(){// Fonction pour initialiser les données de la page
            console.log('hello');         
@@ -59,6 +65,14 @@ and open the template in the editor.
         }
         $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
             initDonneesPage();// Appel de la fonction pour initialiser les données de la page
+            var mail=window.location.search.substring(12);
+            $('#bouton-changePassword').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+
+                    console.log("clic sur le bouton de changement de mot de passe"); // LOG dans Console Javascript
+                    window.location='./changePassword.html?mailAdress='+mail;
+                    
+                });
+            
         });
         </script>
     </body>
