@@ -6,11 +6,43 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>PREDICT'IF: Home Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="JScript/employeeScripts.js"></script>
     </head>
     <body>
-        <div>Employee Home Page</div>
+        <div name="debug"><button onClick="debugF()">DebugButton</button>nom:<span id="nom-client">1</span> prenom: <span id="prenom-client">2</span></div>
+        
+        <h1>PREDICT’IF: Employee Home page</h1>
+        <div id="filters">
+            <h2>Please select type</h2>
+            <input type="radio" id="Employee" name="filterType" value="Employee">
+            <label for="Employee">Employee</label><br>
+            <input type="radio" id="Medium" name="filterType" value="Medium">
+            <label for="Medium">Medium</label><br>
+            <input type="radio" id="Client" name="filterType" value="Client">
+            <label for="Client">Client</label><br>
+            
+            <label for="TextInput">Search by name :</label><br>
+            <input type="text" id="TextInput" name="TextInput" value="">
+            <br>
+            <button id="filterButton" onclick="console.log('Not Made yet')">Apply filters</button>
+        </div>
+        <div id="listBoxDiv">
+            
+        </div>        
+        <button id="pastConsultationsButton" onclick="getPastConsultations()">See past consultations</button>
+        <button id="pendingRequestsButton" onclick="getPendingRequests()">See unanswered requests</button>
+        <button id="consultationDetailsButton" onclick="console.log('Not Made yet')">Open Consultation details</button>
+        <button id="companyStatsButton" onclick="console.log('Not Made yet')">Company Stats</button>
+        
+        <script>
+        $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
+            initDonneesHomePage();// Appel de la fonction pour initialiser les données de la page
+        });    
+            
+        </script>
     </body>
 </html>
