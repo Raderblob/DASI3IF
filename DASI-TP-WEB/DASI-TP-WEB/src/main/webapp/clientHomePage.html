@@ -6,11 +6,58 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>PREDICT'IF: Home Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>Client Home Page</div>
+
+        <!-- Titre avec le nom de l'étudiant (et la promo), à remplir avec les données -->
+        <h1>Test Client</h1>
+                    
+                    <!-- Informations détaillées sur l'étudiant, à remplir avec les données -->
+                    <ul>
+                        <li>Nom : <span id="nom-client">1</span></li>
+                        <li>Prenom : <span id="prenom-client">2</span></li>
+                        <li>Animal Totem : <span id="animalTotem-client">3</span></li>
+                        <li>Couleur Porte-Bonheur : <span id="couleurPorteBonheur-client">4</span></li>
+                        <li>Signe Astrologique Chinois : <span id="signeAstroChinois-client">5</span></li>
+                        <li>Signe Zodiac : <span id="signeZodiac-client">6</span></li>
+                    </ul>
+    <script>// Script Javascript (dans la page)
+        function initDonneesPage(){// Fonction pour initialiser les données de la page
+           console.log('hello');         
+            // Extraire le numero de l'étudiant de l'URL: URL.html?numeroEtudiant=<numero>
+            var mail=window.location.search.substring(11);
+            console.log('test');
+            console.log(mail);
+            $.ajax({// Requête AJAX43                     
+                    url:'./Controleur',// URL
+                    method:'POST',// Méthode
+                    data:{// Paramètres
+                    todo:'getClient',
+                    adresseMail:mail},
+                    dataType:'json'// Type de retour attendu
+            })
+            .done(function(response){// Appel OK => "response" contient le résultat JSON
+            // Récupération des données                     
+            var personne=response.personne;
+            // Affichage des informations de l'étudiant
+            $('#nom-client').html(personne.nom);
+            $('#prenom-client').html(personne.prenom);
+            $('#animalTotem-client').html(personne.AnimalTotem);
+            $('#couleurPorteBonheur-client').html(personne.CouleurPorteBonheur);
+            $('#signeAstroChinois-client').html(personne.SigneAstroChinois);
+            $('#signeZodiac-client').html(personne.SigneZodiac);
+            })
+            .fail(function(error){// Appel KO => erreur technique à gérer
+            console.log('Erreur:',error);// LOG sur la Console Javascript
+            alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
+            });
+        }
+        $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
+            initDonneesPage();// Appel de la fonction pour initialiser les données de la page
+        });
+        </script>
     </body>
 </html>
