@@ -93,6 +93,18 @@ public class Controleur extends HttpServlet {
                     action = new GetUnansweredRequestsForAction();
                     serialisation = new ConsultationListSerialisation();
                     break;
+                case "getClientConsultations":
+                    action = new GetClientConsultationsAction();
+                    serialisation = new ConsultationListSerialisation();
+                    break;
+                case "getClient":
+                    action = new GetUserAction();
+                    serialisation = new ClientSerialisation();
+                    break;
+                case "getEmployee":
+                    action = new GetUserAction();
+                    serialisation = new EmployeeSerialisation();
+                    break;
                 default:
                     action = new GetMediumsAction();
                     serialisation = new MediumListSerialisation();
