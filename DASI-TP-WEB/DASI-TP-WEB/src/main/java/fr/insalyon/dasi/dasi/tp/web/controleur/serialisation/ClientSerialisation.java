@@ -37,7 +37,7 @@ public class ClientSerialisation extends Serialisation {
             jsonClient.addProperty("mail", client.getMail());
             jsonClient.addProperty("AnimalTotem", client.getAnimalTotem());
             jsonClient.addProperty("CouleurPorteBonheur", client.getCouleurPorteBonheur());
-            jsonClient.addProperty("SigneAstroChonois", client.getSigneAstroChonois());
+            jsonClient.addProperty("SigneAstroChinois", client.getSigneAstroChonois());
             jsonClient.addProperty("SigneZodiac", client.getSigneZodiac());
             jsonClient.addProperty("TelephoneNumber", client.getTelephoneNumber());
             jsonClient.addProperty("TelephoneNumber", client.getPostcode());
