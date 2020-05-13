@@ -8,7 +8,9 @@ package fr.insalyon.dasi.dasi.tp.web.controleur.serialisation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import fr.insalyon.dasi.metier.modele.medium.Astrologue;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
+import fr.insalyon.dasi.metier.modele.medium.Spirite;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,6 +36,13 @@ public class MediumSerialisation extends Serialisation {
             jsonClient.addProperty("id", medium.getId());
             jsonClient.addProperty("nom", medium.getName());
             jsonClient.addProperty("presentation", medium.getPresentation());
+            if(medium instanceof Spirite ){
+                jsonClient.addProperty("support", ((Spirite) (medium)).getSupport());
+            }else if(medium instanceof Astrologue){
+                jsonClient.addProperty("formation", ((Astrologue) (medium)).getFormation());
+                jsonClient.addProperty("promotion", ((Astrologue) (medium)).getPromotion());
+            }
+            
             container.add("medium", jsonClient);
         }
 
