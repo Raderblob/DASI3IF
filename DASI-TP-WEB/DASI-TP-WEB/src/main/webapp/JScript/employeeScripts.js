@@ -122,7 +122,8 @@ function applySearchFilters(){
         const radioEmployee = document.querySelectorAll('#Employee');
         const radioMedium = document.querySelectorAll('#Medium');
         const radioClient = document.querySelectorAll('#Client');
-        
+        var inputTxt = $('#TextInput').val();;
+        console.log(inputTxt);
         var title;
         var htmlIn = "";
         
@@ -130,22 +131,28 @@ function applySearchFilters(){
             title = "<h2 id='listBoxDivTitle'>Employees</h2>";
             var employees=response.employees;
             employees.forEach (function(empl){
-                var b = "<button id='"+ empl.mail +"' onClick='setButtonChecked("+ '"' +empl.mail +'"' +")' checked='false'>" + empl.mail + "</button>";
-                htmlIn = htmlIn + "<br>" + b;
+                if(inputTxt == "" | empl.mail.includes(inputTxt)){
+                    var b = "<button id='"+ empl.mail +"' onClick='setButtonChecked("+ '"' +empl.mail +'"' +")' checked='false'>" + empl.mail + "</button>";
+                    htmlIn = htmlIn + "<br>" + b;
+                }
             });
         }else if(radioMedium[0].checked){
             title = "<h2 id='listBoxDivTitle'>Mediums</h2>";
             var mediums=response.mediums;
             mediums.forEach (function(med){
-                var b = "<button id='"+ med.nom +"' onClick='setButtonChecked("+ '"' +med.nom +'"' +")' checked='false'>" + med.nom + "</button>";
-                htmlIn = htmlIn + "<br>" + b;
+                if(inputTxt == "" | med.nom.includes(inputTxt)){
+                    var b = "<button id='"+ med.nom +"' onClick='setButtonChecked("+ '"' +med.nom +'"' +")' checked='false'>" + med.nom + "</button>";
+                    htmlIn = htmlIn + "<br>" + b;
+                }
             });
         }else if(radioClient[0].checked){
             title = "<h2 id='listBoxDivTitle'>Clients</h2>";
             var clients=response.clients;
             clients.forEach (function(cl){
-                var b = "<button id='"+ cl.mail +"' onClick='setButtonChecked("+ '"' +cl.mail +'"' +")' checked='false'>" + cl.mail + "</button>";
-                htmlIn = htmlIn + "<br>" + b;
+                if(inputTxt == ""| cl.mail.includes(inputTxt)){
+                    var b = "<button id='"+ cl.mail +"' onClick='setButtonChecked("+ '"' +cl.mail +'"' +")' checked='false'>" + cl.mail + "</button>";
+                    htmlIn = htmlIn + "<br>" + b;
+                }
             });
         }
         
@@ -179,5 +186,29 @@ function openConsultationDetails()
         if(item.getAttribute("checked")== "true" & item.getAttribute("cId") !== null){
              window.location='./consultationDetails.html?' + item.getAttribute("cId"); 
         }
+    });
+}
+
+function getCompanyStats(){
+    $.ajax({// Requête AJAX43                     
+        url:'./Controleur',// URL
+        method:'POST',// Méthode
+        data:{// Paramètres
+        todo:'getCompanyStats'},
+        dataType:'json'// Type de retour attendu
+    })
+    .done(function(response){// Appel OK => "response" contient le résultat JSON
+        var infos=response.AllInfo;
+        var title = "<h2 id='listBoxDivTitle'>Company stats</h2>"
+        var htmlIn = "";
+        infos.forEach (function(item){
+            htmlIn = htmlIn + "<br>" + item.info;
+        });
+        $('#listBoxDiv').html(title +htmlIn);
+
+    })
+    .fail(function(error){// Appel KO => erreur technique à gérer
+        console.log('Erreur:',error);// LOG sur la Console Javascript
+        alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
     });
 }
