@@ -121,6 +121,10 @@ public class Controleur extends HttpServlet {
                     action = new GetEmployeeConsultationsAction();
                     serialisation = new ConsultationListSerialisation();
                     break;
+                case "getConsultation":
+                    action = new GetConsultationAction();
+                    serialisation = new ConsultationListSerialisation();
+                    break;
                 default:
                     action = new GetMediumsAction();
                     serialisation = new MediumListSerialisation();

@@ -85,6 +85,12 @@ public class ConsultationDoa {
         List<Consultation> cons = query.getResultList();
         return cons;
     }
+   
+   public Consultation getConsultation(Long consultationId){
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        Consultation consultation = em.find(Consultation.class, consultationId);
+       return consultation;
+   }
 }
 
 

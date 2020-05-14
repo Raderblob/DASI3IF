@@ -56,7 +56,7 @@ function getPendingRequests(){
             var txt = '"hello"';
             var title = "<h2 id='listBoxDivTitle'>Pending Requests</h2>"
             var b = "<button id='pendingConsult' onClick='console.log("+ txt +")'>caller=" + consultations[0].caller + " medium=" + consultations[0].nom + " state=" + consultations[0].state + "</button>";
-             $('#listBoxDiv').html(title + "<br>" +b);
+             $('#listBoxDiv').html(title +b);
         }else{
             var title = "<h2 id='listBoxDivTitle'>Pending Requests</h2>"
             $('#listBoxDiv').html(title + "<br>Nothing");
@@ -81,13 +81,14 @@ function getPastConsultations(){
     .done(function(response){// Appel OK => "response" contient le résultat JSON
         var consultations=response.consultations;
         var title = "<h2 id='listBoxDivTitle'>Pending Requests</h2>"
-        var txt = '"hello"';
+
         var htmlIn = "";
         consultations.forEach (function(consult){
-            var b = "<button id='pendingConsult' onClick='console.log("+ txt +")'>caller=" + consult.caller + " medium=" + consult.nom + " state=" + consult.state + "</button>";
+            var txt = '"pendingConsult'+consult.id+'"';
+            var b = "<button id='pendingConsult" + consult.id + "' onClick='setButtonChecked("+ txt +")' cId='" + consult.id +"'>caller=" + consult.caller + " medium=" + consult.nom + " state=" + consult.state + "</button>";
             htmlIn = htmlIn + "<br>" + b;
         });
-        $('#listBoxDiv').html(title + "<br>" +htmlIn);
+        $('#listBoxDiv').html(title +htmlIn);
 
     })
     .fail(function(error){// Appel KO => erreur technique à gérer
@@ -129,32 +130,54 @@ function applySearchFilters(){
             title = "<h2 id='listBoxDivTitle'>Employees</h2>";
             var employees=response.employees;
             employees.forEach (function(empl){
-                var b = "<button id='"+ empl.mail +"' onClick='console.log("+ '"' +empl.mail +'"' +")'>" + empl.mail + "</button>";
+                var b = "<button id='"+ empl.mail +"' onClick='setButtonChecked("+ '"' +empl.mail +'"' +")' checked='false'>" + empl.mail + "</button>";
                 htmlIn = htmlIn + "<br>" + b;
             });
         }else if(radioMedium[0].checked){
             title = "<h2 id='listBoxDivTitle'>Mediums</h2>";
             var mediums=response.mediums;
             mediums.forEach (function(med){
-                var b = "<button id='"+ med.nom +"' onClick='console.log("+ '"' +med.nom +'"' +")'>" + med.nom + "</button>";
+                var b = "<button id='"+ med.nom +"' onClick='setButtonChecked("+ '"' +med.nom +'"' +")' checked='false'>" + med.nom + "</button>";
                 htmlIn = htmlIn + "<br>" + b;
             });
         }else if(radioClient[0].checked){
             title = "<h2 id='listBoxDivTitle'>Clients</h2>";
             var clients=response.clients;
             clients.forEach (function(cl){
-                var b = "<button id='"+ cl.mail +"' onClick='console.log("+ '"' +cl.mail +'"' +")'>" + cl.mail + "</button>";
+                var b = "<button id='"+ cl.mail +"' onClick='setButtonChecked("+ '"' +cl.mail +'"' +")' checked='false'>" + cl.mail + "</button>";
                 htmlIn = htmlIn + "<br>" + b;
             });
         }
         
 
         
-        $('#listBoxDiv').html(title  + "<br>" + htmlIn);
+        $('#listBoxDiv').html(title + htmlIn);
 
     })
     .fail(function(error){// Appel KO => erreur technique à gérer
         console.log('Erreur:',error);// LOG sur la Console Javascript
         alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
+    });
+}
+
+function setButtonChecked(buttonId){
+    var listBoxChildren = document.getElementById("listBoxDiv").childNodes;
+    listBoxChildren.forEach(function(item){
+        item.setAttribute("checked","false");
+    });
+    
+    var button = document.getElementById(buttonId);
+    button.setAttribute("checked","true");
+}
+
+function openConsultationDetails()
+{
+    var listBoxChildren = document.getElementById("listBoxDiv").childNodes;
+    listBoxChildren.forEach(function(item){
+        console.log(item);
+        console.log(item.getAttribute("cId"));
+        if(item.getAttribute("checked")== "true" & item.getAttribute("cId") !== null){
+             window.location='./consultationDetails.html?' + item.getAttribute("cId"); 
+        }
     });
 }
