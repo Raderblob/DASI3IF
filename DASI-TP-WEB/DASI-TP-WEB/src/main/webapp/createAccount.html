@@ -6,11 +6,106 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>PREDICT'IF: Create an account</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </head>
     <body>
-        <div>TODO write content</div>
+
+        <!-- Titre avec le nom de l'étudiant (et la promo), à remplir avec les données -->
+        <h1>Create your account</h1>
+        
+        <p id="notification">Veuillez saisir compléter tous les champs puis valider.</p>
+        
+        <!-- Champs et Bouton de Formulaire -->
+        Name: <input type="text" id="champ-name" size="40" />
+        <br/>
+        
+        First Name: <input type="text" id="champ-firstName" size="40" />
+        <br/>
+        
+        Email Adress: <input type="text" id="champ-emailAdress" size="40" />
+        <br/>
+        
+        Enter Password: <input type="text" id="champ-password" size="40" />
+        <br/>
+        
+        Enter it again: <input type="text" id="champ-passwordConfirmation" size="40" />
+        <br/>
+        
+        PostCode: <input type="text" id="champ-postCode" size="40" />
+        <br/>
+        
+        Date of birth: <input type="text" id="champ-birthdate" size="40" />
+        <br/>
+        
+        Phone Number: <input type="text" id="champ-phoneNumber" size="40" />
+        <br/>
+        
+        <button id="bouton-signUp">Sign Upt</button>
+        
+         
+    <script>// Script Javascript (dans la page)
+        $(document).ready(function(){// Appelé à la fin du chargement de la page HTML      
+        $('#bouton-signUp').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+
+                    console.log("clic sur le bouton de demande de création de compte"); // LOG dans Console Javascript
+
+                    // Récupération de la valeur des champs du formulaire
+                    var champName = $('#champ-name').val();
+                    var champFirstName = $('#champ-firstName').val();
+                    var champEmail = $('#champ-emailAdress').val();
+                    var champPassword = $('#champ-password').val();
+                    var champConfirmPassword = $('#champ-passwordConfirmation').val();
+                    var champPostCode = $('#champ-postCode').val();
+                    var champBirthdate = $('#champ-birthdate').val();
+                    var champPhoneNumber = $('#champ-phoneNumber').val();
+                    
+                    // Appel AJAX
+                    $.ajax({
+                        url: './Controleur',
+                        method: 'POST',
+                        data: {
+                            todo: 'createAccount',
+                            name: champName,
+                            firstName: champFirstName,
+                            password: champPassword,
+                            email: champEmail,
+                            dateOfBirth: champBirthdate,
+                            phoneNumber: champPhoneNumber,
+                            postCode: champPostCode,                            
+                        },
+                        dataType: 'json'
+                    })
+                    .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
+                        if(champName==''||champFirstName==''||champPassword==''||champEmail==''||champBirthdate==''||champPhoneNumber==''||champPostCode==''||champConfirmPassword==''){
+                            $('#notification').html("Attention , il faut remplir tous les champs"); // Message pour le paragraphe de notification
+                        }else{
+                            if(champEmail!=champConfirmPassword)
+                            {
+                                $('#notification').html("Attention , l'écriture du mot de passe diffère selon les deux derniers champs"); // Message pour le paragraphe de notification
+                            }else{
+                                if(response!=null){
+                                    $('#notification').html("Attention , l'écriture du mot de passe diffère selon les deux derniers champs"); // Message pour le paragraphe de notification
+                                }else{
+                                    window.location='./index.html';
+                                }
+                            }
+                        }
+                                
+                    })
+                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
+                        console.log('Error',error); // LOG dans Console Javascript
+                        alert("Erreur lors de l'appel AJAX");
+                    })
+                    .always( function () { // Fonction toujours appelée
+                        
+                    });
+                });  
+                
+        });
+        </script>
     </body>
 </html>
+

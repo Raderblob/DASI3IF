@@ -20,6 +20,8 @@
         Mot de passe: <input type="password" id="champ-password" />
         <br/>
         <button id="bouton-connexion">Connexion</button>
+        <button id="bouton-createAccount">Create Account</button>
+        <button id="bouton-forgottenPassword">Forgotten Password</button>
 
         <h3>Voici une liste des meilleurs mediums disponibles</h3>
         <ul id="liste-mediums">
@@ -115,6 +117,14 @@
                         
                     });
                 });
+            $('#bouton-createAccount').on( 'click', function () {
+                window.location='./createAccount.html';
+            });
+            
+            $('#bouton-forgottenPassword').on( 'click', function () {
+                window.location='./forgottenPassword.html';
+            });
+            
             });
         </script>
     </body>
