@@ -1,0 +1,79 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14 May 2020, 21:10:22
+    Author     : Rader
+*/
+
+div{
+    padding: 5px;
+    margin: 5px;
+}
+
+#left{
+    position: Absolute;
+    left:0px;
+    width:47%;
+    height:250px;
+}
+
+h1{
+    text-align: center;
+}
+
+#right{
+    position: Absolute;
+    right:0px;
+    width:47%;
+}
+
+#filters{
+    position: relative;
+    left: 0%;
+    width:90%;
+    padding:5px;
+    border: 1px solid black;
+}
+#listBoxDiv{
+    position: relative;
+    right: 0px;
+    border: 1px solid black;
+}
+
+#filters *{
+    position: relative;
+    left: 20px;
+    margin:5px;
+}
+
+#filterButton{
+    position: Absolute;
+    right: 0px;
+    left: auto;
+    Bottom: 0px;
+    margin:5px;
+}
+
+#pastConsultationsButton{
+    position: absolute;
+    margin: 2%;
+    bottom: 30px;
+    left:0%;
+    width:90%;
+}
+#pendingRequestsButton{
+    position: absolute;
+    margin: 2%;
+    left:0%;
+    bottom: 0px;
+    width:90%;
+}
+button[checked ="true"]{
+    background-color: red;
+}
+button[checked ="false"]{
+    background-color: white;
+}

@@ -11,32 +11,40 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="JScript/employeeScripts.js"></script>
+        <link rel="stylesheet" href="CSS/global.css">
+        <link rel="stylesheet" href="CSS/employeeHomeStyles.css">
     </head>
     <body>
         <div name="debug"><button onClick="debugF()">DebugButton</button>nom:<span id="nom-client">1</span> prenom: <span id="prenom-client">2</span></div>
         
         <h1>PREDICT’IF: Employee Home page</h1>
-        <div id="filters">
-            <h2>Please select type</h2>
-            <input type="radio" id="Employee" name="filterType" value="Employee">
-            <label for="Employee">Employee</label><br>
-            <input type="radio" id="Medium" name="filterType" value="Medium">
-            <label for="Medium">Medium</label><br>
-            <input type="radio" id="Client" name="filterType" value="Client">
-            <label for="Client">Client</label><br>
-            
-            <label for="TextInput">Search by name :</label><br>
-            <input type="text" id="TextInput" name="TextInput" value="">
-            <br>
-            <button id="filterButton" onclick="applySearchFilters()">Apply filters</button>
+        <div id="left">
+            <div id="filters">
+                <h2>Please select type</h2>
+                <input type="radio" id="Employee" name="filterType" value="Employee">
+                <label for="Employee">Employee</label><br>
+                <input type="radio" id="Medium" name="filterType" value="Medium">
+                <label for="Medium">Medium</label><br>
+                <input type="radio" id="Client" name="filterType" value="Client">
+                <label for="Client">Client</label><br>
+
+                <label for="TextInput">Search by name :</label><br>
+                <input type="text" id="TextInput" name="TextInput" value="">
+                <br>
+                <button id="filterButton" onclick="applySearchFilters()">Apply filters</button>
+            </div>
+            <button id="pastConsultationsButton" onclick="getPastConsultations()">See past consultations</button>
+            <button id="pendingRequestsButton" onclick="getPendingRequests()">See unanswered requests</button>
         </div>
-        <div id="listBoxDiv">
-            
-        </div>        
-        <button id="pastConsultationsButton" onclick="getPastConsultations()">See past consultations</button>
-        <button id="pendingRequestsButton" onclick="getPendingRequests()">See unanswered requests</button>
-        <button id="consultationDetailsButton" onclick="console.log('Not Made yet')">Open Consultation details</button>
-        <button id="companyStatsButton" onclick="console.log('Not Made yet')">Company Stats</button>
+        <div id="right">
+            <div id="listBoxDiv"> 
+            </div>        
+
+            <button id="consultationDetailsButton" onclick="openConsultationDetails()">Open Consultation details</button>
+            <button id="companyStatsButton" onclick="getCompanyStats()">Company Stats</button>
+        </div>
+
+
         
         <script>
         $(document).ready(function(){// Appelé à la fin du chargement de la page HTML

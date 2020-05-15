@@ -479,6 +479,21 @@ public class Service {
 
          return acceptedConsultations;
      }
+     
+     public Consultation getConsultation(Long consultId){
+        Consultation resultat = null;
+        JpaUtil.creerContextePersistance();
+        try {
+            // Recherche du client
+            resultat = consultationDao.getConsultation(consultId);
+        } catch (Exception ex) {
+            Logger.getAnonymousLogger().log(Level.WARNING, "Exception lors de l'appel au Service rechercherPersonneParMotDePasse(String motDePasse)", ex);
+            resultat = null;
+        } finally {
+            JpaUtil.fermerContextePersistance();
+        }
+        return resultat;
+     }
 
      public Employee confirmConsultation(String employeeEmail, String review){
          Employee employee = null;

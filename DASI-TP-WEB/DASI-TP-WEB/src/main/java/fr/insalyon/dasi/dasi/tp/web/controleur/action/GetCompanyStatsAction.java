@@ -5,8 +5,8 @@
  */
 package fr.insalyon.dasi.dasi.tp.web.controleur.action;
 
-import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,21 +14,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Rader
  */
-public class ChangePasswordAction extends Action {
+public class GetCompanyStatsAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-       
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String newPassword = request.getParameter("newPassword");
         Service service = new Service();
-        if(service.authenticatePersonne(login, password)!=null && newPassword != null){
-            Personne personne = service.setPassword(login, newPassword);
-            request.setAttribute("personne", personne);
-        }else{
-            request.setAttribute("personne", null);
-        }
+        List<String> result = service.getStats();
+        request.setAttribute("result", result);
         
         // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
