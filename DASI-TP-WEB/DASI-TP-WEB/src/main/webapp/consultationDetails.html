@@ -6,11 +6,64 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>PREDICT’IF: Consultation Details</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="JScript/consultationScripts.js"></script>
+        <link rel="stylesheet" href="CSS/global.css">
     </head>
     <body>
-        <div>TODO write content</div>
+        <div id="left">
+            <button id="showClientButton" onclick="seeClientProfil()" >See Client Profil</button>
+            <button id="acceptButton">Accept</button>
+            <button id="helpButton">Need Help</button>
+            <form id="helpDiv">
+                <label for="amour1">1</label>
+                <label for="amour2">2</label>
+                <label for="amour3">3</label><br>
+                <label>Amour</label>
+                
+                <input type="radio" id="amour1" name="amour" value="1">
+                <input type="radio" id="amour2" name="amour" value="2">
+                <input type="radio" id="amour3" name="amour" value="3">
+                <br>
+                
+                <label for="sante1">1</label>
+                <label for="sante2">2</label>
+                <label for="sante3">3</label><br>
+                <label>Sante</label>
+                <input type="radio" id="sante1" name="sante" value="1">
+                <input type="radio" id="sante2" name="sante" value="2">
+                <input type="radio" id="sante3" name="sante" value="3">
+                <br>
+                
+                <label for="travail1">1</label>
+                <label for="travail2">2</label>
+                <label for="travail3">3</label><br>
+                <label>Sante</label>
+                <input type="radio" id="travail1" name="travail" value="1">
+                <input type="radio" id="travail2" name="travail" value="2">
+                <input type="radio" id="travail3" name="travail" value="3">
+            </form>
+            <div id="outputDiv">
+                
+            </div>
+        </div>
+        <div id="right">
+            <form id="dateForm">
+                <textarea  id="consultationDate" readonly="true" resize="false"></textarea >
+                <textarea  id="startHour"  readonly="true"></textarea >
+                <textarea  id="endHour"  readonly="true"></textarea >
+                <input type="text" id="TextInput" name="TextInput" value="">
+            </form>
+            <button id="submitButton">Submit review</button>
+        </div>
+        
+        <script>
+            $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
+                initDonneesConsultationDetails();// Appel de la fonction pour initialiser les données de la page
+            });    
+        </script>
     </body>
 </html>
