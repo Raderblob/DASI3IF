@@ -80,7 +80,7 @@ public class Service {
         
     }
 
-    public void envoyerMessageReinitialistaionPassword(String email) {
+    public Personne envoyerMessageReinitialistaionPassword(String email) {
         String telephoneDestinataire=null;
         String texte=null;
         Message message=new Message();
@@ -117,7 +117,7 @@ public class Service {
         } finally {
             JpaUtil.fermerContextePersistance();
         }
-        return ;
+        return etourdi;
     }
 
 
