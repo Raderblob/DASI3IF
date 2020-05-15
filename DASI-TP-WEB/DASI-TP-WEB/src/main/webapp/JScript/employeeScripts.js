@@ -53,9 +53,9 @@ function getPendingRequests(){
         var cNumber = response.ConsultationsNumber;
         var consultations=response.consultations;
         if(cNumber == 1){
-            var txt = '"hello"';
             var title = "<h2 id='listBoxDivTitle'>Pending Requests</h2>"
-            var b = "<button id='pendingConsult' onClick='console.log("+ txt +")'>caller=" + consultations[0].caller + " medium=" + consultations[0].nom + " state=" + consultations[0].state + "</button>";
+            var txt = '"pendingConsult'+consultations[0].id+'"';
+            var b = "<button id='pendingConsult" + consultations[0].id + "' onClick='setButtonChecked("+ txt +")' cId='" + consultations[0].id +"'>caller=" + consultations[0].caller + " medium=" + consultations[0].nom + " state=" + consultations[0].state + "</button>";
              $('#listBoxDiv').html(title +b);
         }else{
             var title = "<h2 id='listBoxDivTitle'>Pending Requests</h2>"
@@ -80,7 +80,7 @@ function getPastConsultations(){
     })
     .done(function(response){// Appel OK => "response" contient le résultat JSON
         var consultations=response.consultations;
-        var title = "<h2 id='listBoxDivTitle'>Pending Requests</h2>"
+        var title = "<h2 id='listBoxDivTitle'>Past Requests</h2>"
 
         var htmlIn = "";
         consultations.forEach (function(consult){

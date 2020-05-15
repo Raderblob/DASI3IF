@@ -13,6 +13,7 @@ import fr.insalyon.dasi.metier.modele.Consultation;
 import fr.insalyon.dasi.metier.modele.personne.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,9 @@ public class ConsultationListSerialisation  extends Serialisation{
 
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH-mm-ss");
+        
         List<Consultation> consultations = (List<Consultation>)request.getAttribute("consultations");
         if(consultations==null){
             consultations = new ArrayList<Consultation>();
@@ -45,6 +49,21 @@ public class ConsultationListSerialisation  extends Serialisation{
                 jsonClient.addProperty("acceptor", c.getAcceptor().getMail());
             }else{
                 jsonClient.addProperty("acceptor", "none");
+            }
+            if(c.getDate()!=null){
+                jsonClient.addProperty("date", dateFormat.format(c.getDate()));
+            }else{
+                jsonClient.addProperty("date", "Not specified");
+            }
+            if(c.getDate()!=null){
+                jsonClient.addProperty("endHour", hourFormat.format(c.getDate()));
+            }else{
+                jsonClient.addProperty("endHour", "Not specified");
+            }
+            if(c.getStartDate()!=null){
+                jsonClient.addProperty("startHour", hourFormat.format(c.getStartDate()));
+            }else{
+                jsonClient.addProperty("startHour", "Not specified");
             }
             jsonClient.addProperty("comment", c.getComment());
             jsonClient.addProperty("length", c.getConsultationLength());
