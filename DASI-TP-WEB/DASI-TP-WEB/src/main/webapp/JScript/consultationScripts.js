@@ -5,8 +5,7 @@
  */
 var consultation;
 
-function initDonneesConsultationDetails(){
-    console.log('hello');         
+function initDonneesConsultationDetails(){       
     // Extraire le numero de l'étudiant de l'URL: URL.html?numeroEtudiant=<numero>
     var queryString = decodeURIComponent(window.location.search);
     var id=queryString.split("?")[1];
@@ -48,5 +47,5 @@ function initDonneesConsultationDetails(){
 }
 
 function seeClientProfil(){
-    window.location='./clientProfil.html?'+consultation.caller;
+    window.location='./clientProfil.html?'+consultation.caller + "?" + consultation.id;
 }

@@ -6,11 +6,33 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>PREDICT’IF: Client Profile</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="JScript/profilScripts.js"></script>
+        <link rel="stylesheet" href="CSS/global.css">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>PREDICT’IF: Client Profile</h1>
+        <div id="left">
+            <div id="astralProfil">
+                
+            </div>
+            <button id="sortDateButton" onclick="getConsultByDate()">Sort by Date</button>
+            <button id="sortMediumButton" onclick="getConsultByMedium()">Sort by Medium</button>
+            <button id="sortEmployeeButton" onclick="getConsultByEmployee()">Sort by Employee</button>
+            
+            <div id="HistConsultations"></div>
+            <button id="returnButton" onclick="returnToEmployee()">Return</button>
+        </div>
+        <div id="right"><p id="consultDetails"></p></div>
+        <div id="debug"></div>
+        
+        <script>
+            $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
+                initDonneesProfileClient();// Appel de la fonction pour initialiser les données de la page
+            });    
+        </script>
     </body>
 </html>

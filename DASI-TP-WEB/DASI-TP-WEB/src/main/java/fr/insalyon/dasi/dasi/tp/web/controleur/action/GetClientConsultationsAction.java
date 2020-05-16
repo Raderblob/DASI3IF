@@ -22,8 +22,9 @@ public class GetClientConsultationsAction extends Action {
     @Override
     public void executer(HttpServletRequest request) {
         String eEmail = request.getParameter("clientEmail");
+        String sortType = request.getParameter("sortType");
         Service service = new Service();
-        List<Consultation> result = service.getClientConsultations(eEmail,SortType.DATE);
+        List<Consultation> result = service.getClientConsultations(eEmail,SortType.valueOf(sortType));
         if(result ==null){
             result = new ArrayList<Consultation>();
         }
