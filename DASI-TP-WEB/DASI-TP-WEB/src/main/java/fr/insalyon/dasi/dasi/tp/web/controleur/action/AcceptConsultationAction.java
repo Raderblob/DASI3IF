@@ -21,15 +21,16 @@ public class AcceptConsultationAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        String eEmail = request.getParameter("employeeEmail");
+        HttpSession session = request.getSession();
+        
+        String eEmail = session.getAttribute("login").toString();
         Service service = new Service();
         Employee employee = service.acceptConsultation(eEmail);
 
         
         request.setAttribute("personne", employee);
+
         
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
-        HttpSession session = request.getSession();
     }
     
 }

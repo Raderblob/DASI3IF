@@ -43,10 +43,15 @@ public class MediumListSerialisation extends Serialisation {
             jsonClient.addProperty("presentation", med.getPresentation());
             if(med instanceof Spirite ){
                 jsonClient.addProperty("support", ((Spirite) (med)).getSupport());
+                jsonClient.addProperty("type", "spirite");
             }else if(med instanceof Astrologue){
                 jsonClient.addProperty("formation", ((Astrologue) (med)).getFormation());
                 jsonClient.addProperty("promotion", ((Astrologue) (med)).getPromotion());
+                 jsonClient.addProperty("type", "astrologue");
+            }else{
+                jsonClient.addProperty("type", "cartomancien");
             }
+            
             listContainer.add(jsonClient);
         }
         container.add("mediums", listContainer);

@@ -38,7 +38,7 @@ function initDonneesConsultationDetails(){
         $('#TextInput').attr("readonly","true");
     }
     
-    
+    $("#clientInfo").html("Client Email: " + consultation.caller  + "<br>Consultation State: " + consultation.state + "<br>Medium Required: " + consultation.nom); 
     })
     .fail(function(error){// Appel KO => erreur technique à gérer
     console.log('Erreur:',error);// LOG sur la Console Javascript
@@ -51,4 +51,65 @@ function seeClientProfil(){
 }
 function returnToHome(){
     window.location='./employeeHomePage.html';
+}
+
+function askForHelp(){
+    var amour;
+    var travail;
+    var sante;
+    const radioAmour1 = document.querySelectorAll('#amour1');
+    const radioAmour2 = document.querySelectorAll('#amour2');
+    
+    const radioTravail1 = document.querySelectorAll('#travail1');
+    const radioTravail2 = document.querySelectorAll('#travail2');
+    
+    const radioSante1 = document.querySelectorAll('#sante1');
+    const radioSante2 = document.querySelectorAll('#sante2');
+    
+    if(radioAmour1[0].checked){
+        amour = 1;
+    }else if(radioAmour2[0].checked){
+        amour = 2;
+    }else{
+        amour = 3;
+    }
+    if(radioTravail1[0].checked){
+        travail = 1;
+    }else if(radioTravail2[0].checked){
+        travail = 2;
+    }else{
+        travail = 3;
+    }
+    if(radioSante1[0].checked){
+        sante = 1;
+    }else if(radioSante2[0].checked){
+        sante = 2;
+    }else{
+        sante = 3;
+    }
+    $.ajax({// Requête AJAX43                     
+            url:'./Controleur',// URL
+            method:'POST',// Méthode
+            data:{// Paramètres
+            todo:'getPredictions',
+            login:consultation.caller,
+            travail:travail,
+            sante:sante,
+            amour:amour},
+            dataType:'json'// Type de retour attendu
+    })
+    .done(function(response){// Appel OK => "response" contient le résultat JSON
+        // Récupération des données                     
+        allinfo = response.AllInfo;
+        var htmlIn = "Help:"
+        allinfo.forEach (function(info){
+            htmlIn = htmlIn + "<br><br>" + info.info;
+        });
+        $("#outputDiv").html(htmlIn);
+    
+    })
+    .fail(function(error){// Appel KO => erreur technique à gérer
+    console.log('Erreur:',error);// LOG sur la Console Javascript
+    alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
+    });
 }

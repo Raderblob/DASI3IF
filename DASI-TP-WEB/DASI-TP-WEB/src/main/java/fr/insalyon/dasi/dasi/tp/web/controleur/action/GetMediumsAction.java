@@ -5,7 +5,9 @@
  */
 package fr.insalyon.dasi.dasi.tp.web.controleur.action;
 
+import fr.insalyon.dasi.metier.modele.Gender;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
+import fr.insalyon.dasi.metier.modele.medium.Spirite;
 import fr.insalyon.dasi.metier.service.Service;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;

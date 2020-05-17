@@ -47,7 +47,9 @@ public class GetClientConsultationsAction extends Action {
         request.setAttribute("consultations", result);
         
         
-
+        for(int i = 0;i<result.size();i++){
+            session.setAttribute("consultId"+result.get(i).getId(), true);
+        }
     }
     
 }

@@ -7,6 +7,8 @@ package fr.insalyon.dasi.dasi.tp.web.controleur.action;
 
 import fr.insalyon.dasi.metier.modele.medium.Medium;
 import fr.insalyon.dasi.metier.modele.personne.Client;
+import fr.insalyon.dasi.metier.modele.personne.Employee;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -20,13 +22,18 @@ public class GetClientsAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        Service service = new Service();
-        List<Client> result = service.getListClients();
-        
-        request.setAttribute("clients", result);
-        
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
+        Service service = new Service();
+        
+        Personne usr = service.rechercherPersonneParMail(session.getAttribute("login").toString());
+        
+        if(usr instanceof Employee){
+            List<Client> result = service.getListClients();
+
+            request.setAttribute("clients", result);
+        }
+        
+        
     }
     
 }

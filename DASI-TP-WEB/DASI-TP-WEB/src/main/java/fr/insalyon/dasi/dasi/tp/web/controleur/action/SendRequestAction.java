@@ -19,15 +19,17 @@ public class SendRequestAction extends Action{
 
     @Override
     public void executer(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        
         String mediumName = request.getParameter("mediumName");
-        String clientName = request.getParameter("clientEmail");
+        String clientName = session.getAttribute("login").toString();
         Service service = new Service();
         Medium medium = service.rechercherMediumParNom(mediumName);
         Consultation consultation = service.addClientConsultation(clientName, medium);
         request.setAttribute("consultation", consultation);
         
         // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
-        HttpSession session = request.getSession();
+        
     }
     
 }

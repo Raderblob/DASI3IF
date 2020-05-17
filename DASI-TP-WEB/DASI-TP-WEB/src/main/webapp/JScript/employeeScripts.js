@@ -114,8 +114,7 @@ function applySearchFilters(){
         const radioEmployee = document.querySelectorAll('#Employee');
         const radioMedium = document.querySelectorAll('#Medium');
         const radioClient = document.querySelectorAll('#Client');
-        var inputTxt = $('#TextInput').val();;
-        console.log(inputTxt);
+        var inputTxt = $('#TextInput').val();
         var title;
         var htmlIn = "";
         

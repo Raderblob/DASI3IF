@@ -6,10 +6,12 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>PREDICT'IF: Home Page</title>
+        <title>PREDICT'IF: Home page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="JScript/clientScripts.js"></script>
+        <link rel="stylesheet" href="CSS/global.css">
     </head>
     <body>
 
@@ -17,48 +19,20 @@ and open the template in the editor.
         <h1>Test Client</h1>
                     
                     <!-- Informations détaillées sur l'étudiant, à remplir avec les données -->
-                    <ul>
-                        <li>Nom : <span id="nom-client">1</span></li>
-                        <li>Prenom : <span id="prenom-client">2</span></li>
-                        <li>Animal Totem : <span id="animalTotem-client">3</span></li>
-                        <li>Couleur Porte-Bonheur : <span id="couleurPorteBonheur-client">4</span></li>
-                        <li>Signe Astrologique Chinois : <span id="signeAstroChinois-client">5</span></li>
-                        <li>Signe Zodiac : <span id="signeZodiac-client">6</span></li>
-                    </ul>
-                    
-                    <button id="bouton-changePassword">Change password</button>
-        
-                    <button id="bouton-sendRequest">Send new request of consultation</button>
-        
+                    <div id="left">
+                        <div id="astralProfil"></div>
+
+                        <button id="bouton-changePassword">Change password</button><br>
+
+                        <button id="bouton-sendRequest" onclick="goToRequestPage()">Send new request of consultation</button>
+                    </div>
+                    <div id="right">
+                        
+                    </div>
          
     <script>// Script Javascript (dans la page)
-        function initDonneesPage(){// Fonction pour initialiser les données de la page
-            $.ajax({// Requête AJAX43                     
-                    url:'./Controleur',// URL
-                    method:'POST',// Méthode
-                    data:{// Paramètres
-                    todo:'getClient'},
-                    dataType:'json'// Type de retour attendu
-            })
-            .done(function(response){// Appel OK => "response" contient le résultat JSON
-            // Récupération des données                     
-            var personne=response.personne;
-            // Affichage des informations de l'étudiant
-            console.log(response);
-            $('#nom-client').html(personne.nom);
-            $('#prenom-client').html(personne.prenom);
-            $('#animalTotem-client').html(personne.AnimalTotem);
-            $('#couleurPorteBonheur-client').html(personne.CouleurPorteBonheur);
-            $('#signeAstroChinois-client').html(personne.SigneAstroChinois);
-            $('#signeZodiac-client').html(personne.SigneZodiac);
-            })
-            .fail(function(error){// Appel KO => erreur technique à gérer
-            console.log('Erreur:',error);// LOG sur la Console Javascript
-            alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
-            });
-        }
         $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
-            initDonneesPage();// Appel de la fonction pour initialiser les données de la page
+            initDonneesProfileClient();
             $('#bouton-changePassword').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
 
                     console.log("clic sur le bouton de changement de mot de passe"); // LOG dans Console Javascript

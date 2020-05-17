@@ -6,11 +6,37 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>PREDICT’IF: Request page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="JScript/clientScripts.js"></script>
+        <link rel="stylesheet" href="CSS/global.css">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>PREDICT’IF: Request page</h1>
+        <div id="left">
+            <form id="mediumChoice">
+                <label>Please select a Medium type</label><br>
+                
+                <input type="radio" id="Spirit" name="MediumChoice" value="Spirit" checked="true"><label for="Spirit">Spirit</label><br>
+                <input type="radio" id="Astrologue" name="MediumChoice" value="Astrologue"><label for="Astrologue">Astrologue</label><br>
+                <input type="radio" id="Cartomancien" name="MediumChoice" value="Cartomancien"><label for="Cartomancien">Cartomancien</label><br>
+                
+                <label for="mediumNameInput">Search by name:</label><br>
+                <input type="text" id="mediumNameInput">
+            </form>
+            <div id="clickableMediums">
+                
+            </div>
+            <button id="applyFiltersButton" onclick="applyFilters()">Apply filters</button>
+        </div>
+        <div id="right">
+            <div id="MediumDetailDiv">
+                
+            </div><br>
+            <button id="returnButton" onclick="goToClientHome()">Return</button>
+            <button id="sendRequestButton">Send Request</button>
+        </div>
     </body>
 </html>

@@ -18,9 +18,13 @@ public class ConfirmConsultationAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        String eEmail = request.getParameter("employeeEmail");
-        String review = request.getParameter("review");
+        HttpSession session = request.getSession();
         Service service = new Service();
+        
+        
+        String eEmail = session.getAttribute("login").toString();
+        String review = request.getParameter("review");
+       
         Employee employee = service.confirmConsultation(eEmail,review);
         if(employee!=null){
             service.assignConsultations();
@@ -28,8 +32,8 @@ public class ConfirmConsultationAction extends Action {
         
         request.setAttribute("personne", employee);
         
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
-        HttpSession session = request.getSession();
+       
+        
     }
     
 }
