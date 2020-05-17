@@ -49,3 +49,6 @@ function initDonneesConsultationDetails(){
 function seeClientProfil(){
     window.location='./clientProfil.html?'+consultation.caller + "?" + consultation.id;
 }
+function returnToHome(){
+    window.location='./employeeHomePage.html';
+}

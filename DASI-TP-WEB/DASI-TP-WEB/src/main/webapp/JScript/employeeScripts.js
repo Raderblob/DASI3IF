@@ -7,17 +7,11 @@ var employee;
 
 
 function initDonneesHomePage(){// Fonction pour initialiser les données de la page
-           console.log('hello');         
-            // Extraire le numero de l'étudiant de l'URL: URL.html?numeroEtudiant=<numero>
-            var queryString = decodeURIComponent(window.location.search);
-            var mail=queryString.split("?")[1];
-            console.log(mail);
             $.ajax({// Requête AJAX43                     
                     url:'./Controleur',// URL
                     method:'POST',// Méthode
                     data:{// Paramètres
-                    todo:'getEmployee',
-                    login:mail},
+                    todo:'getEmployee'},
                     dataType:'json'// Type de retour attendu
             })
             .done(function(response){// Appel OK => "response" contient le résultat JSON
@@ -45,8 +39,7 @@ function getPendingRequests(){
         url:'./Controleur',// URL
         method:'POST',// Méthode
         data:{// Paramètres
-        todo:'getUnansweredRequests',
-        employeeEmail:employee.mail},
+        todo:'getUnansweredRequests'},
         dataType:'json'// Type de retour attendu
     })
     .done(function(response){// Appel OK => "response" contient le résultat JSON
@@ -74,8 +67,7 @@ function getPastConsultations(){
         url:'./Controleur',// URL
         method:'POST',// Méthode
         data:{// Paramètres
-        todo:'getEmployeeConsultations',
-        employeeEmail:employee.mail},
+        todo:'getEmployeeConsultations'},
         dataType:'json'// Type de retour attendu
     })
     .done(function(response){// Appel OK => "response" contient le résultat JSON

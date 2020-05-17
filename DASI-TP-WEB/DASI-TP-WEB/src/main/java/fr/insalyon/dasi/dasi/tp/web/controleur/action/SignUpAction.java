@@ -35,12 +35,6 @@ public class SignUpAction extends Action{
         
         // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
-        if (id != null) {
-            request.setAttribute("personne", (Personne)client);
-        }
-        else {
-            request.setAttribute("personne", null);
-        }
     }
     
 }

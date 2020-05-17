@@ -27,12 +27,6 @@ public class GetEmployeesAction extends Action {
         
         // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
-        if (result!=null) {
-            session.setAttribute("size",result.size() );
-        }
-        else {
-            session.setAttribute("size",0);
-        }
     }
     
 }

@@ -7,6 +7,8 @@ package fr.insalyon.dasi.dasi.tp.web.controleur.action;
 
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
+import java.util.Enumeration;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -23,9 +25,18 @@ public class AuthentifierAction extends Action {
         Service service = new Service();
         Personne personne = service.authenticatePersonne(login, password);
         request.setAttribute("personne", personne);
-        
         // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
+        if(personne !=null){
+            Enumeration<String> attribs = session.getAttributeNames();
+            while(attribs.hasMoreElements()){
+                session.removeAttribute(attribs.nextElement());
+            }
+            
+            session.setAttribute("login", login);
+            
+        }
+        
     }
     
 }

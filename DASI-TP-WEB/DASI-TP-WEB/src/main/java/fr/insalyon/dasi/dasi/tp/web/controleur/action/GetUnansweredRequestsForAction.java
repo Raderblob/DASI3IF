@@ -21,7 +21,9 @@ public class GetUnansweredRequestsForAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        String eEmail = request.getParameter("employeeEmail");
+        HttpSession session = request.getSession();
+        
+        String eEmail = session.getAttribute("login").toString();
         Service service = new Service();
         List<Consultation> result = new ArrayList<Consultation>();
         Consultation res = service.getUnconfirmedEmployeeConsultations(eEmail);
@@ -31,14 +33,7 @@ public class GetUnansweredRequestsForAction extends Action {
 
         request.setAttribute("consultations", result);
         
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
-        HttpSession session = request.getSession();
-        if (result!=null) {
-            session.setAttribute("size",result.size() );
-        }
-        else {
-            session.setAttribute("size",0);
-        }
+        session.setAttribute("consultId"+res.getId(), true);
     }
     
 }

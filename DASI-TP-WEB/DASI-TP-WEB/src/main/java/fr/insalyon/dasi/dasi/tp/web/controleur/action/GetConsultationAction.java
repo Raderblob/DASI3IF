@@ -20,24 +20,23 @@ public class GetConsultationAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        Long id = Long.parseLong(request.getParameter("consultationId"));
-        Service service = new Service();
-        List<Consultation> result = new ArrayList<Consultation>();
-        Consultation res = service.getConsultation(id);
-        if(res!=null){
-            result.add(res);
-        }
-
-        request.setAttribute("consultations", result);
-        
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
-        if (result!=null) {
-            session.setAttribute("size",result.size() );
+        
+        
+        Long id = Long.parseLong(request.getParameter("consultationId"));
+        boolean canGet =(boolean) session.getAttribute("consultId"+id);
+        if(canGet){
+        
+            Service service = new Service();
+            List<Consultation> result = new ArrayList<Consultation>();
+            Consultation res = service.getConsultation(id);
+            if(res!=null){
+                result.add(res);
+            }
+
+            request.setAttribute("consultations", result);
         }
-        else {
-            session.setAttribute("size",0);
-        }
+        
     }
     
 }

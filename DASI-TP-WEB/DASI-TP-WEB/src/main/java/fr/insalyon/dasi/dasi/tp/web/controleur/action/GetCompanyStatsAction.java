@@ -5,6 +5,8 @@
  */
 package fr.insalyon.dasi.dasi.tp.web.controleur.action;
 
+import fr.insalyon.dasi.metier.modele.personne.Employee;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -18,12 +20,17 @@ public class GetCompanyStatsAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        Service service = new Service();
-        List<String> result = service.getStats();
-        request.setAttribute("result", result);
-        
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
         HttpSession session = request.getSession();
+        String usrLogin = session.getAttribute("login").toString();
+        
+        
+        Service service = new Service();
+        Personne personne = service.rechercherPersonneParMail(usrLogin);
+        if(personne instanceof Employee){
+            List<String> result = service.getStats();
+            request.setAttribute("result", result);
+        }
+        
     }
     
 }

@@ -18,8 +18,9 @@ public class ChangePasswordAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-       
-        String login = request.getParameter("login");
+        HttpSession session = request.getSession();
+        
+        String login = session.getAttribute("login").toString();
         String password = request.getParameter("password");
         String newPassword = request.getParameter("newPassword");
         Service service = new Service();
@@ -30,8 +31,8 @@ public class ChangePasswordAction extends Action {
             request.setAttribute("personne", null);
         }
         
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
-        HttpSession session = request.getSession();
+
+        
     }
     
 }

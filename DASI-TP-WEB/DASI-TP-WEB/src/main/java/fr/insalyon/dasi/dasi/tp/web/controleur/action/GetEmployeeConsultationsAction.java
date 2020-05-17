@@ -20,7 +20,8 @@ public class GetEmployeeConsultationsAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
-        String eEmail = request.getParameter("employeeEmail");
+        HttpSession session = request.getSession();
+        String eEmail = session.getAttribute("login").toString();
         Service service = new Service();
         List<Consultation> result = new ArrayList<Consultation>();
         result = service.getPastEmployeeConsultations(eEmail);
@@ -30,14 +31,10 @@ public class GetEmployeeConsultationsAction extends Action {
 
         request.setAttribute("consultations", result);
         
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
-        HttpSession session = request.getSession();
-        if (result!=null) {
-            session.setAttribute("size",result.size() );
+        for(int i = 0;i<result.size();i++){
+            session.setAttribute("consultId"+result.get(i).getId(), true);
         }
-        else {
-            session.setAttribute("size",0);
-        }
+        
     }
     
 }

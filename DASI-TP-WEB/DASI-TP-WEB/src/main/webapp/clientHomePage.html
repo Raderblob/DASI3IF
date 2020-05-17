@@ -33,17 +33,11 @@ and open the template in the editor.
          
     <script>// Script Javascript (dans la page)
         function initDonneesPage(){// Fonction pour initialiser les données de la page
-           console.log('hello');         
-            // Extraire le numero de l'étudiant de l'URL: URL.html?numeroEtudiant=<numero>
-            var mail=window.location.search.substring(12);
-            console.log('test');
-            console.log(mail);
             $.ajax({// Requête AJAX43                     
                     url:'./Controleur',// URL
                     method:'POST',// Méthode
                     data:{// Paramètres
-                    todo:'getClient',
-                    login:mail},
+                    todo:'getClient'},
                     dataType:'json'// Type de retour attendu
             })
             .done(function(response){// Appel OK => "response" contient le résultat JSON
@@ -65,11 +59,10 @@ and open the template in the editor.
         }
         $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
             initDonneesPage();// Appel de la fonction pour initialiser les données de la page
-            var mail=window.location.search.substring(12);
             $('#bouton-changePassword').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
 
                     console.log("clic sur le bouton de changement de mot de passe"); // LOG dans Console Javascript
-                    window.location='./changePassword.html?mailAdress='+mail;
+                    window.location='./changePassword.html';
                     
                 });
             
