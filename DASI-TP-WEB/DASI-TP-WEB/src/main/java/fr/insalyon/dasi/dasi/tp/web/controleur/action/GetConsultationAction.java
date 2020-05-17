@@ -6,6 +6,8 @@
 package fr.insalyon.dasi.dasi.tp.web.controleur.action;
 
 import fr.insalyon.dasi.metier.modele.Consultation;
+import fr.insalyon.dasi.metier.modele.personne.Employee;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +22,21 @@ public class GetConsultationAction extends Action {
 
     @Override
     public void executer(HttpServletRequest request) {
+         Service service = new Service();
         HttpSession session = request.getSession();
-        
+        Personne usr = service.rechercherPersonneParMail(session.getAttribute("login").toString());
         
         Long id = Long.parseLong(request.getParameter("consultationId"));
-        boolean canGet =(boolean) session.getAttribute("consultId"+id);
+        boolean canGet;
+        if(usr instanceof Employee){
+            canGet = true;
+        }else{
+            canGet =(boolean) session.getAttribute("consultId"+id);
+        }
+        
         if(canGet){
         
-            Service service = new Service();
+           
             List<Consultation> result = new ArrayList<Consultation>();
             Consultation res = service.getConsultation(id);
             if(res!=null){
