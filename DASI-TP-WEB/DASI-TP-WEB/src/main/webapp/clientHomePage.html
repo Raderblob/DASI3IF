@@ -11,10 +11,17 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="JScript/clientScripts.js"></script>
+        <script type="text/javascript" src="JScript/globalJavaScripts.js"></script>
         <link rel="stylesheet" href="CSS/global.css">
     </head>
     <body>
-
+    <div class="Disconnect">   
+    <img src="./Images/disconnect.png" alt="Disconnect button" usemap="#workmap" width="40" height="40">
+    </div>
+            <map name="workmap">
+        <area shape="rect" coords="0,0,40,40" onclick="disconnectScript()">
+        </map>    
+        
         <!-- Titre avec le nom de l'étudiant (et la promo), à remplir avec les données -->
         <h1>Test Client</h1>
                     
@@ -31,6 +38,9 @@ and open the template in the editor.
                     </div>
          
     <script>// Script Javascript (dans la page)
+            
+        
+        
         $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
             initDonneesProfileClient();
             $('#bouton-changePassword').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
