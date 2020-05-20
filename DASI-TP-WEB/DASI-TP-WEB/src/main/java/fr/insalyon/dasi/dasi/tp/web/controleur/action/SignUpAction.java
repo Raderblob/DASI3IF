@@ -30,11 +30,10 @@ public class SignUpAction extends Action{
         Service service = new Service();
         Client client = new Client(dateOfBirth, postCode,name, firstName, email, password, phoneNumber);
         Long id  = service.inscrirePersonne(client);
-        System.out.println(id);
-        System.out.println(client);
         
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
-        HttpSession session = request.getSession();
+        request.setAttribute("connexion", id);
+        
+
     }
     
 }

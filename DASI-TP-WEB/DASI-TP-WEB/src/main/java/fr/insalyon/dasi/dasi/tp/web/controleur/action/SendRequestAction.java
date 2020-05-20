@@ -28,7 +28,7 @@ public class SendRequestAction extends Action{
         Consultation consultation = service.addClientConsultation(clientName, medium);
         request.setAttribute("consultation", consultation);
         
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
+        System.out.println(clientName + " " + mediumName + " " + medium);
         
     }
     

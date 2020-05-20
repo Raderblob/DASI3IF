@@ -8,8 +8,7 @@ package fr.insalyon.dasi.dasi.tp.web.controleur.serialisation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import fr.insalyon.dasi.metier.modele.Consultation;
-import fr.insalyon.dasi.metier.modele.medium.Medium;
+import fr.insalyon.dasi.metier.modele.personne.Personne;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
@@ -19,28 +18,20 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rader
  */
-public class ConsultationSerialisation extends Serialisation {
+public class AuthentifierPersonneSerialisation extends Serialisation{
 
     @Override
     public void serialiser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Consultation consultation = (Consultation)request.getAttribute("consultation");
+                Personne personne = (Personne)request.getAttribute("personne");
         JsonObject container = new JsonObject();
 
-        Boolean connexion = (consultation != null);
-        container.addProperty("Done", connexion);
+        Boolean connexion = (personne != null);
+        container.addProperty("connexion", connexion);
 
-        if (consultation != null) {
+        if (personne != null) {
             JsonObject jsonClient = new JsonObject();
-            jsonClient.addProperty("id", consultation.getId());
-            jsonClient.addProperty("medium", consultation.getMedium().getName());
-            jsonClient.addProperty("caller", consultation.getCaller().getNom());
-            jsonClient.addProperty("state", consultation.getState().toString());
-            if(consultation.getAcceptor() != null){
-                jsonClient.addProperty("acceptor", consultation.getAcceptor().getNom());
-            }else{
-                jsonClient.addProperty("acceptor","none");
-            }
-            container.add("consultation", jsonClient);
+            jsonClient.addProperty("type", personne.getClass().toString());
+            container.add("personne", jsonClient);
         }
 
         response.setContentType("application/json;charset=UTF-8");

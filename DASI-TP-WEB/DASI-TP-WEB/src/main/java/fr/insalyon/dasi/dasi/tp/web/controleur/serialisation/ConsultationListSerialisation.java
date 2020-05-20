@@ -50,8 +50,8 @@ public class ConsultationListSerialisation  extends Serialisation{
             }else{
                 jsonClient.addProperty("acceptor", "none");
             }
-            if(c.getDate()!=null){
-                jsonClient.addProperty("date", dateFormat.format(c.getDate()));
+            if(c.getStartDate()!=null){
+                jsonClient.addProperty("date", dateFormat.format(c.getStartDate()));
             }else{
                 jsonClient.addProperty("date", "Not specified");
             }

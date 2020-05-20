@@ -33,7 +33,6 @@ public class GetUnansweredRequestsForAction extends Action {
 
         request.setAttribute("consultations", result);
         
-        session.setAttribute("consultId"+res.getId(), true);
     }
     
 }

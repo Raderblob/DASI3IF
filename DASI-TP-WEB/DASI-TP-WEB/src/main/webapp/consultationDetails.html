@@ -17,7 +17,7 @@ and open the template in the editor.
         <div id="left">
             <p id="clientInfo"></p><br>
             <button id="showClientButton" onclick="seeClientProfil()" >See Client Profil</button>
-            <button id="acceptButton">Accept</button>
+            <button id="acceptButton" onclick="acceptConsultation()">Accept</button>
             <button id="helpButton" onclick="askForHelp()">Need Help</button>
             <form id="helpDiv">
                 <label for="amour1">1</label>
@@ -58,7 +58,7 @@ and open the template in the editor.
                 <textarea  id="endHour"  readonly="true"></textarea >
                 <input type="text" id="TextInput" name="TextInput" value="">
             </form>
-            <button id="submitButton">Submit review</button>
+            <button id="submitButton" onclick="confirmConsultation()">Submit review</button>
             <button id="returnButton" onclick="returnToHome()">Return</button>
         </div>
         

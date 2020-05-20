@@ -38,7 +38,7 @@ function parseConsultations(){
         var htmlIn = "";
         consultations.forEach (function(consult){
             var txt = '"'+consult.id+'"';
-            var b = "<button id='pendingConsult'>medium=" + consult.nom+"</button>";
+            var b = "<button id='pendingConsult'>medium: " + consult.nom+ " State: " + consult.state  + " " +consult.date +"</button>";
             htmlIn = htmlIn + "<br>" + b;
         });
        $('#right').html(htmlIn);
@@ -131,4 +131,40 @@ function showMediumDetails(mediumName){
         console.log('Erreur:',error);// LOG sur la Console Javascript
         alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
     });
+}
+
+function sendConsultationsRequest(){
+    if(selectedMedium != null){
+        console.log(selectedMedium.nom);
+        $.ajax({// Requête AJAX43                     
+            url:'./Controleur',// URL
+            method:'POST',// Méthode
+            data:{// Paramètres
+            todo:"requestConsultation",
+            mediumName:selectedMedium.nom},
+            dataType:'json'// Type de retour attendu
+        })
+        .done(function(response){// Appel OK => "response" contient le résultat JSON
+            var inputTxt = $('#mediumNameInput').val();
+            var title;
+            var htmlIn = "";
+
+
+            title = "<h2>Consultation Details</h2>";
+            var consultation=response.consultation;
+            
+            htmlIn = "<br>" + consultation.medium + "<br>" + consultation.state;
+
+
+
+            $('#MediumDetailDiv').html(title + htmlIn);
+
+        })
+        .fail(function(error){// Appel KO => erreur technique à gérer
+            console.log('Erreur:',error);// LOG sur la Console Javascript
+            alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
+        });
+    }else{
+        console.log("Cannot");
+    }
 }

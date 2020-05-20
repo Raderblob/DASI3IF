@@ -59,11 +59,11 @@ public class Controleur extends HttpServlet {
                     break;
                 case "connecter":
                     action = new AuthentifierAction();
-                    serialisation = new ProfilPersonneSerialisation();
+                    serialisation = new AuthentifierPersonneSerialisation();
                     break;
                 case "createAccount":
                     action = new SignUpAction();
-                    serialisation = new ProfilPersonneSerialisation();
+                    serialisation = new SignUpSerialisation();
                     break;
                 case "changePassword":
                     action = new ChangePasswordAction();
@@ -132,6 +132,10 @@ public class Controleur extends HttpServlet {
                 case "forgottenPassword":
                     action = new ForgottenPasswordAction();
                     serialisation = new ProfilPersonneSerialisation();
+                    break;
+                case "invalidateSession":
+                    action = new InvalidateAction();
+                    serialisation = new ValidateSerialisation();
                     break;
                 default:
                     action = new GetMediumsAction();

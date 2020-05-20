@@ -113,3 +113,49 @@ function askForHelp(){
     alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
     });
 }
+
+function acceptConsultation(){
+    
+    $.ajax({// Requête AJAX43                     
+            url:'./Controleur',// URL
+            method:'POST',// Méthode
+            data:{// Paramètres
+            todo:'acceptConsultation'},
+            dataType:'json'// Type de retour attendu
+    })
+    .done(function(response){// Appel OK => "response" contient le résultat JSON
+        // Récupération des données                     
+        var resp = response.personne;
+        location.reload();
+        
+    
+    })
+    .fail(function(error){// Appel KO => erreur technique à gérer
+    console.log('Erreur:',error);// LOG sur la Console Javascript
+    alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
+    });
+}
+
+function confirmConsultation(){
+   var txt = $("#TextInput").val();
+   if(txt !==""){
+   console.log(txt);
+        $.ajax({// Requête AJAX43                     
+                url:'./Controleur',// URL
+                method:'POST',// Méthode
+                data:{// Paramètres
+                todo:'confirmConsultation',
+                review:txt},
+                dataType:'json'// Type de retour attendu
+        })
+        .done(function(response){// Appel OK => "response" contient le résultat JSON
+            location.reload();
+
+
+        })
+        .fail(function(error){// Appel KO => erreur technique à gérer
+        console.log('Erreur:',error);// LOG sur la Console Javascript
+        alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
+        });
+   }
+}
