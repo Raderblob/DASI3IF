@@ -63,7 +63,7 @@ public class Controleur extends HttpServlet {
                     break;
                 case "createAccount":
                     action = new SignUpAction();
-                    serialisation = new ProfilPersonneSerialisation();
+                    serialisation = new SignUpSerialisation();
                     break;
                 case "changePassword":
                     action = new ChangePasswordAction();

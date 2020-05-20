@@ -43,12 +43,12 @@ and open the template in the editor.
         Phone Number: <input type="text" id="champ-phoneNumber" size="40" />
         <br/>
         
-        <button id="bouton-signUp">Sign Upt</button>
+        <button id="bouton-signUp" onclick="signUp()">Sign Upt</button>
         
          
     <script>// Script Javascript (dans la page)
-        $(document).ready(function(){// Appelé à la fin du chargement de la page HTML      
-        $('#bouton-signUp').on( 'click', function () { // Fonction appelée lors du clic sur le bouton
+           
+        function signUp() { // Fonction appelée lors du clic sur le bouton
 
                     console.log("clic sur le bouton de demande de création de compte"); // LOG dans Console Javascript
 
@@ -62,49 +62,48 @@ and open the template in the editor.
                     var champBirthdate = $('#champ-birthdate').val();
                     var champPhoneNumber = $('#champ-phoneNumber').val();
                     
-                    // Appel AJAX
-                    $.ajax({
-                        url: './Controleur',
-                        method: 'POST',
-                        data: {
-                            todo: 'createAccount',
-                            name: champName,
-                            firstName: champFirstName,
-                            password: champPassword,
-                            email: champEmail,
-                            dateOfBirth: champBirthdate,
-                            phoneNumber: champPhoneNumber,
-                            postCode: champPostCode,                            
-                        },
-                        dataType: 'json'
-                    })
-                    .done( function (response) { // Fonction appelée en cas d'appel AJAX réussi
-                        if(champName==''||champFirstName==''||champPassword==''||champEmail==''||champBirthdate==''||champPhoneNumber==''||champPostCode==''||champConfirmPassword==''){
-                            $('#notification').html("Attention , il faut remplir tous les champs"); // Message pour le paragraphe de notification
+                    if(champName==''||champFirstName==''||champPassword==''||champEmail==''||champBirthdate==''||champPhoneNumber==''||champPostCode==''||champConfirmPassword==''){
+                        $('#notification').html("Attention , il faut remplir tous les champs"); // Message pour le paragraphe de notification
+                    }else{
+                        if(champPassword!==champConfirmPassword)
+                        {
+                            $('#notification').html("Attention , l'écriture du mot de passe diffère selon les deux derniers champs"); // Message pour le paragraphe de notification
                         }else{
-                            if(champEmail!=champConfirmPassword)
-                            {
-                                $('#notification').html("Attention , l'écriture du mot de passe diffère selon les deux derniers champs"); // Message pour le paragraphe de notification
-                            }else{
-                                if(response!=null){
-                                    $('#notification').html("Attention , l'écriture du mot de passe diffère selon les deux derniers champs"); // Message pour le paragraphe de notification
-                                }else{
-                                    window.location='./index.html';
-                                }
-                            }
+                           
+                                $.ajax({// Requête AJAX43                     
+                                        url: './Controleur',
+                                        method: 'POST',
+                                        data: {
+                                        todo: 'createAccount',
+                                        name: champName,
+                                        firstName: champFirstName,
+                                        password: champPassword,
+                                        email: champEmail,
+                                        dateOfBirth: champBirthdate,
+                                        phoneNumber: champPhoneNumber,
+                                        postCode: champPostCode,                            
+                                        },
+                                        dataType:'json'// Type de retour attendu
+                                })
+                                .done(function(response){// Appel OK => "response" contient le résultat JSON
+                                    // Récupération des données                     
+                                    if(response.connexion =="true"){
+                                        window.location='./index.html';
+                                    }
+                                })
+                                .fail(function(error){// Appel KO => erreur technique à gérer
+                                console.log('Erreur:',error);// LOG sur la Console Javascript
+                                alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
+                                });
+                              
                         }
-                                
-                    })
-                    .fail( function (error) { // Fonction appelée en cas d'erreur lors de l'appel AJAX
-                        console.log('Error',error); // LOG dans Console Javascript
-                        alert("Erreur lors de l'appel AJAX");
-                    })
-                    .always( function () { // Fonction toujours appelée
+                    }
+            }
                         
-                    });
-                });  
+             
+
                 
-        });
+        
         </script>
     </body>
 </html>
