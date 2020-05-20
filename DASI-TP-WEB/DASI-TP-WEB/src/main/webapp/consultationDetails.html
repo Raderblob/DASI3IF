@@ -16,9 +16,7 @@ and open the template in the editor.
     </head>
     <body>
         
-        <div id="Disconnect" onclick="disconnectScript()">   
-    <img src="./Images/disconnect.png" alt="Disconnect button" usemap="#workmap" width="40" height="40">
-    </div>
+        
         
         <div id="left">
             <p id="clientInfo"></p><br>
@@ -67,7 +65,9 @@ and open the template in the editor.
             <button id="submitButton" onclick="confirmConsultation()">Submit review</button>
             <button id="returnButton" onclick="returnToHome()">Return</button>
         </div>
-        
+        <div id="Disconnect" onclick="disconnectScript()">   
+            <img src="./Images/disconnect.png" alt="Disconnect button" usemap="#workmap" width="40" height="40">
+        </div>
         <script>
             $(document).ready(function(){// Appelé à la fin du chargement de la page HTML
                 initDonneesConsultationDetails();// Appel de la fonction pour initialiser les données de la page
