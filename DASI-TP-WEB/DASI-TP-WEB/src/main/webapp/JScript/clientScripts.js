@@ -132,3 +132,7 @@ function showMediumDetails(mediumName){
         alert('Erreur lors du chargement des données: HTTP Code '+error.status);// Popup d'erreur
     });
 }
+
+function sendConsultationsRequest(){
+    
+}
