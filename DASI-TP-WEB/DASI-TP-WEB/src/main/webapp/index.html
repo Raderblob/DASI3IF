@@ -2,15 +2,20 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="CSS/global.css">
         <title>Connexion</title>
         <!-- Librairie Javascript: jQuery (v3.4.1) -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="JScript/employeeScripts.js"></script>
     </head>
     <body>
-
+    <div class="Disconnect">   
+    <img src="./Images/disconnect.png" alt="Disconnect button" usemap="#workmap" width="40" height="40">
+    </div>
         <h1>Connexion</h1>
-
+       
+        
+        
         <!-- Paragraphe avec id="notification" pour les messages de notification -->
         <p id="notification">Veuillez saisir votre identifiant (adresse mail) et votre mot de passe.</p>
         
@@ -30,7 +35,16 @@
             </li>
         </ul>
         
+        <map name="workmap">
+        <area shape="rect" coords="0,0,40,40" onclick="myFunction()">
+        </map>
+        
         <script>
+            
+            function myFunction() {
+                console.log("ca marche en théorie");
+            }
+            
             function initDonneesPage(){//Fonction pour initialiser les données de la page
                 
                 $.ajax({//requête AJAX

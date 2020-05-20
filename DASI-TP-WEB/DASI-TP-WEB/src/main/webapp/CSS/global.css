@@ -28,3 +28,10 @@ h1{
     right:0px;
     width:47%;
 }
+
+#Disconnect{
+    position: absolute;
+    top: 10px;
+    rigth: 0px;
+    width:100%;
+}
