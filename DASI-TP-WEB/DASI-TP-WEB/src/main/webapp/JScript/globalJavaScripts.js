@@ -10,7 +10,7 @@ function disconnectScript(){
             url:'./Controleur',// URL
             method:'POST',// Méthode
             data:{// Paramètres
-            todo:'InvalidateAction'},
+            todo:'invalidateSession'},
             dataType:'json'// Type de retour attendu
     })
     .done(function(response){// Appel OK => "response" contient le résultat JSON
