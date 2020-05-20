@@ -30,8 +30,7 @@ h1{
 }
 
 #Disconnect{
-    position: absolute;
+    position: Absolute;
     top: 10px;
-    rigth: 0px;
-    width:100%;
+    right: 10px;
 }
