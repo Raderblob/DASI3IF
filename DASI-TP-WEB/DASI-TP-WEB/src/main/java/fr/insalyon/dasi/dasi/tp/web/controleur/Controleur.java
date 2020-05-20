@@ -131,7 +131,7 @@ public class Controleur extends HttpServlet {
                     break;
                 case "forgottenPassword":
                     action = new ForgottenPasswordAction();
-                    serialisation = new PredictionsSerialisation();
+                    serialisation = new ProfilPersonneSerialisation();
                     break;
                 default:
                     action = new GetMediumsAction();

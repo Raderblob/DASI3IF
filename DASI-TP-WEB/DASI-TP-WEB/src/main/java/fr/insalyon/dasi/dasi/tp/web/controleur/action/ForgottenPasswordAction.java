@@ -28,8 +28,6 @@ public class ForgottenPasswordAction extends Action {
             request.setAttribute("personne", null);
         }
         
-        // Gestion de la Session: ici, enregistrer l'ID du Client authentifié
-        HttpSession session = request.getSession();
     }
     
 }
