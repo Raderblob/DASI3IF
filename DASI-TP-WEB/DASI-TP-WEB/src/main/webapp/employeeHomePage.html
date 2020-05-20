@@ -11,10 +11,16 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script type="text/javascript" src="JScript/employeeScripts.js"></script>
+        <script type="text/javascript" src="JScript/globalJavaScripts.js"></script>
         <link rel="stylesheet" href="CSS/global.css">
         <link rel="stylesheet" href="CSS/employeeHomeStyles.css">
     </head>
     <body>
+        
+        <div id="Disconnect" onclick="disconnectScript()">   
+    <img src="./Images/disconnect.png" alt="Disconnect button" usemap="#workmap" width="40" height="40">
+    </div>
+        
         <div name="debug"><button onClick="debugF()">DebugButton</button>nom:<span id="nom-client">1</span> prenom: <span id="prenom-client">2</span></div>
         
         <h1>PREDICT’IF: Employee Home page</h1>
