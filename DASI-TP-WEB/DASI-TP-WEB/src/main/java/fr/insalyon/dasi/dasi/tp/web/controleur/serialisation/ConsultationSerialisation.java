@@ -34,6 +34,7 @@ public class ConsultationSerialisation extends Serialisation {
             jsonClient.addProperty("id", consultation.getId());
             jsonClient.addProperty("medium", consultation.getMedium().getName());
             jsonClient.addProperty("caller", consultation.getCaller().getNom());
+            jsonClient.addProperty("state", consultation.getState().toString());
             if(consultation.getAcceptor() != null){
                 jsonClient.addProperty("acceptor", consultation.getAcceptor().getNom());
             }else{
