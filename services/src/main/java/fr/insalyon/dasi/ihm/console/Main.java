@@ -9,6 +9,7 @@ import fr.insalyon.dasi.metier.modele.Gender;
 import fr.insalyon.dasi.metier.modele.medium.Astrologue;
 import fr.insalyon.dasi.metier.modele.medium.Cartomancien;
 import fr.insalyon.dasi.metier.modele.medium.Medium;
+import fr.insalyon.dasi.metier.modele.medium.Spirite;
 import fr.insalyon.dasi.metier.modele.personne.Personne;
 import fr.insalyon.dasi.metier.service.Service;
 import fr.insalyon.dasi.metier.service.SortType;
@@ -323,12 +324,21 @@ public class Main {
 
        Medium m3 = new Cartomancien( "Alphy", "AlphyMag",Gender.MALE);
        Long idm3 = service.inscrireMedium(m3);
-       if (idm2 != null) {
+       if (idm3 != null) {
             System.out.println("> Succès inscription");
         } else {
             System.out.println("> Échec inscription");
        }
        afficherMedium(m3);
+       
+       Medium m4 = new Spirite("CrystalBall","Ghost","A magic Ghost",Gender.MALE);
+       Long idm4 = service.inscrireMedium(m4);
+       if (idm4 != null) {
+            System.out.println("> Succès inscription");
+        } else {
+            System.out.println("> Échec inscription");
+       }
+       afficherMedium(m4);
     }
 
     public static void clientCreateAccount(){

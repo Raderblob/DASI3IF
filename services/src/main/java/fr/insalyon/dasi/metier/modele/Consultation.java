@@ -29,9 +29,9 @@ public class Consultation {
     protected Long id;
     private String comment;
     private Integer ConsultationLength;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
     private ConsultationState state;
     

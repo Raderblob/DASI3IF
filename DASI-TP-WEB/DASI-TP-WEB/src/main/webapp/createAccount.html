@@ -38,7 +38,7 @@ and open the template in the editor.
         PostCode: <input type="text" id="champ-postCode" size="40" />
         <br/>
         
-        Date of birth: <input type="text" id="champ-birthdate" size="40" />
+        Date of birth: <input type="date" id="champ-birthdate" size="40" />
         <br/>
         
         Phone Number: <input type="text" id="champ-phoneNumber" size="40" />
@@ -51,7 +51,7 @@ and open the template in the editor.
     <script>// Script Javascript (dans la page)
            
         function signUp() { // Fonction appelée lors du clic sur le bouton
-
+            
                     console.log("clic sur le bouton de demande de création de compte"); // LOG dans Console Javascript
 
                     // Récupération de la valeur des champs du formulaire
@@ -63,7 +63,9 @@ and open the template in the editor.
                     var champPostCode = $('#champ-postCode').val();
                     var champBirthdate = $('#champ-birthdate').val();
                     var champPhoneNumber = $('#champ-phoneNumber').val();
-                    
+                    var realDate = new Date(champBirthdate);
+                    var convertedDate = realDate.getDate()+"/"+(realDate.getMonth()+1)+"/" + realDate.getFullYear()
+                    console.log(convertedDate);
                     if(champName==''||champFirstName==''||champPassword==''||champEmail==''||champBirthdate==''||champPhoneNumber==''||champPostCode==''||champConfirmPassword==''){
                         $('#notification').html("Attention , il faut remplir tous les champs"); // Message pour le paragraphe de notification
                     }else{
@@ -81,7 +83,7 @@ and open the template in the editor.
                                         firstName: champFirstName,
                                         password: champPassword,
                                         email: champEmail,
-                                        dateOfBirth: champBirthdate,
+                                        dateOfBirth: convertedDate,
                                         phoneNumber: champPhoneNumber,
                                         postCode: champPostCode,                            
                                         },

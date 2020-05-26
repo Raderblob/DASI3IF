@@ -14,6 +14,7 @@ and open the template in the editor.
         <script type="text/javascript" src="JScript/globalJavaScripts.js"></script>
         <script type="text/javascript" src="JScript/profilScripts.js"></script>
         <link rel="stylesheet" href="CSS/global.css">
+        <link rel="stylesheet" href="CSS/clientProfilStyles.css">
     </head>
     <body>
         <div id="Disconnect" onclick="disconnectScript()">   
@@ -28,12 +29,11 @@ and open the template in the editor.
             <button id="sortDateButton" onclick="getConsultByDate()">Sort by Date</button>
             <button id="sortMediumButton" onclick="getConsultByMedium()">Sort by Medium</button>
             <button id="sortEmployeeButton" onclick="getConsultByEmployee()">Sort by Employee</button>
-            
+            <br>Consultations
             <div id="HistConsultations"></div>
             <button id="returnButton" onclick="returnToEmployee()">Return</button>
         </div>
         <div id="right"><p id="consultDetails"></p></div>
-        <div id="debug"></div>
         
         <script>
             $(document).ready(function(){// Appelé à la fin du chargement de la page HTML

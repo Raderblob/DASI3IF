@@ -1,0 +1,95 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26 May 2020, 20:40:35
+    Author     : Rader
+*/
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14 May 2020, 21:10:22
+    Author     : Rader
+*/
+
+div{
+    padding: 5px;
+    margin: 5px;
+}
+label{
+    position: relative;
+    margin-left: 10px;
+    left:40px;
+}
+.title{
+    position: relative;
+    margin-left: 0px;
+    left:0px;
+}
+
+#outputDiv{
+    position: relative;
+    left: 0%;
+    width:90%;
+    padding:5px;
+    border: 1px solid black;
+    min-height: 250px;
+}
+#right{
+    padding:10px;
+    margin: 15px;
+    min-height: 250px;
+}
+#dateForm{
+    border: 1px solid black;
+}
+
+
+#consultationDateLabel, #consultationDate{
+    position: relative;
+    left: 50%;
+    margin:5px;
+      -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+
+
+#TextInput{
+    position: relative;
+    left: 50%;
+    margin:5px;
+    margin-top: 40px;
+      -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  width:90%;
+  height:40%;
+}
+
+#startHour{
+    position: relative;
+    left: 25%;
+      -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+#startHourLabel{
+    position: relative;
+    left: 20%;
+}
+#endHourLabel{
+    position: relative;
+    left: 50%;
+}
+#endHour{
+    position: relative;
+    left: 40%;
+      -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+
+

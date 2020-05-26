@@ -13,6 +13,7 @@ and open the template in the editor.
         <script type="text/javascript" src="JScript/consultationScripts.js"></script>
         <script type="text/javascript" src="JScript/globalJavaScripts.js"></script>
         <link rel="stylesheet" href="CSS/global.css">
+        <link rel="stylesheet" href="CSS/consultationStyles.css">
     </head>
     <body>
         
@@ -27,7 +28,7 @@ and open the template in the editor.
                 <label for="amour1">1</label>
                 <label for="amour2">2</label>
                 <label for="amour3">3</label><br>
-                <label>Amour</label>
+                <label class="title">Amour</label>
                 
                 <input type="radio" id="amour1" name="amour" value="1">
                 <input type="radio" id="amour2" name="amour" value="2">
@@ -37,7 +38,7 @@ and open the template in the editor.
                 <label for="sante1">1</label>
                 <label for="sante2">2</label>
                 <label for="sante3">3</label><br>
-                <label>Sante</label>
+                <label class="title">Sante</label>
                 <input type="radio" id="sante1" name="sante" value="1">
                 <input type="radio" id="sante2" name="sante" value="2">
                 <input type="radio" id="sante3" name="sante" value="3">
@@ -46,7 +47,7 @@ and open the template in the editor.
                 <label for="travail1">1</label>
                 <label for="travail2">2</label>
                 <label for="travail3">3</label><br>
-                <label>Sante</label>
+                <label class="title">Sante</label>
                 <input type="radio" id="travail1" name="travail" value="1">
                 <input type="radio" id="travail2" name="travail" value="2">
                 <input type="radio" id="travail3" name="travail" value="3">
@@ -57,10 +58,15 @@ and open the template in the editor.
         </div>
         <div id="right">
             <form id="dateForm">
+                <label id="consultationDateLabel">ConsultationDate</label><br>
                 <textarea  id="consultationDate" readonly="true" resize="false"></textarea >
+                <br>
+                <label id="startHourLabel">startHour</label>
+                <label id="endHourLabel">endHour</label>
+                <br>
                 <textarea  id="startHour"  readonly="true"></textarea >
-                <textarea  id="endHour"  readonly="true"></textarea >
-                <input type="text" id="TextInput" name="TextInput" value="">
+                <textarea  id="endHour"  readonly="true"></textarea ><br>
+                <textarea  id="TextInput" name="TextInput" value=""></textarea >
             </form>
             <button id="submitButton" onclick="confirmConsultation()">Submit review</button>
             <button id="returnButton" onclick="returnToHome()">Return</button>
