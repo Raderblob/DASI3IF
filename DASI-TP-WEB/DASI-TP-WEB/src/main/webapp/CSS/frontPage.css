@@ -1,0 +1,121 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14 May 2020, 21:08:15
+    Author     : Rader
+*/
+
+body {
+  background-color: powderblue;
+}
+
+#left{
+    position: Absolute;
+    left:0px;
+    width:47%;
+    height:250px;
+}
+
+h1{
+    text-align: center;
+}
+
+#right{
+    position: Absolute;
+    right:0px;
+    width:47%;
+}
+
+#Disconnect{
+    position: Absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#presentation{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:100px;
+}
+
+#signIn{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:125px;
+}
+
+#signUp{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:275px;
+}
+
+#notification{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:150px;
+}
+
+
+#bouton-connexion{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:225px;
+}
+
+#bouton-createAccount{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:300px;
+}
+
+#bouton-forgottenPassword{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:375px;
+}
+
+#champ-login{
+    position: Absolute;
+    left: 80px;
+    margin:5px;
+    top:175px;
+}
+
+#champ-password{
+    position: Absolute;
+    left: 100px;
+    margin:5px;
+    top:200px;
+}
+
+#id{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:175px;
+}
+
+#password{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:200px;
+}
+
+#forgottenPassword{
+    position: Absolute;
+    left: 0px;
+    margin:5px;
+    top:350px;
+}
