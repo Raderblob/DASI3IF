@@ -14,7 +14,7 @@ function initDonneesProfileClient(){
     .done(function(response){// Appel OK => "response" contient le résultat JSON
         // Récupération des données                     
         client = response.personne;
-        $('#astralProfil').html("Name: "+ client.prenom + " " + client.nom + "<br>Date of Birth: " + client.BirthDate + "<br>Profil Astral:<br>"  + "-" + client.AnimalTotem + "<br>-" + client.CouleurPorteBonheur + "<br>-" + client.SigneAstroChinois + "<br>-" + client.SigneZodiac);
+        $('#astralProfil').html("Name: "+ client.prenom + " " + client.nom + "<br>Date of Birth: " + client.BirthDate + "<br>Profil Astral: <br>"  + "- Animal Totem: " + client.AnimalTotem + "<br>- Couleur port-bonheur: " + client.CouleurPorteBonheur + "<br>- Signe astrologique chinois: " + client.SigneAstroChinois + "<br>- Signe du zodiaque: " + client.SigneZodiac);
     })
     .fail(function(error){// Appel KO => erreur technique à gérer
     console.log('Erreur:',error);// LOG sur la Console Javascript
@@ -120,9 +120,21 @@ function showMediumDetails(mediumName){
         title = "<h2>Medium Details</h2>";
         var medium=response.medium;
         selectedMedium = medium;
-        htmlIn = "<br>" + medium.nom + "<br>" + medium.presentation + "<br>" + medium.formation + "<br>" + medium.promotion + "<br>" + medium.support;
+        htmlIn = "<br>" + medium.nom + "<br>" + medium.presentation;
+        if(medium.formation!=null)
+        {
+            htmlIn = htmlIn + "<br>" + medium.formation;
+        }
 
-
+        if(medium.promotion!=null)
+        {
+            htmlIn = htmlIn + "<br>" + medium.promotion;
+        }
+        
+        if(medium.support!=null)
+        {
+            htmlIn = htmlIn + "<br>" + medium.support;
+        }
         
         $('#MediumDetailDiv').html(title + htmlIn);
 
