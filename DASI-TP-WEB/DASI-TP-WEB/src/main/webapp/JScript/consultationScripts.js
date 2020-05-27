@@ -59,33 +59,42 @@ function askForHelp(){
     var sante;
     const radioAmour1 = document.querySelectorAll('#amour1');
     const radioAmour2 = document.querySelectorAll('#amour2');
+    const radioAmour3 = document.querySelectorAll('#amour3');
     
     const radioTravail1 = document.querySelectorAll('#travail1');
     const radioTravail2 = document.querySelectorAll('#travail2');
+    const radioTravail3 = document.querySelectorAll('#travail3');
     
     const radioSante1 = document.querySelectorAll('#sante1');
     const radioSante2 = document.querySelectorAll('#sante2');
+    const radioSante3 = document.querySelectorAll('#sante3');
     
     if(radioAmour1[0].checked){
         amour = 1;
     }else if(radioAmour2[0].checked){
         amour = 2;
+    }else if(radioAmour3[0].checked){
+        amour =3;
     }else{
-        amour = 3;
+        amour = 4;
     }
     if(radioTravail1[0].checked){
         travail = 1;
     }else if(radioTravail2[0].checked){
         travail = 2;
+    }else if(radioTravail3[0].checked){
+        amour =3;
     }else{
-        travail = 3;
+        travail = 4;
     }
     if(radioSante1[0].checked){
         sante = 1;
     }else if(radioSante2[0].checked){
         sante = 2;
+    }else if(radioSante3[0].checked){
+        amour =3;
     }else{
-        sante = 3;
+        sante = 4;
     }
     $.ajax({// Requête AJAX43                     
             url:'./Controleur',// URL
