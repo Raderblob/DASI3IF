@@ -7,28 +7,6 @@ and open the template in the editor.
     Created on : 14 May 2020, 21:08:15
     Author     : Rader
 */
-
-body {
-  background-color: powderblue;
-}
-
-#left{
-    position: Absolute;
-    left:0px;
-    width:47%;
-    height:250px;
-}
-
-h1{
-    text-align: center;
-}
-
-#right{
-    position: Absolute;
-    right:0px;
-    width:47%;
-}
-
 #Disconnect{
     position: Absolute;
     top: 10px;
@@ -39,7 +17,7 @@ h1{
     position: Absolute;
     left: 0px;
     margin:5px;
-    top:100px;
+    top:90px;
 }
 
 #signIn{
