@@ -26,7 +26,7 @@ public class AcceptConsultationAction extends Action {
         String eEmail = session.getAttribute("login").toString();
         Service service = new Service();
         Employee employee = service.acceptConsultation(eEmail);
-
+        service.envoyerMessageConfirmation(employee.getConsultations().get(employee.getConsultations().size()-1));
         
         request.setAttribute("personne", employee);
 

@@ -26,6 +26,7 @@ public class SendRequestAction extends Action{
         Service service = new Service();
         Medium medium = service.rechercherMediumParNom(mediumName);
         Consultation consultation = service.addClientConsultation(clientName, medium);
+        service.envoyerMessageDemande(consultation);
         request.setAttribute("consultation", consultation);
         
         System.out.println(clientName + " " + mediumName + " " + medium);
