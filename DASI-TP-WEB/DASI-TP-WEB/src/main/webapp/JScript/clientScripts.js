@@ -38,7 +38,7 @@ function parseConsultations(){
         var htmlIn = "";
         consultations.forEach (function(consult){
             var txt = '"'+consult.id+'"';
-            var b = "<button id='pendingConsult'>medium: " + consult.nom+ " State: " + consult.state  + " " +consult.date +"</button>";
+            var b = "<button id='pendingConsult'>medium: " + consult.nom+ " State: " + consult.state  + " " +consult.date + " Length " + consult.length +"ms</button>";
             htmlIn = htmlIn + "<br>" + b;
         });
        $('#right').html(htmlIn);
