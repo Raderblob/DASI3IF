@@ -11,42 +11,43 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <link rel="stylesheet" href="CSS/global.css">
+        <link rel="stylesheet" href="CSS/createAccountStyles.css">
     </head>
     <body>
 
         <!-- Titre avec le nom de l'étudiant (et la promo), à remplir avec les données -->
-        <h1>Create your account</h1>
+        <h1>PREDICT’IF: Create an account</h1>
         
         <p id="notification">Veuillez saisir compléter tous les champs puis valider.</p>
         
         <!-- Champs et Bouton de Formulaire -->
-        Name: <input type="text" id="champ-name" size="40" />
+        <div id="left">
+            Name: <br/><input type="text" id="champ-name" size="40" />
+            <br/>
+            First Name: <br/><input type="text" id="champ-firstName" size="40" />
+            <br/>
+            Email Address: <br/><input type="text" id="champ-emailAdress" size="40" />
+            <br/>
+            Enter Password: <br/><input type="text" id="champ-password" size="40" />
+            <br/>
+            Enter it again: <br/><input type="text" id="champ-passwordConfirmation" size="40" />
+        </div>
+        <div id="right">
+            PostCode: <br/><input type="text" id="champ-postCode" size="40" />
+            <br/>
+            Date of birth: <br/><input type="date" id="champ-birthdate" size="40" />
+            <br/>
+            Phone Number: <br/><input type="text" id="champ-phoneNumber" size="40" />
+            <br/>
+            <button id="bouton-signUp" onclick="signUp()">Sign Up</button> 
+            <br/>
+            <a href="index.html">Return</a>
+        </div>
+        
+
         <br/>
         
-        First Name: <input type="text" id="champ-firstName" size="40" />
-        <br/>
         
-        Email Adress: <input type="text" id="champ-emailAdress" size="40" />
-        <br/>
-        
-        Enter Password: <input type="text" id="champ-password" size="40" />
-        <br/>
-        
-        Enter it again: <input type="text" id="champ-passwordConfirmation" size="40" />
-        <br/>
-        
-        PostCode: <input type="text" id="champ-postCode" size="40" />
-        <br/>
-        
-        Date of birth: <input type="date" id="champ-birthdate" size="40" />
-        <br/>
-        
-        Phone Number: <input type="text" id="champ-phoneNumber" size="40" />
-        <br/>
-        
-        <button id="bouton-signUp" onclick="signUp()">Sign Upt</button>
-        <br>
-        <a href="index.html">Return</a>
          
     <script>// Script Javascript (dans la page)
            
