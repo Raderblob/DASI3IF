@@ -119,3 +119,10 @@ h1{
     margin:5px;
     top:350px;
 }
+
+#boule{
+    position: Absolute;
+    right: 0px;
+    margin:5px;
+    top:200px;
+}
